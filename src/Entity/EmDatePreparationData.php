@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * EmDatePreparationData
- *
+ * @ORM\Entity(repositoryClass="App\Repository\EmDatePreparationDataRepository")
  * @ORM\Table(name="em_date_preparation_data")
  * @ORM\Entity
  */
