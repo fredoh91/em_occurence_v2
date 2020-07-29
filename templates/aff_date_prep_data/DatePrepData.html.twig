@@ -1,0 +1,18 @@
+{# empty Twig template #}
+{% extends 'base.html.twig' %}
+{% block body %}
+<h1>{{ variable_test }}</h1>
+
+
+{% for date_prep in date_prep %}
+    {#<p>{{ date_prep.date_preparation_data }}</p>#}
+    <h2>Nouvel enregistrement {{ date_prep.id }} </h2>
+    {#<p>{{ date_prep.datePreparationData|date('d-m-Y H:i:s') }}</p>#}
+    <p>{{ date_prep.datePreparationData | date('d/m/Y') }} à {{ date_prep.datePreparationData | date('H:i') }}</p>
+    <p>
+   Lorem ipsum dolor sit amet, consectetur adipisicing elit. Totam, architecto, rerum, reprehenderit magni soluta tenetur dolores debitis quaerat laboriosam o nostrum eveniet voluptatibus mollitia ipsam voluptatem maxime similique accusamus illo!
+   </p>
+   <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod, ipsa, delectus, quia, a libero eveniet consequatur officia quaerat rem odio mollitia sunt officiis beatae voluptas accusamus vero quibusdam! Numquam, unde, fuga, quos soluta esse beatae sapiente at eum perferendis delectus illum quasi dicta facere itaque tenetur nam reprehenderit qui voluptatibus voluptatum libero optio alias consequuntur aliquam hic adipisci! Consequuntur, est, dolores, quas, minus asperiores ipsam quibusdam tempora distinctio incidunt impedit neque ex vero. Vel, iste, molestias, a velit nesciunt soluta odio asperiores officiis quis accusamus eos consequatur doloremque excepturi qui illo ut officia. Quia fuga itaque nisi debitis ducimus commodi.</p>   
+{% endfor %}
+
+{% endblock %}
