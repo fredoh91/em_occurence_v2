@@ -3,7 +3,10 @@
 {% block title %}Hello RechercheMedicamentController!{% endblock %}
 
 {% block body %}
-<style>
+    
+{#    {{ form(formEmOccProduit) }}#}
+    
+{#<style>
     .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style>
@@ -11,10 +14,25 @@
 <div class="example-wrapper">
     <h1>Hello {{ controller_name }}! ✅</h1>
 
+    <form method="POST" action=""> 
+        <fieldset>
+            <table>
+                <tr>
+                    <td id="t1">
+                        <h0 style="color:#2E9AFE"> Médicament</h0> <input type="text" name="prod_search">
+                    <td id="t1">
+                    <input type="SUBMIT" value="Rechercher"> 
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+    </form>
+    
+    
     This friendly message is coming from:
     <ul>
         <li>Your controller at <code><a href="{{ 'C:/xampp/htdocs/em_occurence_v2/src/Controller/RechercheMedicamentController.php'|file_link(0) }}">src/Controller/RechercheMedicamentController.php</a></code></li>
         <li>Your template at <code><a href="{{ 'C:/xampp/htdocs/em_occurence_v2/templates/recherche_medicament/index.html.twig'|file_link(0) }}">templates/recherche_medicament/index.html.twig</a></code></li>
     </ul>
-</div>
+</div>#}
 {% endblock %}
