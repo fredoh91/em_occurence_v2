@@ -1,9 +1,49 @@
 {% extends 'base.html.twig' %}
-
-{% block title %}Hello RechercheMedicamentController!{% endblock %}
+{% form_theme form_rech_med 'bootstrap_4_layout.html.twig' %}
+{% block head %}
+    {{ parent() }}
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+{% endblock head %}
+{% block title %}Recherche d'un médicament{% endblock %}
 
 {% block body %}
     
+    {{ form_start(form_rech_med) }}
+{#    {{ form_widget(form_rech_med) }}#}
+{{ form_row(form_rech_med.produit, {'attr':{'placeholder': "Merci de renseigner un nom de produit"}}) }}
+    {% if produits == "Pas de produit" %}
+{#        Merci de renseigner un nom de produit#}
+    {% else %}
+        <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>id</th>
+                <th>Produit</th>
+                <th>Effectif</th>
+              </tr>
+            </thead>
+            <tbody>
+        {% for produit in produits %}
+              <tr>
+                <td>{{ produit.getId }}</td>
+                <td>{{ produit.getProduit }}</td>
+                <td>{{ produit.getNbr }}</td>
+              </tr>
+{#            {{ produit.getId }}
+            {{ produit.getProduit }}
+            {{ produit.getNbr }}#}
+        {% endfor %}
+            </tbody>
+        </table>
+
+    {% endif %}
+
+{#    {{ dump(produits) }}#}
+    
+    {{ form_end(form_rech_med) }}
+    
+{#    {{ form(form_rech_med) }}
+    {{ dump(produits) }}#}
 {#    {{ form(formEmOccProduit) }}#}
     
 {#<style>
