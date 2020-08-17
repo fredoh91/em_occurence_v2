@@ -18,7 +18,21 @@ class EmOccProduitV2Repository extends ServiceEntityRepository
     {
         parent::__construct($registry, EmOccProduitV2::class);
     }
+    /**
+     * 
+     * @param type $key
+     * @return type
+     */
+    public function findLike($prod) {
+            $query = $this->getEntityManager()
+                    ->createQuery("
+                    SELECT p FROM App\Entity\EmOccProduitV2 p
+                    WHERE p.produit LIKE :prod "
+            );
+            $query->setParameter('prod', '%' . $prod . '%');
 
+            return $query->getResult();
+        }
     // /**
     //  * @return EmOccProduitV2[] Returns an array of EmOccProduitV2 objects
     //  */

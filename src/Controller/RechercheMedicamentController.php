@@ -35,7 +35,10 @@ class RechercheMedicamentController extends AbstractController
         //        $repo = $em->getRepository('App\Entity\EmOccProduitV2');
                 $repo = $em->getRepository(EmOccProduitV2::class);
         //        $tousproduits = $repo->findAll();
-                $tousproduits = $repo->findBy(array('produit' => $data['produit']));
+               // $tousproduits = $repo->findBy(array('produit' => $data['produit']));
+                
+                $tousproduits = $repo->findLike($data['produit']);
+                //dd($tousproduits);
                 
                 
                 
