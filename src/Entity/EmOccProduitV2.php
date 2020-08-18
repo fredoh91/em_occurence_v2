@@ -27,6 +27,12 @@ class EmOccProduitV2
      */
     private $Nbr;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=GrilleOccEmV2::class, inversedBy="emOccProduitV2s")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $CatGrille;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -52,6 +58,18 @@ class EmOccProduitV2
     public function setNbr(?int $Nbr): self
     {
         $this->Nbr = $Nbr;
+
+        return $this;
+    }
+
+    public function getCatGrille(): ?GrilleOccEmV2
+    {
+        return $this->CatGrille;
+    }
+
+    public function setCatGrille(?GrilleOccEmV2 $CatGrille): self
+    {
+        $this->CatGrille = $CatGrille;
 
         return $this;
     }

@@ -37,8 +37,8 @@ class RechercheMedicamentController extends AbstractController
         //        $tousproduits = $repo->findAll();
                // $tousproduits = $repo->findBy(array('produit' => $data['produit']));
                 
-                $tousproduits = $repo->findLike($data['produit']);
-                //dd($tousproduits);
+                $tousproduits = $repo->findLikeQBjoin_v2($data['produit']);
+//                dump($tousproduits);
                 
                 
                 
