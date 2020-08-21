@@ -9,37 +9,63 @@
 {% block body %}
     
     {{ form_start(form_rech_med) }}
-{#    {{ form_widget(form_rech_med) }}#}
-{{ form_row(form_rech_med.produit, {'attr':{'placeholder': "Merci de renseigner un nom de produit"}}) }}
-    {% if produits == "Pas de produit" %}
-{#        Merci de renseigner un nom de produit#}
-    {% else %}
-        <table class="table table-striped">
-            <thead>
-              <tr>
-                <th>Produit</th>
-                <th>Effectif</th>
-                <th>Catégorie</th>
-              </tr>
-            </thead>
-            <tbody>
-        {% for produit in produits %}
-              <tr>
-                <td>{{ produit.getProduit }}</td>
-                <td>{{ produit.getNbr }}</td>
-                {% if produit.getCatGrille is not null%}
-                    <td>{{ produit.getCatGrille.getCatLib }}</td>
-                {% else %}
-                    <td>-</td>                    
-                {% endif %}
 
-              </tr>
+{#        {{ form_row(form_rech_med.produit, {'attr':{'placeholder': "Merci de renseigner un nom de médicament"}}) }}#}
 
-        {% endfor %}
-            </tbody>
-        </table>
 
-    {% endif %}
+{#        {{ form_widget(form_rech_med.produit, {'attr': {'placeholder': "Merci de renseigner un nom de médicament"}}) }}#}
+
+<div class="jumbotron">
+
+    <div class="row">
+{#    <div class="row align-items-center">#}
+        <div class="col">
+            <p class="text-right">
+                {{ form_label(form_rech_med.produit, "Médicament : ") }}
+            </p>
+        </div>       
+
+    {#        {{ form_errors(form_rech_med.produit) }}#}
+        <div class="col-5">
+            {{ form_widget(form_rech_med.produit, {'attr': {'class': 'form-control'}}) }}
+        </div>
+          
+        <div class="col">
+            {{ form_row(form_rech_med.submit, {'attr':{'class': 'btn btn-dark'}}) }}           
+        </div>
+    </div>        
+</div>        
+        
+        
+        {% if produits == "Pas de produit" %}
+    {#        Merci de renseigner un nom de produit#}
+        {% else %}
+            <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>Produit</th>
+                    <th>Effectif</th>
+                    <th>Catégorie</th>
+                  </tr>
+                </thead>
+                <tbody>
+            {% for produit in produits %}
+                  <tr>
+                    <td>{{ produit.getProduit }}</td>
+                    <td>{{ produit.getNbr }}</td>
+                    {% if produit.getCatGrille is not null%}
+                        <td>{{ produit.getCatGrille.getCatLib }}</td>
+                    {% else %}
+                        <td>-</td>                    
+                    {% endif %}
+
+                  </tr>
+
+            {% endfor %}
+                </tbody>
+            </table>
+
+        {% endif %}
 
     {{ form_end(form_rech_med) }}
     

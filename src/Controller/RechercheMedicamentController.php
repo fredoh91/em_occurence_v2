@@ -24,7 +24,7 @@ class RechercheMedicamentController extends AbstractController
             $form =$this->createFormBuilder()
                         ->setMethod('GET')
                         ->add('produit',TextType::class)
-                        ->add('submit', SubmitType::class, ['label' => 'Recherche d\'un produit'])
+                        ->add('submit', SubmitType::class, ['label' => 'Recherche d\'un médicament'])
                         ->getForm()
                     ;
             $form->handleRequest($request);
