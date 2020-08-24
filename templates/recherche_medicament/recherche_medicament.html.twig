@@ -7,65 +7,65 @@
 {% block title %}Recherche d'un médicament{% endblock %}
 
 {% block body %}
-    
-    {{ form_start(form_rech_med) }}
+    <div class="container">
+        {{ form_start(form_rech_med) }}
 
-{#        {{ form_row(form_rech_med.produit, {'attr':{'placeholder': "Merci de renseigner un nom de médicament"}}) }}#}
+    {#        {{ form_row(form_rech_med.produit, {'attr':{'placeholder': "Merci de renseigner un nom de médicament"}}) }}#}
 
 
-{#        {{ form_widget(form_rech_med.produit, {'attr': {'placeholder': "Merci de renseigner un nom de médicament"}}) }}#}
+    {#        {{ form_widget(form_rech_med.produit, {'attr': {'placeholder': "Merci de renseigner un nom de médicament"}}) }}#}
 
-    <div class="jumbotron">
+        <div class="jumbotron">
 
-        <div class="row">
-            <div class="col">
-                <p class="text-right">
-                    {{ form_label(form_rech_med.produit, "Médicament : ") }}
-                </p>
-            </div>       
+            <div class="row">
+                <div class="col">
+                    <p class="text-right">
+                        {{ form_label(form_rech_med.produit, "Médicament : ") }}
+                    </p>
+                </div>       
 
-        {#        {{ form_errors(form_rech_med.produit) }}#}
-            <div class="col-5">
-                {{ form_widget(form_rech_med.produit, {'attr': {'class': 'form-control'}}) }}
-            </div>
+            {#        {{ form_errors(form_rech_med.produit) }}#}
+                <div class="col-5">
+                    {{ form_widget(form_rech_med.produit, {'attr': {'class': 'form-control'}}) }}
+                </div>
 
-            <div class="col">
-                {{ form_row(form_rech_med.submit, {'attr':{'class': 'btn btn-dark'}}) }}           
-            </div>
+                <div class="col">
+                    {{ form_row(form_rech_med.submit, {'attr':{'class': 'btn btn-dark'}}) }}           
+                </div>
+            </div>        
         </div>        
-    </div>        
-        
-        
-        {% if produits == "Pas de produit" %}
-    {#        Merci de renseigner un nom de produit#}
-        {% else %}
-            <table class="table table-striped">
-                <thead>
-                  <tr>
-                    <th>Produit</th>
-                    <th>Effectif</th>
-                    <th>Catégorie</th>
-                  </tr>
-                </thead>
-                <tbody>
-            {% for produit in produits %}
-                  <tr>
-                    <td>{{ produit.getProduit }}</td>
-                    <td>{{ produit.getNbr }}</td>
-                    {% if produit.getCatGrille is not null%}
-                        <td>{{ produit.getCatGrille.getCatLib }}</td>
-                    {% else %}
-                        <td>-</td>                    
-                    {% endif %}
 
-                  </tr>
 
-            {% endfor %}
-                </tbody>
-            </table>
+            {% if produits == "Pas de produit" %}
+        {#        Merci de renseigner un nom de produit#}
+            {% else %}
+                <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th>Produit</th>
+                        <th>Effectif</th>
+                        <th>Catégorie</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                {% for produit in produits %}
+                      <tr>
+                        <td>{{ produit.getProduit }}</td>
+                        <td>{{ produit.getNbr }}</td>
+                        {% if produit.getCatGrille is not null%}
+                            <td>{{ produit.getCatGrille.getCatLib }}</td>
+                        {% else %}
+                            <td>-</td>                    
+                        {% endif %}
 
-        {% endif %}
+                      </tr>
 
-    {{ form_end(form_rech_med) }}
-    
+                {% endfor %}
+                    </tbody>
+                </table>
+
+            {% endif %}
+
+        {{ form_end(form_rech_med) }}
+    </div>
 {% endblock %}

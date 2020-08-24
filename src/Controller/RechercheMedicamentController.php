@@ -30,25 +30,15 @@ class RechercheMedicamentController extends AbstractController
             $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid()) {
                 $data = $form->getData();
-                
-                
-        //        $repo = $em->getRepository('App\Entity\EmOccProduitV2');
+
                 $repo = $em->getRepository(EmOccProduitV2::class);
-        //        $tousproduits = $repo->findAll();
-               // $tousproduits = $repo->findBy(array('produit' => $data['produit']));
-                
+
                 $tousproduits = $repo->findLikeQBjoin_v2($data['produit']);
-//                dump($tousproduits);
-                
-                
-                
-                
-                
+
                  return $this->render('recherche_medicament/recherche_medicament.html.twig', [
                         'form_rech_med' => $form->createView(),
                         'produits'=> $tousproduits
                 ]);
-                
                 
             }
             

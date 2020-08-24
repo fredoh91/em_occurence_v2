@@ -35,6 +35,10 @@ class EmDenomMapTodo
      */
     private $nbr;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+
     public function getId(): ?int
     {
         return $this->id;

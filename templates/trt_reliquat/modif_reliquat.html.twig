@@ -1,0 +1,25 @@
+{% extends 'base-fluid.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="container mt-4">
+
+            {{ form_start(form) }}
+            <div class="row">
+                <div class="col-md-10">{{ form_row(form.Denomination) }}</div>
+                <div class="col-md-2">{{ form_row(form.Nbr) }}</div>
+            </div>
+            {{ form_row(form.BN_Label) }}
+            {{ form_row(form.Label) }}
+            <div class="row justify-content-around">
+                <div class="col-md-2">{{ form_row(form.CIS) }}</div>
+                <div class="col-md-2">{{ form_row(form.ATC7) }}</div>
+            </div>
+
+            <button class="btn btn-primary">Sauvegarder</button>
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}
