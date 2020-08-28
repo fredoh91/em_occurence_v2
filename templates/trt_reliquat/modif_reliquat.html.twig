@@ -11,7 +11,18 @@
                 <div class="col-md-10">{{ form_row(form.Denomination) }}</div>
                 <div class="col-md-2">{{ form_row(form.Nbr) }}</div>
             </div>
-            {{ form_row(form.BN_Label) }}
+            <div class="jumbotron">
+                {{ form_row(form.BN_Label) }}
+                
+{#                {{ dump(form.vars.value.id) }}#}
+                <a href="{{ path('liste_reliquat') }}/rech_romedi/{{ form.vars.value.id }}" class="btn btn-primary active">
+                    Recherche du BN label dans ROMEDI
+                </a>
+                
+                
+{#                <p class="text-center"><strong>OU</strong></p>
+                {{ form_row(form.BN_Label_Romedi) }}#}
+            </div>
             {{ form_row(form.Label) }}
             <div class="row justify-content-around">
                 <div class="col-md-2">{{ form_row(form.CIS) }}</div>

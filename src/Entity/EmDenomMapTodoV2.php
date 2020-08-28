@@ -33,7 +33,7 @@ class EmDenomMapTodoV2
     private $CIS;
 
     /**
-     * @ORM\Column(type="text", nullable=true, nullable=true)
+     * @ORM\Column(type="text", length=255, nullable=true)
      */
     private $Label;
 
@@ -41,6 +41,11 @@ class EmDenomMapTodoV2
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $BN_Label;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $BN_Label_Romedi;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -123,4 +128,17 @@ class EmDenomMapTodoV2
 
         return $this;
     }
+
+    public function getBNLabelRomedi(): ?string
+    {
+        return $this->BN_Label_Romedi;
+    }
+
+    public function setBNLabelRomedi(?string $BN_Label_Romedi): self
+    {
+        $this->BN_Label_Romedi = $BN_Label;
+
+        return $this;
+    }
+
 }

@@ -24,6 +24,7 @@ class TrtReliquatController extends AbstractController
             'todos' => $todos
         ]);
     }
+    
     /**
      * @Route("/trt_reliquat/{id}", name="modif_reliquat", requirements={"id"="\d+"})
      * @param Request $request
@@ -34,13 +35,22 @@ class TrtReliquatController extends AbstractController
         $repo = $em->getRepository(EmDenomMapTodoV2::class);
         $reliquat = $repo->find($id);
         $form = $this->createForm(ModifTodoType::class,$reliquat);
-                
-                
-//          dd($form->createView());
-//        dd(compact($reliquat));
+
         return $this->render('trt_reliquat/modif_reliquat.html.twig', [
             'reliquat' => $reliquat,
             'form' => $form->createView()
+        ]);
+    }
+    /**
+     * @Route("/trt_reliquat/rech_romedi/{id}", name="rech_romedi", requirements={"id"="\d+"})
+     */
+    public function rechRomedi(Request $request, EntityManagerInterface $em):Response
+    {
+        $repo = $em->getRepository(EmRomediV2::class);
+
+        $romedis = $repo->findAll();
+        return $this->render('trt_reliquat/rech_romedi.html.twig', [
+            'romedis' => $romedis
         ]);
     }
 }
