@@ -4,36 +4,36 @@
 
 {% block body %}
     <div class="container-fluid">
-        {{ dump(romedis) }}
-{#        <table class="table table-striped">
+
+        <table class="table table-striped">
             <thead>
               <tr>
-                <th>Produit</th>
-                <th>Effectif</th>
-                <th>CIS</th>
+                <th>BN label</th>
                 <th>Label</th>
-                <th>BN Label</th>
-                <th>ATC 7</th>
-                <th>Modification</th>
+                <th>Code ATC</th>
+                <th>Code CIS</th>
+                <th>Attribution de ce produit</th>
               </tr>
             </thead>
             <tbody>
-                {% for todo in todos %}
+                {% for romedi in romedis %}
                       <tr>
-                        <td>{{ todo.Denomination }}</td>
-                        <td>{{ todo.Nbr }}</td>
-                        <td>{{ todo.CIS }}</td>
-                        <td>{{ todo.Label }}</td>
-                        <td>{{ todo.BNLabel }}</td>
-                        <td>{{ todo.ATC7 }}</td>
+                        <td>{{ romedi.BNLabelRomedi }}</td>
+                        <td>{{ romedi.Label }}</td>
+                        <td>{{ romedi.ATC7 }}</td>
+                        <td>{{ romedi.CIS }}</td>
                         <td>
-                            <a href="{{ path('liste_reliquat') }}/{{ todo.getId }}" class="btn btn-primary active">
-                                Modif BN label
+{#                            <a href="{{ path('liste_reliquat') }}/{{ idTodo }}/attrib_romedi/{{ romedi.getId }}" class="btn btn-primary active">#}
+                            <a href="{{ path('attrib_romedi',{id: idTodo,idRomedi:romedi.getId}) }}" class="btn btn-primary active">
+                                Utilisation de ce BN label
                             </a>
                         </td>
                       </tr>
                 {% endfor %}
             </tbody>
-        </table>#}
+        </table>
+        <div class="pagination">
+            {{ knp_pagination_render(romedis) }}
+        </div>
     </div>
 {% endblock %}

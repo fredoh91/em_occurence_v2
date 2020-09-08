@@ -5,32 +5,53 @@
 {% block body %}
     <div class="container">
         <div class="container mt-4">
+            <div style="background:#9F9" class="jumbotron">
 
-            {{ form_start(form) }}
-            <div class="row">
-                <div class="col-md-10">{{ form_row(form.Denomination) }}</div>
-                <div class="col-md-2">{{ form_row(form.Nbr) }}</div>
-            </div>
-            <div class="jumbotron">
+                {{ form_start(form) }}
+                    <div class="mx-auto" style="width: 400px;">
+                        <h3 class="display-5">Saisie des info</h3>
+                    </div>
+
+                <div class="row">
+                    <div class="col-md-10">{{ form_row(form.Denomination) }}</div>
+                    <div class="col-md-2">{{ form_row(form.Nbr) }}</div>
+                </div>
                 {{ form_row(form.BN_Label) }}
-                
-{#                {{ dump(form.vars.value.id) }}#}
-                <a href="{{ path('liste_reliquat') }}/rech_romedi/{{ form.vars.value.id }}" class="btn btn-primary active">
-                    Recherche du BN label dans ROMEDI
-                </a>
-                
-                
-{#                <p class="text-center"><strong>OU</strong></p>
-                {{ form_row(form.BN_Label_Romedi) }}#}
-            </div>
-            {{ form_row(form.Label) }}
-            <div class="row justify-content-around">
-                <div class="col-md-2">{{ form_row(form.CIS) }}</div>
-                <div class="col-md-2">{{ form_row(form.ATC7) }}</div>
+                {{ form_row(form.Label) }}
+                <div class="row justify-content-around">
+                    <div class="col-md-2">{{ form_row(form.CIS) }}</div>
+                    <div class="col-md-2">{{ form_row(form.ATC7) }}</div>
+                </div>
+
+                <button class="btn btn-primary float-right">Sauvegarder</button>
+                {{ form_end(form) }}
+
             </div>
 
-            <button class="btn btn-primary">Sauvegarder</button>
-            {{ form_end(form) }}
+        </div>
+            
+        <div class="container mt-4">            
+            <div style="background:silver" class="jumbotron">
+{#                {{ form_start(formRechRomedi, {'action': path('liste_reliquat')~"/rech_romedi/"~form.vars.value.id, 'method': 'GET'}) }}#}
+                {{ form_start(formRechRomedi, {'action': path('rech_romedi',{id:form.vars.value.id}), 'method': 'GET'}) }}
+{#                {{ form_start(formRechRomedi, {'action': path('rech_romedi',{id:form.vars.value.id})}) }}#}
+                
+                
+{#                <form action="{{ path('liste_reliquat') }}/rech_romedi/{{ form.vars.value.id }}" method="get">  #}
+                    <div class="mx-auto" style="width: 400px;">
+                        <h3 class="display-5">Recherche d'un BN Label</h3>
+                    </div>
+{#                    <div class="row justify-content-around">
+                        <div class="col-md-6"><input type="text" name="BN_Label_Rech" class="form-control"></div>
+                        <div class="col-md-4"><button type="submit" class="btn btn-primary active">Recherche du BN label dans ROMEDI</button></div>
+                    </div>
+                    <input type="hidden" value="{{ form.vars.value.id }}">
+                </form>#}
+                {{ form_row(formRechRomedi.idTodo, { 'value': form.vars.value.id }) }}
+                {{ form_row(formRechRomedi.BN_Label) }}
+                <button class="btn btn-primary float-right">Recherche du BN label</button>
+                {{ form_end(formRechRomedi) }}
+            </div>
         </div>
     </div>
 {% endblock %}

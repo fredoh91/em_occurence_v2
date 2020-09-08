@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\EmRomediV2;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -18,7 +19,37 @@ class EmRomediV2Repository extends ServiceEntityRepository
     {
         parent::__construct($registry, EmRomediV2::class);
     }
+        
+     /**
+      * @return Query
+      */
 
+    public function findByProduitQuery($prod): Query
+    {
+        return $this->createQueryBuilder('r')
+            ->andWhere('r.BN_Label_Romedi LIKE :BN_Label')
+            ->setParameter('BN_Label', '%'.$prod.'%')
+            ->orderBy('r.BN_Label_Romedi', 'ASC')
+            ->getQuery()
+        ;
+    }
+        
+     /**
+      * @return EmRomediV2[] Returns an array of EmRomediV2 objects
+      */
+
+    public function findByProduit($prod): array
+    {
+        return $this->createQueryBuilder('r')
+            ->andWhere('r.BN_Label_Romedi LIKE :BN_Label')
+            ->setParameter('BN_Label', '%'.$prod.'%')
+            ->orderBy('r.BN_Label_Romedi', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+        
     // /**
     //  * @return EmRomediV2[] Returns an array of EmRomediV2 objects
     //  */

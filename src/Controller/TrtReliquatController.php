@@ -3,8 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\EmDenomMapTodoV2;
+use App\Entity\EmRomediV2;
 use App\Form\ModifTodoType;
+use App\Form\RechRomediType;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -35,22 +38,45 @@ class TrtReliquatController extends AbstractController
         $repo = $em->getRepository(EmDenomMapTodoV2::class);
         $reliquat = $repo->find($id);
         $form = $this->createForm(ModifTodoType::class,$reliquat);
+        $formRechRomedi = $this->createForm(RechRomediType::class);
 
         return $this->render('trt_reliquat/modif_reliquat.html.twig', [
             'reliquat' => $reliquat,
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'formRechRomedi' => $formRechRomedi->createView()
         ]);
     }
     /**
      * @Route("/trt_reliquat/rech_romedi/{id}", name="rech_romedi", requirements={"id"="\d+"})
      */
-    public function rechRomedi(Request $request, EntityManagerInterface $em):Response
+    public function rechRomedi(Request $request, EntityManagerInterface $em, PaginatorInterface $paginator):Response
     {
-        $repo = $em->getRepository(EmRomediV2::class);
 
-        $romedis = $repo->findAll();
+        $idTodo = $request->attributes->get('id');
+        $repo = $em->getRepository(EmRomediV2::class);
+        $BN_LabelRech=$request->query->get('rech_romedi')['BN_Label'];
+//        $romedis = $repo->findByProduit($BN_LabelRech);
+        $queryRomedis = $repo->findByProduitQuery($BN_LabelRech);
+        
+        $romedis = $paginator->paginate(
+                $queryRomedis,
+                $request->query->getInt('page', 1),
+                10
+                );
+
         return $this->render('trt_reliquat/rech_romedi.html.twig', [
-            'romedis' => $romedis
+            'romedis' => $romedis,
+            'idTodo' => $idTodo
         ]);
+    }
+    
+    /**
+     *  @Route("/trt_reliquat/rech_romedi/{id}/attrib_romedi/{idRomedi}", name="attrib_romedi", requirements={
+     * "id"="\d+",
+     * "idRomedi"="\d+"
+     * })
+     */
+    public function attribRomedi() {
+        
     }
 }
