@@ -52,6 +52,11 @@ class EmDenomMapTodoV2
      */
     private $ATC7;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=EmDenomMapCategoV2::class, inversedBy="emDenomMapTodoV2s")
+     */
+    private $Categorie;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -137,6 +142,18 @@ class EmDenomMapTodoV2
     public function setBNLabelRomedi(?string $BN_Label_Romedi): self
     {
         $this->BN_Label_Romedi = $BN_Label;
+
+        return $this;
+    }
+
+    public function getCategorie(): ?EmDenomMapCategoV2
+    {
+        return $this->Categorie;
+    }
+
+    public function setCategorie(?EmDenomMapCategoV2 $Categorie): self
+    {
+        $this->Categorie = $Categorie;
 
         return $this;
     }

@@ -15,8 +15,10 @@ class ModifTodoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('Denomination', TextType::class,['attr'=> ['disabled' => true], 'label_format' => 'Produit'])
-            ->add('Nbr', TextType::class,['attr'=> ['disabled' => true], 'label_format' => 'Effectif'])
+//            ->add('Denomination', TextType::class,['attr'=> ['disabled' => true], 'label_format' => 'Produit'])
+//            ->add('Nbr', TextType::class,['attr'=> ['disabled' => true], 'label_format' => 'Effectif'])
+            ->add('Denomination', TextType::class,['attr' => ['readonly' => true],'label_format' => 'Produit'])
+            ->add('Nbr', TextType::class,['attr' => ['readonly' => true],'label_format' => 'Effectif'])
             ->add('CIS', TextType::class,['label_format' => 'Code CIS', 'required' => false])
             ->add('Label', TextType::class,['label_format' => 'Label', 'required' => false])
             ->add('BN_Label', TextType::class,['label_format' => 'BN Label'])

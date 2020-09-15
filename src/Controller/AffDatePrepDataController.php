@@ -2,22 +2,21 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\EmDatePreparationData;
 use App\Repository\EmDatePreparationDataRepository;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
 class AffDatePrepDataController extends AbstractController
 {
     /**
      * @Route("/aff_date_prep_data", name="aff_date_prep_data")
+     * @param EmDatePreparationDataRepository $repo
+     * @return type
      */
-    public function index(\App\Repository\EmDatePreparationDataRepository $repo)
+    public function index(EmDatePreparationDataRepository $repo):Response
     {
-//        return $this->render('aff_date_prep_data/index.html.twig', [
-//            'controller_name' => 'AffDatePrepDataController',
-//        ]);
-//        $repo=$this->getDoctrine()->getRepository(EmDatePreparationData::class);
         $date_prep = $repo->findAll();
         return $this->render('aff_date_prep_data/DatePrepData.html.twig', [
             'variable_test' => "coucou ça marche",
@@ -28,10 +27,10 @@ class AffDatePrepDataController extends AbstractController
     /**
      * 
      * @route ("/test/{id}", name= "test_show")
+     * @param EmDatePreparationData $exemple
+     * @return type
      */
-    public function show(EmDatePreparationData $exemple) {
-//        $repo = $this->getDoctrine()->getRepository(EmDatePreparationData::class);
-//        $exemple = $repo->find($id);
+    public function show(EmDatePreparationData $exemple):Response {
         return $this->render('aff_date_prep_data/DatePrepData_show.html.twig',[
             'variable_test' => "coucou ça marche cette fois aussi",
             'date_prep' => $exemple
@@ -42,7 +41,7 @@ class AffDatePrepDataController extends AbstractController
      * 
      * @Route("/aff_date_prep_data_2",name="DatePrepData_2")
      */
-    public function DatePrepData() {
+    public function DatePrepData():Response {
         return $this->render('aff_date_prep_data/DatePrepData.html.twig');
     }
 }

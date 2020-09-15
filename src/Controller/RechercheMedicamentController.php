@@ -7,17 +7,19 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 use App\Entity\EmOccProduitV2;
 use Symfony\Component\HttpFoundation\Request;
-//use Doctrine\Common\Persistence\ObjectManager;
-use Symfony\Component\Form\FormInterface;
+//use Symfony\Component\Form\FormInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+//use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class RechercheMedicamentController extends AbstractController
 {
     /**
      * @Route("/recherche_medicament", name="recherche_medicament")
+     * @param Request $request
+     * @param EntityManagerInterface $em
+     * @return Response
      */
     public function searchProduit(Request $request, EntityManagerInterface $em):Response
         {
@@ -39,7 +41,6 @@ class RechercheMedicamentController extends AbstractController
                         'form_rech_med' => $form->createView(),
                         'produits'=> $tousproduits
                 ]);
-                
             }
             
             return $this->render('recherche_medicament/recherche_medicament.html.twig', [

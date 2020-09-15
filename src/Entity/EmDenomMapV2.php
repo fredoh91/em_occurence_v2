@@ -22,10 +22,10 @@ class EmDenomMapV2
      */
     private $Denomination;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $Nbr;
+//    /**
+//     * @ORM\Column(type="integer")
+//     */
+//    private $Nbr;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -57,6 +57,11 @@ class EmDenomMapV2
      */
     private $CQ;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=EmDenomMapCategoV2::class, inversedBy="emDenomMapV2s")
+     */
+    private $Categorie;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -74,17 +79,17 @@ class EmDenomMapV2
         return $this;
     }
 
-    public function getNbr(): ?int
-    {
-        return $this->Nbr;
-    }
-
-    public function setNbr(int $Nbr): self
-    {
-        $this->Nbr = $Nbr;
-
-        return $this;
-    }
+//    public function getNbr(): ?int
+//    {
+//        return $this->Nbr;
+//    }
+//
+//    public function setNbr(int $Nbr): self
+//    {
+//        $this->Nbr = $Nbr;
+//
+//        return $this;
+//    }
 
     public function getCIS(): ?string
     {
@@ -154,6 +159,18 @@ class EmDenomMapV2
     public function setCQ(?string $CQ): self
     {
         $this->CQ = $CQ;
+
+        return $this;
+    }
+
+    public function getCategorie(): ?EmDenomMapCategoV2
+    {
+        return $this->Categorie;
+    }
+
+    public function setCategorie(?EmDenomMapCategoV2 $Categorie): self
+    {
+        $this->Categorie = $Categorie;
 
         return $this;
     }

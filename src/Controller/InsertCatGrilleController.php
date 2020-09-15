@@ -11,6 +11,8 @@ class InsertCatGrilleController extends AbstractController
 {
     /**
      * @Route("/insert/cat/grille", name="insert_cat_grille")
+     * @param EntityManagerInterface $em
+     * @return type
      */
     public function index(EntityManagerInterface $em)
     {
