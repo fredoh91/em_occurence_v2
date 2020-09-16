@@ -17,11 +17,40 @@ class ModifTodoType extends AbstractType
         $builder
 //            ->add('Denomination', TextType::class,['attr'=> ['disabled' => true], 'label_format' => 'Produit'])
 //            ->add('Nbr', TextType::class,['attr'=> ['disabled' => true], 'label_format' => 'Effectif'])
-            ->add('Denomination', TextType::class,['attr' => ['readonly' => true],'label_format' => 'Produit'])
-            ->add('Nbr', TextType::class,['attr' => ['readonly' => true],'label_format' => 'Effectif'])
-            ->add('CIS', TextType::class,['label_format' => 'Code CIS', 'required' => false])
-            ->add('Label', TextType::class,['label_format' => 'Label', 'required' => false])
-            ->add('BN_Label', TextType::class,['label_format' => 'BN Label'])
+            ->add('Denomination', 
+                    TextType::class,
+                    [
+                        'attr' => ['readonly' => true],
+                        'label_format' => 'Produit'
+                    ]
+                )
+            ->add('Nbr', 
+                    TextType::class,
+                    [
+                        'attr' => ['readonly' => true],
+                        'label_format' => 'Effectif'
+                    ]
+                )
+            ->add('CIS', 
+                    TextType::class,
+                    [
+                        'label_format' => 'Code CIS', 
+                        'required' => false
+                    ]
+                )
+            ->add('Label', 
+                    TextType::class,
+                    [
+                        'label_format' => 'Label', 
+                        'required' => false
+                    ]
+                )
+            ->add('BN_Label', 
+                    TextType::class,
+                    [
+                        'label_format' => 'BN Label'
+                    ]
+                )
 //            ->add('BN_Label_Romedi', ChoiceType::class,['label_format' => 'BN Label ROMEDI'])
 //            ->add('BN_Label_Romedi', EntityType::class,[
 //                'class' => 'App\Entity\EmRomediV2',
@@ -29,7 +58,23 @@ class ModifTodoType extends AbstractType
 //                'mapped' => 'false',
 //                'label_format' => 'BN Label ROMEDI'
 //                ])
-            ->add('ATC7', TextType::class,['label_format' => 'Code ATC 7', 'required' => false])
+            ->add('ATC7', 
+                    TextType::class,
+                    [
+                        'label_format' => 'Code ATC 7', 
+                        'required' => false
+                    ]
+                )
+            ->add('Categorie', 
+                    EntityType::class, 
+                    [
+                        'class' => 'App\Entity\EmDenomMapCategoV2',
+                        'label_format' => 'Catégorie',
+                        'choice_label'=>'categorie',
+                        'expanded'=>false,
+                        'multiple'=>false 
+                    ]
+                )
         ;
     }
 

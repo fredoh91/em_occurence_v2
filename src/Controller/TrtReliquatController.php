@@ -59,6 +59,7 @@ class TrtReliquatController extends AbstractController
             $denomMap->setLabel($data->getLabel());
             $denomMap->setCIS($data->getCIS());
             $denomMap->setATC7($data->getATC7());
+            $denomMap->setCategorie($data->getCategorie());
             $em->persist($denomMap);
             
             // Effacement de la ligne dans EmDenomMapTodoV2
