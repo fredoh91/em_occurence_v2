@@ -15,7 +15,7 @@ $(document).ready(function() {
         // console.log ("Valeur précédente : " + valeurPrecedente)
         // console.log ("Valeur actuelle : " + valeurSelectionnee)
         if (valeurSelectionnee != 1 && valeurPrecedente == 1) {
-            var confirmation = window.confirm ('Attention, si vous sélectionnez une catégorie différente de \'médicament\', les champs renseignés plus bas (BN Label, Label ...) seront effacés.\nVoulez-vous sélectionner une autre catégorie ?')
+            var confirmation = window.confirm ('Attention, si vous sélectionnez une catégorie différente de \'médicament\', les champs renseignés plus bas (Label, Code CIS et Code ATC 7) seront effacés.\nVoulez-vous sélectionner une autre catégorie ?')
             if (confirmation === false) {
                 // mettre le select a 1
                 $('#modif_todo_Categorie').val(1);

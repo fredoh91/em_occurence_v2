@@ -22,3 +22,9 @@
 npm-debug.log
 yarn-error.log
 ###< symfony/webpack-encore-bundle ###
+
+###> fred ###
+.env
+composer.lock
+###< fred ###
+
