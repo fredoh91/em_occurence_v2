@@ -13,6 +13,7 @@ Encore
 //    .setPublicPath('/build')
     .setPublicPath('/em_occurence_v2/public/build')
 //    .setPublicPath('/%kernel.public_dir%/public/build')
+//    .setPublicPath('%kernel.project_dir%/public/build')
     // only needed for CDN's or sub-directory deploy
     //.setManifestKeyPrefix('build/')
 
