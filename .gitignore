@@ -25,6 +25,7 @@ yarn-error.log
 
 ###> fred ###
 .env
+.env.test
 composer.lock
 ###< fred ###
 
