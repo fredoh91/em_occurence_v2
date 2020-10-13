@@ -47,20 +47,37 @@ class DatabaseAccess {
      */
     public function RqOccurrenceEm(): array
     {
-//        $pdo = DatabaseAccess::getPdoAccess();
         $query = "SELECT Produits.denomination AS produit, Count(*) AS Nbr FROM PrincipalCas INNER JOIN Produits ON PrincipalCas.id = Produits.lienCas WHERE (((PrincipalCas.natureErreur) Not In ('NA','NI'))) GROUP BY Produits.denomination ORDER BY Produits.denomination DESC;";
         
         $this->pdoStatment = $this->pdo->prepare($query);
         $this->pdoStatment->execute();
         $this->result = $this->pdoStatment->fetchAll();
-        
-        //var_dump($this->result);
-        
-//        while ($donnees = $reponse->fetch()) {
-//            echo $donnees['idProduit']."\t"."\t"."\t"."\t".$donnees['NumRef'].'<br>';
-//        }
-        
         return $this->result;
-        //$reponse->closeCursor(); // Termine le traitement de la requête
     }    
+    /**
+     * 
+     * @return array
+     */
+    public function RqOccurrenceEmLimit30(): array
+    {
+        $query = "SELECT TOP 30 Produits.denomination AS produit, Count(*) AS Nbr FROM PrincipalCas INNER JOIN Produits ON PrincipalCas.id = Produits.lienCas WHERE (((PrincipalCas.natureErreur) Not In ('NA','NI'))) GROUP BY Produits.denomination ORDER BY Produits.denomination DESC;";
+        $this->pdoStatment = $this->pdo->prepare($query);
+        $this->pdoStatment->execute();
+        $this->result = $this->pdoStatment->fetchAll();
+        return $this->result;
+    }    
+//    /**
+//     * 
+//     * @return array
+//     */
+//    public function RqOccurrenceEmInsert30(): array
+//    {
+//        $query = "SELECT TOP 30 Produits.denomination AS produit, Count(*) AS Nbr FROM PrincipalCas INNER JOIN Produits ON PrincipalCas.id = Produits.lienCas WHERE (((PrincipalCas.natureErreur) Not In ('NA','NI'))) GROUP BY Produits.denomination ORDER BY Produits.denomination DESC;";
+//        $this->pdoStatment = $this->pdo->prepare($query);
+//        $this->pdoStatment->execute();
+//        $this->result = $this->pdoStatment->fetchAll();
+//        return $this->result;
+//    }
+    
+
 }
