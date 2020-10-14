@@ -12,7 +12,7 @@ use App\Entity\EmDenomV2;
  * @author Frannou
  */
 class TrtBaseEM {
-    public $em;
+    private $em;
     function __construct($em)
     {
         $this->em = $em;
@@ -51,10 +51,10 @@ class TrtBaseEM {
         $ObjAccess = new DatabaseAccess();
 //        $ReqAccess=$ObjAccess->RqOccurrenceEmLimit30();
         $ReqAccess=$ObjAccess->RqOccurrenceEm();
-
         foreach($ReqAccess as $row)
         {
-            $listeInsert[] = '("'.($row['produit']).'", '.$row['Nbr'].')';
+//            $listeInsert[] = '("'.($row['produit']).'", '.$row['Nbr'].')';
+            $listeInsert[] = '("'.(str_replace(CHR(13).CHR(10),"",$row['produit'])).'", '.$row['Nbr'].')';
         }  
         $sql = "INSERT INTO em_denom_v2 (denomination, nbr) VALUES ".implode(',', $listeInsert);       
         $stmt = $this->em->getConnection()->prepare(utf8_encode ($sql));

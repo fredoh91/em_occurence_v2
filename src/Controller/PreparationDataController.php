@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\MsAccess\Traitements\TrtBaseEM;
+use App\MySQL\Traitements\TrtMySQL;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -18,16 +19,21 @@ class PreparationDataController extends AbstractController
         
         
         // import des données Access : $TrtAccess->importBaseEM();
-        $TrtAccess=new TrtBaseEM($em);
-//        $TrtAccess->DBaccess();
-//        $TrtAccess->ExtractionAccessOccEM(); 
-        $TrtAccess->importBaseEM();
-        // 
+//        $TrtAccess=new TrtBaseEM($em);
+//        $TrtAccess->importBaseEM();
+
         // sauvegardes des tables MySQL : $TrtMySQL->sauvegardeTables();
-        // 
+        $TrtMySQL=new TrtMySQL($em);
+//        $TrtMySQL->creeCopieTable("em_occ_produit_v2");
+//        $TrtMySQL->rempliCopieTable("em_occ_produit_v2");
+        $TrtMySQL->SauveEtResetTable("em_occ_produit_v2");
+        $TrtMySQL->SauveEtResetTable("em_occ_deno_v2");
+        $TrtMySQL->SauveTable("em_grille_occ_v2");
         // Mise à jour des tables MySQL : $TrtMySQL->MajTables();
-        
-        
+        $TrtMySQL->rempliEmOccProduitV2();
+        // Message flash pour avertir l'utilisateur
+        $this->addFlash('success', 'Traitement terminé.');
+            
         
         return $this->render('preparation_data/preparation_data.html.twig', [
             'controller_name' => 'PreparationDataController',
