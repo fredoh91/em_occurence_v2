@@ -4,6 +4,10 @@ namespace App\MySQL\Traitements;
 
 use App\Entity\EmDenom;
 use App\Entity\EmDenomV2;
+use App\Entity\EmOccProduitV2;
+use App\Entity\GrilleOccEmV2;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Persistence\ManagerRegistry;
 //use Doctrine\ORM\EntityManagerInterface;
 /**
  * Description of TrtBaseEM
@@ -99,15 +103,49 @@ class TrtMySQL {
         
     public function rempliEmOccProduitV2(): void
     {       
-        $sql = "INSERT INTO em_occ_produit_v2 (produit, nbr) "
-             . "SELECT bn_label AS produit, sum(nbr) AS Nbr "
+
+
+//        Remplissage de la table em_occ_produit_v2 avec de données factices dans cat_grille_id
+        $sql = "INSERT INTO em_occ_produit_v2 (produit, nbr, cat_grille_id) "
+             . "SELECT em_denom_map_v2.bn_label AS produit, sum(em_denom_v2.nbr) AS Nbr, 1 AS cat_grille_id "
              . "FROM em_denom_map_v2 "
-             . "INNER JOIN em_denom_v2 ON em_denom_map_v2.denomination = em_denom_v2.denomination "
-             . "WHERE CQ <> 'TODO' "
-             . "GROUP BY bn_label "
+             . "INNER JOIN em_denom_v2 ON em_denom_map_v2.denomination = em_denom_v2.denomination  "
+             . "WHERE em_denom_map_v2.cq <> 'TODO' "
+             . "GROUP BY em_denom_map_v2.bn_label  "
              . "ORDER BY 2, 1 DESC;";
-        $stmt = $this->em->getConnection()->prepare($sql);
-        $stmt->execute([]);
+//        $stmt = $this->em->getConnection()->prepare($sql);
+//        $stmt->execute([]);
+        
+//        Remplissage des bonnes données dans le champ cat_grille_id     
+        set_time_limit(500);
+        $repoG = $this->em->getRepository(GrilleOccEmV2::class);
+        $repoP = $this->em->getRepository(EmOccProduitV2::class);
+        
+        $tousproduits = $repoP->findAll();
+//        dump($tousproduits[0]->getNbr());
+//
+//        dump($repoG->findByValGrill(2));
+        foreach ($tousproduits as $produit) {
+            
+            $grille=$repoG->findByValGrill($produit->getNbr());
+
+           dump($grille[0]) ;
+//            dd($produit);
+//            dd($tableau->getCatIdx());
+//            $produit->setCatGrille($grille[0]);            
+        }
+//        for ($iCpt=1;$iCpt<=4;$iCpt++) {   
+//            
+//            $grille= $repoG->find($iCpt);
+//            $tousproduits = $repoP->findByTypGrill($iCpt);
+//            foreach ($tousproduits as $produit) {
+//                $produit->setCatGrille($grille);            
+//            }
+//            
+            $this->em->persist($produit);
+            $this->em->flush();             
+//            
+//        }        
     }
     
     

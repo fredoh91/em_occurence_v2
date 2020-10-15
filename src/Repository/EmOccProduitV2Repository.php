@@ -169,6 +169,39 @@ class EmOccProduitV2Repository extends ServiceEntityRepository
             ->getQuery()
             ->getResult()
             ;
+        }       
+     /**
+     * 
+     * @param type $key
+     * @return array
+     */
+    public function findByTypGrillTable($TypGrill): array {
+        if ($TypGrill==1) {
+            $vmin = 1;
+            $vmax = 3;
+        }
+        elseif ($TypGrill==2) {
+            $vmin = 4;
+            $vmax = 10;
+        }
+        elseif ($TypGrill==3) {
+            $vmin = 11;
+            $vmax = 24;            
+        }
+        elseif ($TypGrill==4) {
+            $vmin = 25;
+            $vmax = 1000;            
+        }
+
+        return $this->createQueryBuilder('p')
+            ->Where('p.Nbr >= :vmin')
+            ->andWhere('p.Nbr <= :vmax')
+            ->setParameter('vmin', $vmin)
+            ->setParameter('vmax', $vmax)
+            ->orderBy('p.produit', 'ASC')
+            ->getQuery()
+            ->getResult()
+            ;
         }
     // /**
     //  * @return EmOccProduitV2[] Returns an array of EmOccProduitV2 objects

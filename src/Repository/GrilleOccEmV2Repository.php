@@ -18,7 +18,21 @@ class GrilleOccEmV2Repository extends ServiceEntityRepository
     {
         parent::__construct($registry, GrilleOccEmV2::class);
     }
-
+      
+     /**
+     * 
+     * @param type $Nbr
+     * @return array
+     */
+    public function findByValGrill($Nbr): array {
+        return $this->createQueryBuilder('g')
+            ->Where('g.vmin <= :Nbr')
+            ->andWhere('g.vmax >= :Nbr')
+            ->setParameter('Nbr', $Nbr)
+            ->getQuery()
+            ->getResult()
+            ;
+        }
     // /**
     //  * @return GrilleOccEmV2[] Returns an array of GrilleOccEmV2 objects
     //  */
