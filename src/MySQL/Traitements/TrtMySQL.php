@@ -27,45 +27,6 @@ class TrtMySQL {
 //        echo "ça marche !!!";
         dump($this->sMaintenant);
     }
-//    public function DBaccess()
-//    {
-//        $ObjAccess = new DatabaseAccess();
-//        $ReqAccess=$ObjAccess->RqOccurrenceEm();
-////        foreach ($ReqAccess as $value) {
-////            var_dump(utf8_encode($value["produit"]));
-////            var_dump($value["Nbr"]);
-////        }
-////        var_dump($ReqAccess[2]);
-//        dump($ReqAccess[2]["produit"]);
-////        die();
-//        
-////        $pdo = DatabaseAccess::getPdoAccess();
-////        dump($pdo);
-//    }
-//    public function ExtractionAccessOccEM()
-//    {
-//        $ObjAccess = new DatabaseAccess();
-////        $ReqAccess=$ObjAccess->RqOccurrenceEm();
-//        $ReqAccess=$ObjAccess->RqOccurrenceEmLimit30();
-//        dump(count($ReqAccess));
-//    }
-    public function importBaseEM()
-    {   
-        
-        $listeInsert = array(); 
-        $this->effaceEmDenomV2();
-        $ObjAccess = new DatabaseAccess();
-//        $ReqAccess=$ObjAccess->RqOccurrenceEmLimit30();
-        $ReqAccess=$ObjAccess->RqOccurrenceEm();
-        foreach($ReqAccess as $row)
-        {
-//            $listeInsert[] = '("'.($row['produit']).'", '.$row['Nbr'].')';
-            $listeInsert[] = '("'.(str_replace(CHR(13).CHR(10),"",$row['produit'])).'", '.$row['Nbr'].')';
-        }  
-        $sql = "INSERT INTO em_denom_v2 (denomination, nbr) VALUES ".implode(',', $listeInsert);       
-        $stmt = $this->em->getConnection()->prepare(utf8_encode ($sql));
-        $stmt->execute([]);
-    }
         
     public function creeCopieTable(string $nomTable): void
     {
@@ -80,7 +41,6 @@ class TrtMySQL {
         $stmt = $this->em->getConnection()->prepare($sql);
         $stmt->execute([]);
     }
-    
     
     public function effaceTable(string $nomTable): void
     {
@@ -100,12 +60,14 @@ class TrtMySQL {
         $this->creeCopieTable($nomTable);
         $this->rempliCopieTable($nomTable);
     }
-        
+
+    /*  
+     * 
+     */
     public function rempliEmOccProduitV2(): void
     {       
-
-
-//        Remplissage de la table em_occ_produit_v2 avec de données factices dans cat_grille_id
+        set_time_limit(60);
+//      Remplissage de la table em_occ_produit_v2 avec de données factices dans cat_grille_id
         $sql = "INSERT INTO em_occ_produit_v2 (produit, nbr, cat_grille_id) "
              . "SELECT em_denom_map_v2.bn_label AS produit, sum(em_denom_v2.nbr) AS Nbr, 1 AS cat_grille_id "
              . "FROM em_denom_map_v2 "
@@ -113,39 +75,56 @@ class TrtMySQL {
              . "WHERE em_denom_map_v2.cq <> 'TODO' "
              . "GROUP BY em_denom_map_v2.bn_label  "
              . "ORDER BY 2, 1 DESC;";
-//        $stmt = $this->em->getConnection()->prepare($sql);
-//        $stmt->execute([]);
+        $stmt = $this->em->getConnection()->prepare($sql);
+        $stmt->execute();
         
-//        Remplissage des bonnes données dans le champ cat_grille_id     
-        set_time_limit(500);
-        $repoG = $this->em->getRepository(GrilleOccEmV2::class);
-        $repoP = $this->em->getRepository(EmOccProduitV2::class);
-        
-        $tousproduits = $repoP->findAll();
-//        dump($tousproduits[0]->getNbr());
-//
-//        dump($repoG->findByValGrill(2));
-        foreach ($tousproduits as $produit) {
-            
-            $grille=$repoG->findByValGrill($produit->getNbr());
+//      Remplissage des bonnes données dans le champ cat_grille_id  
+//      Désactivation du check sur les clés étrangères
+        $stmt = $this->em->getConnection()->executeQuery("SET FOREIGN_KEY_CHECKS=0;");
+        $stmt->execute();        
+ 
+//      Modif de la catégorie
+        $sql = "UPDATE em_occ_produit_v2  "
+             . "SET cat_grille_id = ( "
+             . "SELECT grille_occ_em_v2.id "
+             . "FROM grille_occ_em_v2 "
+             . "WHERE em_occ_produit_v2.nbr >= grille_occ_em_v2.vmin "
+             . "AND em_occ_produit_v2.nbr <= grille_occ_em_v2.vmax);";  
+//        dd($sql);
+        $stmt = $this->em->getConnection()->prepare($sql);
+        $stmt->execute();      
 
-           dump($grille[0]) ;
-//            dd($produit);
-//            dd($tableau->getCatIdx());
-//            $produit->setCatGrille($grille[0]);            
-        }
-//        for ($iCpt=1;$iCpt<=4;$iCpt++) {   
-//            
-//            $grille= $repoG->find($iCpt);
-//            $tousproduits = $repoP->findByTypGrill($iCpt);
-//            foreach ($tousproduits as $produit) {
-//                $produit->setCatGrille($grille);            
-//            }
-//            
-            $this->em->persist($produit);
-            $this->em->flush();             
-//            
-//        }        
+//      Réactivation du check sur les clés étrangères  
+        $stmt = $this->em->getConnection()->executeQuery("SET FOREIGN_KEY_CHECKS=1;");
+        $stmt->execute();               
+   
+    }
+    
+    /*  
+     * 
+     */
+    public function rempliEmOccDenoV2(): void
+    {       
+        set_time_limit(60);
+//      Remplissage de la table em_occ_produit_v2 avec de données factices dans cat_grille_id
+//        $sql = "INSERT INTO em_occ_produit_v2 (produit, nbr, cat_grille_id) "
+//             . "SELECT em_denom_map_v2.bn_label AS produit, sum(em_denom_v2.nbr) AS Nbr, 1 AS cat_grille_id "
+//             . "FROM em_denom_map_v2 "
+//             . "INNER JOIN em_denom_v2 ON em_denom_map_v2.denomination = em_denom_v2.denomination  "
+//             . "WHERE em_denom_map_v2.cq <> 'TODO' "
+//             . "GROUP BY em_denom_map_v2.bn_label  "
+//             . "ORDER BY 2, 1 DESC;";
+        $sql = "INSERT INTO em_occ_deno_v2 (denomination, produit, nbr) "
+             . "SELECT em_denom_v2.denomination, em_denom_map_v2.bn_label, sum(em_denom_v2.nbr) "
+             . "FROM em_denom_map_v2 "
+             . "INNER JOIN em_denom_v2 ON em_denom_map_v2.denomination = em_denom_v2.denomination "
+             . "AND em_denom_map_v2.cq <> 'TODO' "
+             . "GROUP BY em_denom_v2.denomination "
+             . "ORDER BY 3, 2, 1 DESC;";
+        $stmt = $this->em->getConnection()->prepare($sql);
+        $stmt->execute();
+                    
+   
     }
     
     

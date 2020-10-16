@@ -24,13 +24,14 @@ class PreparationDataController extends AbstractController
 
         // sauvegardes des tables MySQL : $TrtMySQL->sauvegardeTables();
         $TrtMySQL=new TrtMySQL($em);
-//        $TrtMySQL->SauveEtResetTable("em_occ_produit_v2");
-//        $TrtMySQL->SauveEtResetTable("em_occ_deno_v2");
-////        $TrtMySQL->SauveTable("em_grille_occ_v2");
-//        $TrtMySQL->SauveTable("grille_occ_em_v2");
+        $TrtMySQL->SauveEtResetTable("em_occ_produit_v2");
+        $TrtMySQL->SauveEtResetTable("em_occ_deno_v2");
+//        $TrtMySQL->SauveTable("em_grille_occ_v2");
+        $TrtMySQL->SauveTable("grille_occ_em_v2");
 //        // Mise à jour des tables MySQL : $TrtMySQL->MajTables();
         $TrtMySQL->rempliEmOccProduitV2();
 
+        $TrtMySQL->rempliEmOccDenoV2();
         // Message flash pour avertir l'utilisateur
         $this->addFlash('success', 'Traitement terminé.');
             
