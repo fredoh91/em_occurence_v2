@@ -22,19 +22,24 @@ class TrtMySQL {
         $this->em = $em;
         $this->sMaintenant = date("Ymd_His");
     }
-    public function test()
-    {
-//        echo "ça marche !!!";
-        dump($this->sMaintenant);
-    }
         
+    /**
+     * crée une table de sauvegarde
+     * @param string $nomTable
+     * @return void
+     */
     public function creeCopieTable(string $nomTable): void
     {
         $sql = "CREATE TABLE " . $nomTable . "_" . $this->sMaintenant . " LIKE $nomTable";       
         $stmt = $this->em->getConnection()->prepare($sql);
         $stmt->execute([]);
     }
-        
+    
+    /**
+     * remplie la table de sauvegarde
+     * @param string $nomTable
+     * @return void
+     */
     public function rempliCopieTable(string $nomTable): void
     {       
         $sql = "INSERT " . $nomTable . "_" . $this->sMaintenant . " SELECT * FROM $nomTable;";
@@ -42,27 +47,44 @@ class TrtMySQL {
         $stmt->execute([]);
     }
     
+    /**
+     * Efface la table passée en paramètre
+     * @param string $nomTable
+     * @return void
+     */
     public function effaceTable(string $nomTable): void
     {
         $sql = "TRUNCATE $nomTable";       
         $stmt = $this->em->getConnection()->prepare($sql);
         $stmt->execute([]);
     }
-
+    
+    /**
+     * 
+     * @param string $nomTable
+     * @return void
+     */
     public function SauveEtResetTable(string $nomTable): void
     {
         $this->creeCopieTable($nomTable);
         $this->rempliCopieTable($nomTable);
         $this->effaceTable($nomTable);
     }
+    
+    /**
+     * crée une table de sauvegarde et la rempli
+     * @param string $nomTable
+     * @return void
+     */
     public function SauveTable(string $nomTable): void
     {
         $this->creeCopieTable($nomTable);
         $this->rempliCopieTable($nomTable);
     }
 
-    /*  
-     * 
+    /**
+     * Remplissage de la table em_occ_produit_v2
+     * @return void
      */
     public function rempliEmOccProduitV2(): void
     {       
@@ -89,8 +111,7 @@ class TrtMySQL {
              . "SELECT grille_occ_em_v2.id "
              . "FROM grille_occ_em_v2 "
              . "WHERE em_occ_produit_v2.nbr >= grille_occ_em_v2.vmin "
-             . "AND em_occ_produit_v2.nbr <= grille_occ_em_v2.vmax);";  
-//        dd($sql);
+             . "AND em_occ_produit_v2.nbr <= grille_occ_em_v2.vmax);";
         $stmt = $this->em->getConnection()->prepare($sql);
         $stmt->execute();      
 
@@ -100,8 +121,9 @@ class TrtMySQL {
    
     }
     
-    /*  
-     * 
+    /**
+     * Remplissage de la table em_occ_produit_v2
+     * @return void
      */
     public function rempliEmOccDenoV2(): void
     {       
@@ -123,21 +145,21 @@ class TrtMySQL {
              . "ORDER BY 3, 2, 1 DESC;";
         $stmt = $this->em->getConnection()->prepare($sql);
         $stmt->execute();
-                    
-   
     }
-    
-    
-//    public function effaceEmOccDenoV2(): void
-//    {
-//        $sql = "TRUNCATE em_occ_deno_v2";       
-//        $stmt = $this->em->getConnection()->prepare($sql);
-//        $stmt->execute([]);
-//    }
-//    public function effaceEmGrilleOccV2(): void
-//    {
-//        $sql = "TRUNCATE em_grille_occ_v2";       
-//        $stmt = $this->em->getConnection()->prepare($sql);
-//        $stmt->execute([]);
-//    }
+    /**
+     * Remplissage de la table em_denom_map_todo_v2
+     * @return void
+     */
+    public function rempliEmDenomMapTodoV2(): void
+    {       
+        set_time_limit(60);
+//      Remplissage de la table em_denom_map_todo_v2 
+        $sql = "INSERT INTO em_denom_map_todo_v2 (denomination, nbr) "
+             . "SELECT em_denom_v2.denomination,em_denom_v2.nbr "
+             . "FROM em_denom_v2 "
+             . "LEFT JOIN em_denom_map_v2 ON em_denom_map_v2.denomination=em_denom_v2.denomination "
+             . "WHERE em_denom_map_v2.denomination IS NULL;";
+        $stmt = $this->em->getConnection()->prepare($sql);
+        $stmt->execute();
+    }
 }
