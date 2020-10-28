@@ -18,7 +18,16 @@ class EmDatePreparationDataV2Repository extends ServiceEntityRepository
     {
         parent::__construct($registry, EmDatePreparationDataV2::class);
     }
-
+    public function findLast()
+    {
+        return $this->createQueryBuilder('e')
+            ->orderBy('e.DatePreparationData', 'DESC')
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+    
     // /**
     //  * @return EmDatePreparationDataV2[] Returns an array of EmDatePreparationDataV2 objects
     //  */

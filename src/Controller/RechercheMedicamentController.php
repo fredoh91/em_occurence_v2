@@ -2,16 +2,16 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Response;
+use App\Entity\EmDatePreparationDataV2;
 use App\Entity\EmOccProduitV2;
-use Symfony\Component\HttpFoundation\Request;
-//use Symfony\Component\Form\FormInterface;
+use App\Entity\GrilleOccEmV2;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-//use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
 class RechercheMedicamentController extends AbstractController
 {
@@ -30,52 +30,33 @@ class RechercheMedicamentController extends AbstractController
                         ->getForm()
                     ;
             $form->handleRequest($request);
+            
+            $repoGrilleOccEmV2 = $em->getRepository(GrilleOccEmV2::class);
+            $grille = $repoGrilleOccEmV2->findAll();
+            
+            $repoDtPrepData = $em->getRepository(EmDatePreparationDataV2::class);
+            $DtPrepData = $repoDtPrepData->findLast()[0]->getDatePreparationData();
+            
             if ($form->isSubmitted() && $form->isValid()) {
                 $data = $form->getData();
 
                 $repo = $em->getRepository(EmOccProduitV2::class);
-
                 $tousproduits = $repo->findLikeQBjoin_v2($data['produit']);
 
                  return $this->render('recherche_medicament/recherche_medicament.html.twig', [
                         'form_rech_med' => $form->createView(),
-                        'produits'=> $tousproduits
+                        'produits'=> $tousproduits,
+                        'DtPrepData'=> $DtPrepData,
+                        'grille'=> $grille
                 ]);
             }
             
             return $this->render('recherche_medicament/recherche_medicament.html.twig', [
             'form_rech_med' => $form->createView(),
-            'produits'=> 'Pas de produit'
+            'produits'=> 'Pas de produit',
+            'DtPrepData'=> $DtPrepData,
+            'grille'=> $grille
         ]);
-            
-            
-////        $repo = $em->getRepository('App\Entity\EmOccProduitV2');
-//        $repo = $em->getRepository(EmOccProduitV2::class);
-////        $tousproduits = $repo->findAll();
-//        $tousproduits = $repo->findBy(array('produit' => 'VOLTARENPLAST'));
-//         return $this->render('recherche_medicament/recherche_medicament.html.twig', [
-//            'controller_name' => 'RechercheMedicamentController',
-//             'produits'=> $tousproduits
-//        ]);       
-        
-//        $EmOccProduitV2 = new EmOccProduitV2();
-//        dump($EmOccProduitV2);
-//        $form = $this->createFormBuilder($EmOccProduitV2)
-//                     ->add('produit')
-//                     ->getForm();
-//        return $this->render('recherche_medicament/recherche_medicament.html.twig',[
-//            'formEmOccProduitV2' => $form->createView()
-//        ]);
-        
+
     }
-    
-//    /**
-//     * @Route("/recherche_medicament", name="recherche_medicament")
-//     */    
-//    public function index()
-//    {
-//        return $this->render('recherche_medicament/recherche_medicament.html.twig', [
-//            'controller_name' => 'RechercheMedicamentController',
-//        ]);
-//    }
 }

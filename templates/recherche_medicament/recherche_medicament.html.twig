@@ -61,6 +61,43 @@
                 {% endfor %}
                     </tbody>
                 </table>
+                    
+                <div id="DtPrepData" style="">                    
+                    <small>Date de mise à jour : {{ DtPrepData|date('Y/m/d H:i:s') }}</small>
+                </div>
+                
+                <div id="divgrille" style=""><p></p>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <th class ="TabGrilleTh"> Cat. </th>
+                                <th class ="TabGrilleTh"> Nb. Sig. min </th>
+                                <th class ="TabGrilleTh"> Nb. Sig. max  </th>
+                            </tr>
+                                <tr>
+                                    <td class ="TabGrilleTd">{{ grille[0].getCatLib }}</td>
+                                    <td class ="TabGrilleTd">{{ grille[0].getVmin }}</td>
+                                    <td class ="TabGrilleTd">{{ grille[0].getVmax }}</td>			
+                                </tr>
+                                <tr>
+                                    <td class ="TabGrilleTd">{{ grille[1].getCatLib }}</td>
+                                    <td class ="TabGrilleTd">{{ grille[1].getVmin }}</td>
+                                    <td class ="TabGrilleTd">{{ grille[1].getVmax }}</td>			
+                                </tr>
+                                <tr>
+                                    <td class ="TabGrilleTd">{{ grille[2].getCatLib }}</td>
+                                    <td class ="TabGrilleTd">{{ grille[2].getVmin }}</td>
+                                    <td class ="TabGrilleTd">{{ grille[2].getVmax }}</td>			
+                                </tr>
+                                <tr>
+                                    <td class ="TabGrilleTd">{{ grille[3].getCatLib }}</td>
+                                    <td class ="TabGrilleTd">{{ grille[3].getVmin }}</td>
+                                    <td class ="TabGrilleTd">{{ grille[3].getVmax }}</td>			
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>                                        
+                    
 
             {% endif %}
 
