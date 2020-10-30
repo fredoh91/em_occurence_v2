@@ -13,7 +13,8 @@ class Config {
     
     public function __construct() 
     {
-        $this->settings = require dirname(__DIR__).'\Config\Env.php';
+//        $this->settings = require dirname(__DIR__).'\Config\Env.php';
+        $this->settings = require dirname(dirname(dirname(__DIR__))).'\config\envMsAccess.php';
     }
     
     public static function getInstance()

@@ -53,7 +53,6 @@ class TrtBaseEM {
         $ReqAccess=$ObjAccess->RqOccurrenceEm();
         foreach($ReqAccess as $row)
         {
-//            $listeInsert[] = '("'.($row['produit']).'", '.$row['Nbr'].')';
             $listeInsert[] = '("'.(str_replace(CHR(13).CHR(10),"",$row['produit'])).'", '.$row['Nbr'].')';
         }  
         $sql = "INSERT INTO em_denom_v2 (denomination, nbr) VALUES ".implode(',', $listeInsert);       

@@ -20,29 +20,27 @@ class PreparationDataController extends AbstractController
     public function PreparationData(EntityManagerInterface $em):Response
     {
         // import des données Access : $TrtAccess->importBaseEM();
-        $TrtAccess=new TrtBaseEM($em);    // a réactiver en PROD
-        $TrtAccess->importBaseEM();    // a réactiver en PROD
+        $TrtAccess=new TrtBaseEM($em);
+        $TrtAccess->importBaseEM();
 
         // sauvegardes des tables MySQL : $TrtMySQL->sauvegardeTables();
         $TrtMySQL=new TrtMySQL($em);
-        $TrtMySQL->SauveEtResetTable("em_occ_produit_v2");// a réactiver en PROD
-        $TrtMySQL->SauveEtResetTable("em_occ_deno_v2");// a réactiver en PROD
+        $TrtMySQL->SauveEtResetTable("em_occ_produit_v2");
+        $TrtMySQL->SauveEtResetTable("em_occ_deno_v2");
 
-        $TrtMySQL->SauveTable("grille_occ_em_v2");// a réactiver en PROD
-//        // Mise à jour des tables MySQL : $TrtMySQL->MajTables();// a réactiver en PROD
-        $TrtMySQL->rempliEmOccProduitV2();// a réactiver en PROD
+        $TrtMySQL->SauveTable("grille_occ_em_v2");
+//        // Mise à jour des tables MySQL : $TrtMySQL->MajTables();
+        $TrtMySQL->rempliEmOccProduitV2();
 
-        $TrtMySQL->rempliEmOccDenoV2();// a réactiver en PROD
+        $TrtMySQL->rempliEmOccDenoV2();
         
 //        Mise à jour de la grille 
         $MaJemGrille=new MaJemGrille($em);
         $msgMaJemGrille = $MaJemGrille->MaJ();
-//        dd($msgMaJemGrille);
         
 //        mise à jour de la table "todo"
         $TrtMySQL->effaceTable("em_denom_map_todo_v2");
         $TrtMySQL->rempliEmDenomMapTodoV2();
-//        dump($msgMaJemGrille);
         
 //        sauvegarde la date de préparation des données
         $DtPrepData=new EmDatePreparationDataV2;
