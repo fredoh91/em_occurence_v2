@@ -24,8 +24,8 @@ yarn-error.log
 ###< symfony/webpack-encore-bundle ###
 
 ###> fred ###
-.env
-.env.test
-composer.lock
+#.env
+#.env.test
+#composer.lock
 ###< fred ###
 
