@@ -35,7 +35,15 @@ class RechercheMedicamentController extends AbstractController
             $grille = $repoGrilleOccEmV2->findAll();
             
             $repoDtPrepData = $em->getRepository(EmDatePreparationDataV2::class);
-            $DtPrepData = $repoDtPrepData->findLast()[0]->getDatePreparationData();
+            
+//            $tempo = dump($repoDtPrepData->findLast());
+            if (null !==($repoDtPrepData->findLast())) {
+                //vide
+                $DtPrepData = null;
+            } else {
+                // non vide
+                $DtPrepData = $repoDtPrepData->findLast()[0]->getDatePreparationData();
+            }
             
             if ($form->isSubmitted() && $form->isValid()) {
                 $data = $form->getData();
