@@ -63,7 +63,14 @@
                 </table>
                     
                 <div id="DtPrepData" style="">                    
-                    <small>Date de mise à jour : {{ DtPrepData|date('Y/m/d H:i:s') }}</small>
+                    <small>Date de mise à jour : 
+                        {% if DtPrepData is null %}
+                            Pas de date de mise à jour
+                        {% else %}
+                            {{ DtPrepData|date('d/m/Y H:i:s') }}
+                        {% endif %}
+                    
+                    </small>
                 </div>
                 
                 <div id="divgrille" style=""><p></p>

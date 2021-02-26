@@ -40,6 +40,7 @@ class RechercheMedicamentController extends AbstractController
             if (null !==($repoDtPrepData->findLast())) {
                 //vide
                 $DtPrepData = null;
+//                $DtPrepData = 'Pas de mise à jour.';
             } else {
                 // non vide
                 $DtPrepData = $repoDtPrepData->findLast()[0]->getDatePreparationData();
