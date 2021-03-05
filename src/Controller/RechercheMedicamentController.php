@@ -36,16 +36,20 @@ class RechercheMedicamentController extends AbstractController
             
             $repoDtPrepData = $em->getRepository(EmDatePreparationDataV2::class);
             
+            $DerniereDateMaJ = $repoDtPrepData->findLast();
 //            $tempo = dump($repoDtPrepData->findLast());
-            if (null !==($repoDtPrepData->findLast())) {
-                //vide
+            
+            
+            
+            if ($DerniereDateMaJ === null){
+                 //vide
                 $DtPrepData = null;
-//                $DtPrepData = 'Pas de mise à jour.';
+//                $DtPrepData = 'Pas de mise à jour.';               
             } else {
                 // non vide
-                $DtPrepData = $repoDtPrepData->findLast()[0]->getDatePreparationData();
+                 $DtPrepData = $repoDtPrepData->findLast()[0]->getDatePreparationData();          
             }
-            
+
             if ($form->isSubmitted() && $form->isValid()) {
                 $data = $form->getData();
 

@@ -23,8 +23,12 @@ class DatabaseAccess {
 //        $this->dbAccessName = "D:\Users\Frannou\Dev\Access\CT_Cas\Test\DATA\CT_Cas_2019_be.accdb;";
 //        self::$dbAccessName = "D:\Users\Frannou\Dev\Access\EM\Extractions_EM\DATA\Proto_2013_be.accdb;";
 
+
         if ($this->pdo === null)
         {
+		// var_dump(self::$dbAccessName);
+		// var_dump("odbc:DRIVER={Microsoft Access Driver (*.mdb, *.accdb)};charset=UTF-8; DBQ=".self::$dbAccessName."; Uid=; Pwd=;");
+		// die();
             $this->pdo=new PDO("odbc:DRIVER={Microsoft Access Driver (*.mdb, *.accdb)};charset=UTF-8; DBQ=".self::$dbAccessName."; Uid=; Pwd=;");
         }
     }

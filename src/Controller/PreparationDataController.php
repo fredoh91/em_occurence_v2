@@ -19,6 +19,8 @@ class PreparationDataController extends AbstractController
      */
     public function PreparationData(EntityManagerInterface $em):Response
     {
+        set_time_limit(180);
+        
         // import des données Access : $TrtAccess->importBaseEM();
         $TrtAccess=new TrtBaseEM($em);
         $TrtAccess->importBaseEM();
