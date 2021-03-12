@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}EM OCCURENCE V2 : Traitement du reliquat{% endblock %}
+{#        dump($mapping[1][1]);
+        dd($mapping[1][1]['Denomination']);#}
+
+
+
+{% block body %}
+    
+    
+
+{#{{ dump(mapping|length) }}    #}
+    
+    <div class="container-fluid">
+        <table class="table table-striped">
+            <thead>
+              <tr class="table-primary">
+                <th class="text-info">Denomination</th>
+                <th class="text-success">BNLabel</th>
+                <th class="text-success">Label_Romedi</th>
+{#                <th class="text-body">Levenshtein</th>#}
+                <th class="text-white">Levenshtein</th>
+                <th class="text-success">CIS_Romedi</th>
+                <th class="text-success">ATC7_Romedi</th>
+                <th class="text-info">id_denom_map_todo</th>
+                <th class="text-success">id_Romedi</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for todo in mapping %}
+                    {% for ele in todo %}
+                      <tr>
+                        <td class="text-info">{{ ele.Denomination }}</td>
+                        <td class="text-success">{{ ele.BNLabel }}</td>
+                        <td class="text-success">{{ ele.Label_Romedi }}</td>
+{#                        <td class="text-body">{{ ele.Levenshtein }}</td>#}
+                        <td class="text-black-50">{{ ele.Levenshtein }}</td>
+                        <td class="text-success">{{ ele.CIS_Romedi }}</td>
+                        <td class="text-success">{{ ele.ATC7_Romedi }}</td>
+                        <td class="text-info">{{ ele.id_denom_map_todo }}</td>
+                        <td class="text-success">{{ ele.id_Romedi }}</td>
+                      </tr>
+                    {% endfor %}
+                    <tr class="table-primary">
+                      <td class="text-info">Denomination</td>
+                      <td class="text-success">BNLabel</td>
+                      <td class="text-success">Label_Romedi</td>
+{#                      <th class="text-body">Levenshtein</th>#}
+                        <th class="text-white">Levenshtein</th>
+                      <td class="text-success">CIS_Romedi</td>
+                      <td class="text-success">ATC7_Romedi</td>
+                      <td class="text-info">id_denom_map_todo</td>
+                      <td class="text-success">id_Romedi</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

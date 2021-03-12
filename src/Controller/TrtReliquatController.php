@@ -7,6 +7,7 @@ use App\Entity\EmDenomMapV2;
 use App\Entity\EmRomediV2;
 use App\Form\ModifTodoType;
 use App\Form\RechRomediType;
+use App\Form\RechRomediParLabelType;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -47,6 +48,7 @@ class TrtReliquatController extends AbstractController
         $reliquat = $repo->find($id);
         $form = $this->createForm(ModifTodoType::class,$reliquat);
         $formRechRomedi = $this->createForm(RechRomediType::class);
+        $formRechRomediParLabel = $this->createForm(RechRomediParLabelType::class);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -79,9 +81,12 @@ class TrtReliquatController extends AbstractController
         return $this->render('trt_reliquat/modif_reliquat.html.twig', [
             'reliquat' => $reliquat,
             'form' => $form->createView(),
-            'formRechRomedi' => $formRechRomedi->createView()
+            'formRechRomedi' => $formRechRomedi->createView(),
+            'formRechRomediParLabel' => $formRechRomediParLabel->createView()
         ]);
     }
+    
+    
     /**
      * @Route("/trt_reliquat/rech_romedi/{id}", name="rech_romedi", requirements={"id"="\d+"})
      * @param Request $request
@@ -93,8 +98,12 @@ class TrtReliquatController extends AbstractController
     {
         $idTodo = $request->attributes->get('id');
         $repo = $em->getRepository(EmRomediV2::class);
-        $BN_LabelRech=$request->query->get('rech_romedi')['BN_Label'];
+        $BN_LabelRech=trim($request->query->get('rech_romedi')['BN_Label']);
         $queryRomedis = $repo->findByProduitQuery($BN_LabelRech);
+        
+        // Pour affichage du nom du produit recherché dans la vue
+        $repo_todo = $em->getRepository(EmDenomMapTodoV2::class);
+        $produit_todo = $repo_todo->find($idTodo);
         
         $romedis = $paginator->paginate(
                 $queryRomedis,
@@ -104,7 +113,41 @@ class TrtReliquatController extends AbstractController
 
         return $this->render('trt_reliquat/rech_romedi.html.twig', [
             'romedis' => $romedis,
-            'idTodo' => $idTodo
+            'idTodo' => $idTodo,
+            'produit_todo' => $produit_todo
+        ]);
+    }
+    /**
+     * @Route("/trt_reliquat/rech_romedi_par_label/{id}", name="rech_romedi_par_label", requirements={"id"="\d+"})
+     * @param Request $request
+     * @param EntityManagerInterface $em
+     * @param PaginatorInterface $paginator
+     * @return Response
+     */
+    public function rechRomediParLabel(Request $request, EntityManagerInterface $em, PaginatorInterface $paginator):Response
+    {
+        $idTodo = $request->attributes->get('id');
+        $repo = $em->getRepository(EmRomediV2::class);
+        $LabelRech=trim($request->query->get('rech_romedi_par_label')['Label']);
+        
+//        dd($request->query->get('rech_romedi_par_label'));
+        
+        $queryRomedis = $repo->findByProduitLabelQuery($LabelRech);
+        
+        // Pour affichage du nom du produit recherché dans la vue
+        $repo_todo = $em->getRepository(EmDenomMapTodoV2::class);
+        $produit_todo = $repo_todo->find($idTodo);
+        
+        $romedis = $paginator->paginate(
+                $queryRomedis,
+                $request->query->getInt('page', 1),
+                10
+                );
+
+        return $this->render('trt_reliquat/rech_romedi.html.twig', [
+            'romedis' => $romedis,
+            'idTodo' => $idTodo,
+            'produit_todo' => $produit_todo
         ]);
     }
     

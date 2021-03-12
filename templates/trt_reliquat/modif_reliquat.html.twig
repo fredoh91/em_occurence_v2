@@ -30,28 +30,32 @@
             </div>
 
         </div>
-            
+{#     Recherche par BN LABEL       #}
         <div class="container mt-4">            
             <div style="background:silver" class="jumbotron">
-{#                {{ form_start(formRechRomedi, {'action': path('liste_reliquat')~"/rech_romedi/"~form.vars.value.id, 'method': 'GET'}) }}#}
                 {{ form_start(formRechRomedi, {'action': path('rech_romedi',{id:form.vars.value.id}), 'method': 'GET'}) }}
-{#                {{ form_start(formRechRomedi, {'action': path('rech_romedi',{id:form.vars.value.id})}) }}#}
-                
-                
-{#                <form action="{{ path('liste_reliquat') }}/rech_romedi/{{ form.vars.value.id }}" method="get">  #}
-                    <div class="mx-auto" style="width: 400px;">
-                        <h3 class="display-5">Recherche d'un BN Label</h3>
+                    <div class="mx-auto" style="width: 700px;">
+                        <h3 class="display-6">Recherche d'un BN Label dans ROMEDI</h3>
                     </div>
-{#                    <div class="row justify-content-around">
-                        <div class="col-md-6"><input type="text" name="BN_Label_Rech" class="form-control"></div>
-                        <div class="col-md-4"><button type="submit" class="btn btn-primary active">Recherche du BN label dans ROMEDI</button></div>
-                    </div>
-                    <input type="hidden" value="{{ form.vars.value.id }}">
-                </form>#}
                 {{ form_row(formRechRomedi.idTodo, { 'value': form.vars.value.id }) }}
                 {{ form_row(formRechRomedi.BN_Label) }}
                 <button class="btn btn-primary float-right">Recherche du BN label</button>
                 {{ form_end(formRechRomedi) }}
+            </div>
+        </div>
+{#     Recherche par LABEL       #}            
+        <div class="container mt-4">            
+            <div style="background:silver" class="jumbotron">
+                {{ form_start(formRechRomediParLabel, {'action': path('rech_romedi_par_label',{id:form.vars.value.id}), 'method': 'GET'}) }}
+
+                    <div class="mx-auto" style="width: 700px;">
+                        <h3 class="display-6">Recherche d'un Label dans ROMEDI</h3>
+                    </div>
+
+                {{ form_row(formRechRomediParLabel.idTodo, { 'value': form.vars.value.id }) }}
+                {{ form_row(formRechRomediParLabel.Label) }}
+                <button class="btn btn-primary float-right">Recherche du label</button>
+                {{ form_end(formRechRomediParLabel) }}
             </div>
         </div>
     </div>

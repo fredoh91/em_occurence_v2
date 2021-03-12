@@ -35,6 +35,20 @@ class EmRomediV2Repository extends ServiceEntityRepository
     }
         
      /**
+      * @return Query
+      */
+
+    public function findByProduitLabelQuery($prod): Query
+    {
+        return $this->createQueryBuilder('r')
+            ->andWhere('r.Label LIKE :Label')
+            ->setParameter('Label', '%'.$prod.'%')
+            ->orderBy('r.Label', 'ASC')
+            ->getQuery()
+        ;
+    }
+        
+     /**
       * @return EmRomediV2[] Returns an array of EmRomediV2 objects
       */
 
