@@ -27,14 +27,17 @@
                 <a class="nav-link" href="{{ path('preparation_data') }}" onclick="return confirm('Voulez-vous lancer la mise à jour de la base ?');">Préparation des données</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="{{ path('liste_reliquat') }}">Traitement du reliquat</a>
+                <a class="nav-link" href="{{ path('trt_reliquat_txt_mining') }}">Traitement du reliquat par text mining</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="{{ path('trt_reliquat_txt_mining') }}">Traitement du reliquat par text mining - levenshtein()</a>
+                <a class="nav-link" href="{{ path('liste_reliquat') }}">Traitement du reliquat manuem</a>
               </li>
-              <li class="nav-item">
+{#              <li class="nav-item">
+                <a class="nav-link" href="{{ path('trt_reliquat_txt_mining_label') }}">Traitement du reliquat par text mining - levenshtein() sur Label</a>
+              </li>#}
+{#              <li class="nav-item">
                 <a class="nav-link" href="{{ path('trt_reliquat_txt_mining_similar_text') }}">Traitement du reliquat par text mining - similar_text()</a>
-              </li>
+              </li>#}
             </ul>
           </div>
         </nav>

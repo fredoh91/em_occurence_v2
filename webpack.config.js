@@ -28,6 +28,7 @@ Encore
      */
     .addEntry('app', './assets/js/app.js')
     .addEntry('modif_todo', './assets/js/modif_todo.js')
+    .addEntry('txt_mining_todo_list', './assets/js/txt_mining_todo_list.js')
     //.addEntry('page1', './assets/js/page1.js')
     //.addEntry('page2', './assets/js/page2.js')
 

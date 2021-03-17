@@ -35,6 +35,22 @@ class EmDenomMapTodoV2Repository extends ServiceEntityRepository
         ;
     }
     */
+     
+    
+     /**
+      * @return EmDenomMapTodoV2[] Returns an array of EmDenomMapTodoV2 objects
+      */
+    
+    public function findLimitTo(int $nb_record)
+    {
+        return $this->createQueryBuilder('e')
+            ->orderBy('e.id', 'ASC')
+            ->setMaxResults($nb_record)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+    
 
     /*
     public function findOneBySomeField($value): ?EmDenomMapTodoV2

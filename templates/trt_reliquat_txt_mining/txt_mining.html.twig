@@ -13,48 +13,85 @@
 {#{{ dump(mapping|length) }}    #}
     
     <div class="container-fluid">
-        <table class="table table-striped">
-            <thead>
-              <tr class="table-primary">
-                <th class="text-info">Denomination</th>
-                <th class="text-success">BNLabel</th>
-                <th class="text-success">Label_Romedi</th>
-{#                <th class="text-body">Levenshtein</th>#}
-                <th class="text-white">Levenshtein</th>
-                <th class="text-success">CIS_Romedi</th>
-                <th class="text-success">ATC7_Romedi</th>
-                <th class="text-info">id_denom_map_todo</th>
-                <th class="text-success">id_Romedi</th>
-              </tr>
-            </thead>
-            <tbody>
-                {% for todo in mapping %}
-                    {% for ele in todo %}
-                      <tr>
-                        <td class="text-info">{{ ele.Denomination }}</td>
-                        <td class="text-success">{{ ele.BNLabel }}</td>
-                        <td class="text-success">{{ ele.Label_Romedi }}</td>
-{#                        <td class="text-body">{{ ele.Levenshtein }}</td>#}
-                        <td class="text-black-50">{{ ele.Levenshtein }}</td>
-                        <td class="text-success">{{ ele.CIS_Romedi }}</td>
-                        <td class="text-success">{{ ele.ATC7_Romedi }}</td>
-                        <td class="text-info">{{ ele.id_denom_map_todo }}</td>
-                        <td class="text-success">{{ ele.id_Romedi }}</td>
-                      </tr>
+        <form name="modif_todo_liste_txt_mining" method="post" action="{{ path('trt_todo_list_reliquat_txt_mining') }}">
+            <table class="table table-striped">
+                <thead>
+                  <tr class="table-primary">
+                    <th class="text-info">Denomination cherché</th>
+                    <th class="text-success">BNLabel trouvé</th>
+                    <th class="text-success">Label trouvé</th>
+    {#                <th class="text-body">Levenshtein</th>#}
+                    <th class="text-white">Levenshtein</th>
+                    <th class="text-success">CIS trouvé</th>
+                    <th class="text-success">ATC7 trouvé</th>
+                    <th class="text-info">id_denom_map_todo</th>
+                    <th class="text-success">id_Romedi</th>
+                    <th class="text-success">id_denom_map</th>
+                    <th class="text-success">Type text mining</th>
+                    <th class="text-info">a faire</th>
+                  </tr>
+                </thead>
+                <tbody>
+                      
+                    {% for todo in mapping %}
+
+                        
+{#                        {% for truc in todo %}
+                        
+                        {{ dump(truc) }} 
+                        
+                        {% endfor %}#}
+                        
+                        {% for typerech in todo %}
+                        {% for ele in typerech %}
+                        
+{#                        {% for ele in todo %}                          #}
+
+{#{{ dump(ele) }}             #}
+
+                         <tr>
+                            <td class="text-info">{{ ele.Denomination }}</td> 
+                            <td class="text-success">{{ ele.BNLabel }}</td>
+                            <td class="text-success">{{ ele.Label }}</td>
+                            <td class="text-black-50">{{ ele.Levenshtein }}</td>
+                            <td class="text-success">{{ ele.CIS }}</td>
+                            <td class="text-success">{{ ele.ATC7 }}</td>
+                            <td class="text-info">{{ ele.id_denom_map_todo }}</td>
+                            <td class="text-success">{{ ele.id_Romedi }}</td>
+                            <td class="text-success">{{ ele.id_denom_map }}</td>
+                            <td class="text-info">{{ ele.TypeTxtMining }}</td>
+                            <td class="text-success"><input type="checkbox" id="chk_todo_{{ '%06d'|format(ele.id_denom_map_todo) }}_{{ '%06d'|format(ele.id_Romedi) }}_{{ '%06d'|format(ele.id_denom_map) }}_{{ '%06d'|format(ele.TypeTxtMining) }}" name="chk_todo_{{ '%06d'|format(ele.id_denom_map_todo) }}_{{ '%06d'|format(ele.id_Romedi) }}_{{ '%06d'|format(ele.id_denom_map) }}_{{ '%06d'|format(ele.TypeTxtMining) }}" value="{{ '%06d'|format(ele.id_denom_map_todo) }}_{{ '%06d'|format(ele.id_Romedi) }}_{{ '%06d'|format(ele.id_denom_map) }}_{{ '%06d'|format(ele.TypeTxtMining) }}"></td>
+                            
+                            
+                            
+{#                            <td class="text-success"><input type="radio" id="rdo_todo_{{ '%06d'|format(ele.id_denom_map_todo) }}_{{ '%06d'|format(ele.id_Romedi) }}_{{ '%06d'|format(ele.id_denom_map) }}" name="rdo_todo_{{ '%06d'|format(ele.id_denom_map_todo) }}" value="{{ '%06d'|format(ele.id_denom_map_todo) }}_{{ '%06d'|format(ele.id_Romedi) }}_{{ '%06d'|format(ele.id_denom_map) }}"></td>#}
+                            
+                            
+                            
+                        </tr>
+                            
+                            {% endfor %}
+
+                        {% endfor %}
+                        <tr class="table-primary">
+                          <td class="text-info">Denomination</td>
+                          <td class="text-success">BNLabel</td>
+                          <td class="text-success">Label</td>
+                          <td class="text-white">Levenshtein</td>
+                          <td class="text-success">CIS</td>
+                          <td class="text-success">ATC7</td>
+                          <td class="text-info">id_denom_map_todo</td>
+                          <td class="text-success">id_Romedi</td>
+                          <td class="text-info">id_denom_map</td>
+                          <td class="text-info">Type text mining</td>
+                          <td class="text-success">a faire</td>
+                        </tr>
                     {% endfor %}
-                    <tr class="table-primary">
-                      <td class="text-info">Denomination</td>
-                      <td class="text-success">BNLabel</td>
-                      <td class="text-success">Label_Romedi</td>
-{#                      <th class="text-body">Levenshtein</th>#}
-                        <th class="text-white">Levenshtein</th>
-                      <td class="text-success">CIS_Romedi</td>
-                      <td class="text-success">ATC7_Romedi</td>
-                      <td class="text-info">id_denom_map_todo</td>
-                      <td class="text-success">id_Romedi</td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+            <button type="submit" class="btn btn-primary">Envoyer</button>
+        </form>
     </div>
+    {#  javascript pour éviter que l'utilisateur ne coche plusieurs case a cocher pour une ligne de la table todo #}
+    {{ encore_entry_script_tags('txt_mining_todo_list') }}
 {% endblock %}
