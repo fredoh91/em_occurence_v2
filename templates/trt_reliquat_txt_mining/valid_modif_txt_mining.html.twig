@@ -1,0 +1,81 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}EM OCCURENCE V2 : Traitement du reliquat{% endblock %}
+
+{% block body %}
+
+    <div style="background:#9F9" class="container-fluid">
+        <form name="modif_todo_liste" method="post" action="{{ path('trt_reliquat_txt_mining_update') }}">  
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>
+                            <div class="row">
+                                <div class="col-8">Denomination</div>
+                                <div class="col-2">Nbr</div>
+                                <div class="col-2">à faire</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-8">Label</div>
+                                <div class="col-4">Categorie</div>                  
+                            </div>
+                            <div class="row">
+                                <div class="col-6">BN_Label</div>
+                                <div class="col-3">CIS</div>
+                                <div class="col-3">ATC7</div>
+                            </div>                                    
+                        </th>
+                    </tr>
+                </thead>      
+
+                <tbody>
+
+                    {% for todo in todos %}
+                        <tr>
+                            <td>
+                                <div class="row">
+                                    <div class="col-8"><input type="text" name="Denomination_{{todo.id }}" required="required" readonly="readonly" class="form-control" value="{{ todo.Denomination }}" />
+                                    </div>
+
+                                    <div class="col-2"><input type="text" name="Nbr_{{todo.id }}" required="required" readonly="readonly" class="form-control" value="{{ todo.Nbr }}" />
+                                    </div>
+                                    <div class="col-2"><input type="checkbox" name="id_{{todo.id }}" checked>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-8"><input type="text" name="Label_{{todo.id }}" class="form-control" value="{{ todo.Label }}" />
+                                    </div>
+
+                                    <div class="col-4">
+                                        <select name="Categorie_{{todo.id }}" class="form-control">
+                                            <option value="1">Médicaments</option>
+                                            <option value="2">Phytothérapie</option>
+                                            <option value="3">Homéopathie</option>
+                                            <option value="4">APSI (Allergènes préparés spécialement pour un individu)</option>
+                                            <option value="5">Dispositif médical</option>
+                                            <option value="6">Logiciels médicaux DM / DM-DIV</option>
+                                            <option value="7">Compléments alimentaires</option>
+                                            <option value="8">Huiles essentielles</option>
+                                            <option value="9">Produits vétérinaires </option>
+                                        </select>
+                                    </div>                  
+                                </div>
+                                <div class="row">
+                                    <div class="col-6"><input type="text" name="BN_Label_{{todo.id }}" required="required" class="form-control" value="{{ todo.BN_Label }}" />
+                                    </div>
+
+                                    <div class="col-3"><input type="text" name="CIS_{{todo.id }}" class="form-control" value="{{ todo.CIS }}" />
+                                    </div>
+
+                                    <div class="col-3"><input type="text" name="ATC7_{{todo.id }}" class="form-control" value="{{ todo.ATC7 }}" />
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <button type="submit" class="btn btn-primary btn-lg float-right">Envoyer</button>
+        </form> 
+    </div>
+{% endblock %}  

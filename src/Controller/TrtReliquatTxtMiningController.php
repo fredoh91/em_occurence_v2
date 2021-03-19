@@ -19,133 +19,33 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 class TrtReliquatTxtMiningController extends AbstractController
 {
     private $nb_propositions = 5;
-    private $nb_lignes_traitees = 5;
+    private $nb_lignes_traitees = 9;
 
     
     
      /**
-     * @Route("/trt_reliquat_txt_mining_label", name="trt_reliquat_txt_mining_label")
+     * @Route("/trt_reliquat_txt_mining_update", name="trt_reliquat_txt_mining_update")
      * @param Request $request
      * @param EntityManagerInterface $em
      * @return Response
      */
-//    public function listeReliquat_txt_mining_levenshtein_label(Request $request, EntityManagerInterface $em):Response
-//    {
-//        
-//        set_time_limit(360);
-//                
-//        $repo = $em->getRepository(EmDenomMapTodoV2::class);
-//
-//        $todos = $repo->findAll();
-//
-//        $repo_romedi = $em->getRepository(EmRomediV2::class);
-//        $romedis = $repo_romedi->findAll();
-//
-//        $mapping = array();
-//        foreach ($todos as $k1 => $todo) {
-//            $mapping_tempo = array();
-//            $denom_to_find = $todo->getdenomination();
-//            $id_denom_map_todo = $todo->getId();
-//            
-//            foreach($romedis  as $k2 => $romedi) {
-//                
-//                $BNLabel_Romedi =$romedi->getBNLabelRomedi();
-//                $id_Romedi =$romedi->getId();
-//                $Label_Romedi =$romedi->getLabel();
-//                $CIS_Romedi =$romedi->getCIS();
-//                $ATC7_Romedi =$romedi->getATC7();
-//                $lev = levenshtein($denom_to_find, substr($Label_Romedi, 0, 255));
-//
-//                $mapping_tempo[$k2]['Denomination']=$denom_to_find;
-//                $mapping_tempo[$k2]['BNLabel']=$BNLabel_Romedi;
-//                $mapping_tempo[$k2]['Levenshtein']=$lev;
-//                $mapping_tempo[$k2]['id_denom_map_todo']=$id_denom_map_todo;
-//                $mapping_tempo[$k2]['id_Romedi']=$id_Romedi;
-//                $mapping_tempo[$k2]['Label_Romedi']=$Label_Romedi;
-//                $mapping_tempo[$k2]['CIS_Romedi']=$CIS_Romedi;
-//                $mapping_tempo[$k2]['ATC7_Romedi']=$ATC7_Romedi;
-//                
-//            }
-//            
-//            // tri ascendant du tableau selon la distance de Levenshtein, les plus proches seront en premier        
-//            $columns = array_column($mapping_tempo, 'Levenshtein');
-//            array_multisort($columns, SORT_ASC, $mapping_tempo);            
-//            
-//            // On ne prend que les n premieres lignes (les plus proches en recherche flou)
-//            
-//            for ($i=0;$i<$this->nb_propositions;$i++){
-//                $mapping[$k1][$i] = $mapping_tempo[$i];
-//            }
-//           
-////            dump($k1);
-//            
-//            if ($k1>$this->nb_lignes_traitees) {
-//                break;
-//            }
-//            
-//        }
-//
-//        return $this->render('trt_reliquat_txt_mining/txt_mining.html.twig', [
-//            'mapping' => $mapping
-//        ]);
-//    }
-//        
-//    
-     /**
-     * @Route("/trt_reliquat_txt_mining_test", name="trt_reliquat_txt_mining_test")
-     * @param Request $request
-     * @param EntityManagerInterface $em
-     * @return Response
-     */
-    public function listeReliquat_txt_mining_test(Request $request, EntityManagerInterface $em):Response
+    public function listeReliquat_txt_mining_test(Request $request, EntityManagerInterface $em)
     {
         
         set_time_limit(360);
                 
         $repo = $em->getRepository(EmDenomMapTodoV2::class);
 
-//        $todos = $repo->findAll();
-        $todos = $repo->findLimitTo(5);
-        
-        
-//        $repo = $em->getRepository(EmDenomMapTodoV2::class);
-        $reliquat = $repo->find(1);
-        $form = $this->createForm(ModifTodoListeType::class,$reliquat);
-        
-//        if (isset($_POST['Denomination_1'])){
-//        if (!empty($_POST['Denomination_1'])){
-//            dd($_POST['Denomination_1']);
-//            
-//        }
-        
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            dd($form);
-        }
-        
-        
-//                $form = $this->createFormBuilder($task)
-//            ->add('task', TextType::class)
-//            ->add('dueDate', DateType::class)
-//            ->add('save', SubmitType::class, ['label' => 'Create Task'])
-//            ->getForm();
-        
-//        foreach($todos as $k => $v){
-//
-//            $form_tab[]=$this->createForm(ModifTodoListeType::class,$v)->createView();
-//
-//        }
 
-//        return $this->render('trt_reliquat_txt_mining/rech_romedi_test_createForm.html.twig', [
-//            'form' => $form->createView(),
-//            'form_tab' => $form_tab
-//        ]);
+//        $todos = $repo->findLimitTo(5);
 
-        return $this->render('trt_reliquat_txt_mining/rech_romedi_test.html.twig', [
-            'todos' => $todos
-        ]);
+
+
+        // redirection vers la route liste_reliquat , la liste des EM à mapper
+        return $this->redirectToRoute('trt_reliquat_txt_mining');
     }
-    
+
+
      /**
      * @Route("/trt_todo_list_reliquat_txt_mining", name="trt_todo_list_reliquat_txt_mining")
      * @param Request $request
@@ -155,6 +55,62 @@ class TrtReliquatTxtMiningController extends AbstractController
     public function trt_todo_list_reliquat_txt_mining(Request $request, EntityManagerInterface $em):Response
     {
         
+        if (!empty($_POST)){
+//            dd($_POST);
+            $repo_todo = $em->getRepository(EmDenomMapTodoV2::class);
+            $repo_map = $em->getRepository(EmDenomMapV2::class);
+            $repo_romedi = $em->getRepository(EmRomediV2::class);
+                
+            $todos = array();
+            $i=0;
+            foreach($_POST as $post){
+                
+                $id_denom_map_todo = intval (substr($post,0,6));
+                $id_Romedi = intval (substr($post,7,6));
+                $id_denom_map = intval (substr($post,14,6));
+                $TypeTxtMining = substr($post,21,1);
+//                $lev = Levenshtein;
+                
+                $denom_map_todo = $repo_todo->find($id_denom_map_todo);
+                
+                if ($id_Romedi !== 0) {
+                    $romedis = $repo_romedi->find($id_Romedi);
+//                    dump($romedis);
+                    $todos[$i]['id']= $id_denom_map_todo;
+                    $todos[$i]['Denomination']= $denom_map_todo->getDenomination();
+                    $todos[$i]['Nbr']= $denom_map_todo->getNbr();
+                    $todos[$i]['CIS']= $romedis->getCIS();
+                    $todos[$i]['Label']= $romedis->getLabel();
+                    $todos[$i]['BN_Label']= $romedis->getBNLabelRomedi();
+                    $todos[$i]['ATC7']= $romedis->getATC7();
+                    $i++;
+                } else if ($id_denom_map !== 0) {
+                    $denom_maps = $repo_map->find($id_denom_map);
+//                    dump($denom_maps);
+                    $todos[$i]['id']= $id_denom_map_todo;
+                    $todos[$i]['Denomination']= $denom_map_todo->getDenomination();
+                    $todos[$i]['Nbr']= $denom_map_todo->getNbr();
+                    $todos[$i]['CIS']= $denom_maps->getCIS();
+                    $todos[$i]['Label']= $denom_maps->getLabel();
+                    $todos[$i]['BN_Label']= $denom_maps->getBNLabel();
+                    $todos[$i]['ATC7']= $denom_maps->getATC7();
+                    $i++;
+                }
+            } 
+
+        return $this->render('trt_reliquat_txt_mining/valid_modif_txt_mining.html.twig', [
+            'todos' => $todos
+        ]);          
+        } else {
+
+            
+//            // Message flash pour avertir l'utilisateur
+//            $this->addFlash('alert', 'Merci de selectionner une ou plusieurs lignes à mapper');
+
+            // redirection vers la route liste_reliquat , la liste des EM à mapper
+            return $this->redirectToRoute('trt_reliquat_txt_mining');
+        }
+
     }
     
      /**
@@ -189,7 +145,7 @@ class TrtReliquatTxtMiningController extends AbstractController
             $id_denom_map_todo = $todo->getId();
 //            Recherche dans ROMEDI
             $k2=0;
-//            foreach($romedis  as $k2 => $romedi) {
+
             foreach($romedis  as $romedi) {
                  $BNLabel_Romedi =$romedi->getBNLabelRomedi();               
                 
@@ -225,7 +181,6 @@ class TrtReliquatTxtMiningController extends AbstractController
                     $mapping_tempo_Rombn_label[$k2]['CIS']=$CIS_Romedi;
                     $mapping_tempo_Rombn_label[$k2]['ATC7']=$ATC7_Romedi;
                     $mapping_tempo_Rombn_label[$k2]['TypeTxtMining']='3_Rom_BNl';
-
                 }
             }
             
@@ -236,8 +191,6 @@ class TrtReliquatTxtMiningController extends AbstractController
             // tri ascendant du tableau selon la distance de Levenshtein, les plus proches seront en premier        
             $columns = array_column($mapping_tempo_Rombn_label, 'Levenshtein');
             array_multisort($columns, SORT_ASC, $mapping_tempo_Rombn_label);            
-
-
 
 //            Recherche dans em_denom_map
             $k2=0;
@@ -277,7 +230,6 @@ class TrtReliquatTxtMiningController extends AbstractController
                         $mapping_tempo_Mapbn_label[$k2]['CIS']=$CIS_Romedi;
                         $mapping_tempo_Mapbn_label[$k2]['ATC7']=$ATC7_Romedi;
                         $mapping_tempo_Mapbn_label[$k2]['TypeTxtMining']='4_Map_BNl';
-
                     }
                 }
             }
@@ -292,9 +244,8 @@ class TrtReliquatTxtMiningController extends AbstractController
             
             // Construction du tableau avec les différents text mining
             // On ne prend que les n premieres lignes (les plus proches en recherche flou)
-            
 
-            
+            // Type de recherche : 1_Rom_Lab
             if(count($mapping_tempo_Romlabel)!== 0 or count($mapping_tempo_Maplabel)!== 0 or count($mapping_tempo_Rombn_label)!== 0 or count($mapping_tempo_Mapbn_label)!== 0) {
                 if(count($mapping_tempo_Romlabel)!== 0) {
                     if (count($mapping_tempo_Romlabel)<$this->nb_propositions){
@@ -310,42 +261,67 @@ class TrtReliquatTxtMiningController extends AbstractController
                     }
                 }            
 
+            // Type de recherche : 2_Map_Lab
                 if(count($mapping_tempo_Maplabel)!== 0) {
                     if (count($mapping_tempo_Maplabel)<$this->nb_propositions){
                         $ctp = count($mapping_tempo_Maplabel);
                     } else {
                         $ctp = $this->nb_propositions;
                     }
+                    $j=0;
                     for ($i=0;$i<$ctp;$i++){
-
-                        $mapping[$k1][2][$i] = $mapping_tempo_Maplabel[$i];
+                        if (!$this->DejaDansTabMapping($mapping, 
+                                $mapping_tempo_Maplabel[$i]['id_denom_map_todo'], 
+                                $mapping_tempo_Maplabel[$i]['id_Romedi'], 
+                                $mapping_tempo_Maplabel[$i]['id_denom_map'])){
+                            $mapping[$k1][2][$j] = $mapping_tempo_Maplabel[$i];
+                            $j++;
 //                        $mapping[$k1][2]['TypeTxtMining'] = '2_Map_Lab';
+                        }
+
                     }
                 }
 
+            // Type de recherche : 3_Rom_BNl
                 if(count($mapping_tempo_Rombn_label)!== 0) {
                     if (count($mapping_tempo_Rombn_label)<$this->nb_propositions){
                         $ctp = count($mapping_tempo_Rombn_label);
                     } else {
                         $ctp = $this->nb_propositions;
                     }
+                    $j=0;
                     for ($i=0;$i<$ctp;$i++){
 
-                        $mapping[$k1][3][$i] = $mapping_tempo_Rombn_label[$i];
-//                        $mapping[$k1][3]['TypeTxtMining'] = '3_Rom_BNl';
-                    }
-                }            
+                         if (!$this->DejaDansTabMapping($mapping, 
+                                $mapping_tempo_Rombn_label[$i]['id_denom_map_todo'], 
+                                $mapping_tempo_Rombn_label[$i]['id_Romedi'], 
+                                $mapping_tempo_Rombn_label[$i]['id_denom_map'])){
 
+                            $mapping[$k1][3][$j] = $mapping_tempo_Rombn_label[$i];
+                            $j++;
+//                        $mapping[$k1][3]['TypeTxtMining'] = '3_Rom_BNl';
+                        }
+                    }
+                }
+
+            // Type de recherche : 4_Map_BNl
                 if(count($mapping_tempo_Mapbn_label)!== 0) {
                     if (count($mapping_tempo_Mapbn_label)<$this->nb_propositions){
                         $ctp = count($mapping_tempo_Mapbn_label);
                     } else {
                         $ctp = $this->nb_propositions;
                     }
+                    $j=0;
                     for ($i=0;$i<$ctp;$i++){
+                        if (!$this->DejaDansTabMapping($mapping, 
+                                $mapping_tempo_Mapbn_label[$i]['id_denom_map_todo'], 
+                                $mapping_tempo_Mapbn_label[$i]['id_Romedi'], 
+                                $mapping_tempo_Mapbn_label[$i]['id_denom_map'])){
 
-                        $mapping[$k1][4][$i] = $mapping_tempo_Mapbn_label[$i];
+                            $mapping[$k1][4][$j] = $mapping_tempo_Mapbn_label[$i];
 //                        $mapping[$k1][4]['TypeTxtMining'] = '4_Map_BNl';
+                            $j++;
+                        }
                     }
                 }
                 $k1++;
@@ -360,140 +336,6 @@ class TrtReliquatTxtMiningController extends AbstractController
             'mapping' => $mapping
         ]);
     }    
-     /**
-     * @Route("/trt_reliquat_txt_mining_v1", name="trt_reliquat_txt_mining_v1")
-     * @param Request $request
-     * @param EntityManagerInterface $em
-     * @return Response
-     */
-//    public function listeReliquat_txt_mining_levenshtein_v1(Request $request, EntityManagerInterface $em):Response
-//    {
-//        
-//        set_time_limit(360);
-//                
-//        $repo = $em->getRepository(EmDenomMapTodoV2::class);
-//
-//        $todos = $repo->findAll();
-//
-//        $repo_romedi = $em->getRepository(EmRomediV2::class);
-//        $romedis = $repo_romedi->findAll();
-//
-//        $mapping = array();
-//        foreach ($todos as $k1 => $todo) {
-//            $mapping_tempo = array();
-//            $denom_to_find = $todo->getdenomination();
-//            $id_denom_map_todo = $todo->getId();
-//            
-//            foreach($romedis  as $k2 => $romedi) {
-//                
-//                $BNLabel_Romedi =$romedi->getBNLabelRomedi();
-//                $id_Romedi =$romedi->getId();
-//                $Label_Romedi =$romedi->getLabel();
-//                $CIS_Romedi =$romedi->getCIS();
-//                $ATC7_Romedi =$romedi->getATC7();
-//                $lev = levenshtein($denom_to_find, $BNLabel_Romedi);
-//
-//                $mapping_tempo[$k2]['Denomination']=$denom_to_find;
-//                $mapping_tempo[$k2]['BNLabel']=$BNLabel_Romedi;
-//                $mapping_tempo[$k2]['Levenshtein']=$lev;
-//                $mapping_tempo[$k2]['id_denom_map_todo']=$id_denom_map_todo;
-//                $mapping_tempo[$k2]['id_Romedi']=$id_Romedi;
-//                $mapping_tempo[$k2]['Label_Romedi']=$Label_Romedi;
-//                $mapping_tempo[$k2]['CIS_Romedi']=$CIS_Romedi;
-//                $mapping_tempo[$k2]['ATC7_Romedi']=$ATC7_Romedi;
-//                
-//            }
-//            
-//            // tri ascendant du tableau selon la distance de Levenshtein, les plus proches seront en premier        
-//            $columns = array_column($mapping_tempo, 'Levenshtein');
-//            array_multisort($columns, SORT_ASC, $mapping_tempo);            
-//            
-//            // On ne prend que les n premieres lignes (les plus proches en recherche flou)
-//            
-//            for ($i=0;$i<$this->nb_propositions;$i++){
-//                $mapping[$k1][$i] = $mapping_tempo[$i];
-//            }
-//           
-////            dump($k1);
-//            
-//            if ($k1>$this->nb_lignes_traitees) {
-//                break;
-//            }
-//            
-//        }
-//
-//        return $this->render('trt_reliquat_txt_mining/txt_mining.html.twig', [
-//            'mapping' => $mapping
-//        ]);
-//    }
-    
-     /**
-     * @Route("/trt_reliquat_txt_mining_similar_text", name="trt_reliquat_txt_mining_similar_text")
-     * @param Request $request
-     * @param EntityManagerInterface $em
-     * @return Response
-     */
-//    public function listeReliquat_txt_mining_similar_text(Request $request, EntityManagerInterface $em):Response
-//    {
-//        
-//        set_time_limit(360);
-//                
-//        $repo = $em->getRepository(EmDenomMapTodoV2::class);
-//
-//        $todos = $repo->findAll();
-//
-//        $repo_romedi = $em->getRepository(EmRomediV2::class);
-//        $romedis = $repo_romedi->findAll();
-//
-//        $mapping = array();
-//        foreach ($todos as $k1 => $todo) {
-//            $mapping_tempo = array();
-//            $denom_to_find = $todo->getdenomination();
-//            $id_denom_map_todo = $todo->getId();
-//            
-//            foreach($romedis  as $k2 => $romedi) {
-//                
-//                $BNLabel_Romedi =$romedi->getBNLabelRomedi();
-//                $id_Romedi =$romedi->getId();
-//                $Label_Romedi =$romedi->getLabel();
-//                $CIS_Romedi =$romedi->getCIS();
-//                $ATC7_Romedi =$romedi->getATC7();
-//                $lev = similar_text($denom_to_find, $BNLabel_Romedi);
-//
-//                $mapping_tempo[$k2]['Denomination']=$denom_to_find;
-//                $mapping_tempo[$k2]['BNLabel']=$BNLabel_Romedi;
-//                $mapping_tempo[$k2]['Levenshtein']=$lev;
-//                $mapping_tempo[$k2]['id_denom_map_todo']=$id_denom_map_todo;
-//                $mapping_tempo[$k2]['id_Romedi']=$id_Romedi;
-//                $mapping_tempo[$k2]['Label_Romedi']=$Label_Romedi;
-//                $mapping_tempo[$k2]['CIS_Romedi']=$CIS_Romedi;
-//                $mapping_tempo[$k2]['ATC7_Romedi']=$ATC7_Romedi;
-//                
-//            }
-//            
-//            // tri ascendant du tableau selon la distance de Levenshtein, les plus proches seront en premier        
-//            $columns = array_column($mapping_tempo, 'Levenshtein');
-//            array_multisort($columns, SORT_DESC, $mapping_tempo);            
-//            
-//            // On ne prend que les n premieres lignes (les plus proches en recherche flou)
-//            
-//            for ($i=0;$i<$this->nb_propositions;$i++){
-//                $mapping[$k1][$i] = $mapping_tempo[$i];
-//            }
-//           
-////            dump($k1);
-//            
-//            if ($k1>$this->nb_lignes_traitees) {
-//                break;
-//            }
-//            
-//        }
-//
-//        return $this->render('trt_reliquat_txt_mining/txt_mining.html.twig', [
-//            'mapping' => $mapping
-//        ]);
-//    }
-
     /**
      *  @Route("/trt_reliquat/rech_romedi/{id}/attrib_romedi_test/{idRomedi}", name="attrib_romedi_test", requirements={
      * "id"="\d+",
@@ -520,5 +362,34 @@ dd($id);
 //        
 //        // redirection vers la route rech_romedi avec id $id 
 //        return $this->redirectToRoute('modif_reliquat', ['id' => $id]);
+    }
+    
+    /**
+     * 
+     * @param array $mapping
+     * @param Integer $id_denom_map_todo
+     * @param Integer $id_Romedi
+     * @param Integer $id_denom_map
+     * @return Boolean
+     */
+    private function DejaDansTabMapping(Array $mapping, Int $id_denom_map_todo, ?Int $id_Romedi, ?Int $id_denom_map):Bool {
+        foreach($mapping as $mappin) {
+             foreach($mappin as $mappi) {
+                foreach($mappi as $mapp) {
+                   if($id_Romedi === null ) {
+                        if ($mapp['id_denom_map_todo'] === $id_denom_map_todo AND $mapp['id_denom_map'] === $id_denom_map){
+                            return true;
+                        }
+                    }
+                    if($id_denom_map === null ) {
+                        if ($mapp['id_denom_map_todo'] === $id_denom_map_todo AND $mapp['id_Romedi'] === $id_Romedi){
+                            return true;
+                        }
+                    }
+                }                        
+            }
+        }
+
+        return false;
     }
 }

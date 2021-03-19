@@ -7,13 +7,6 @@ for(var i = 0; i < chkbx.length; i++) {
 function clickChkbx(event) {
     var checkedCount = 0;
     var idLastChecked = event.target.id;
-//    for(var i = 0; i < chkbx.length; i++) {
-//      if(chkbx[i].checked) {
-////        checkedCount++;
-////        console.log (chkbx[i].value);
-//      }
-//    }
-
     var chkbxGrp = document.querySelectorAll('[id^="chk_todo_' + idLastChecked.substr(9, 6) + '"]');
     
 //      On compte le nombre de cases cochées pour  une seule ligne todo
@@ -31,5 +24,4 @@ function clickChkbx(event) {
 //    On coche la derniere case chochée pour la même ligne todo
         document.getElementById(idLastChecked).checked = true;
     };
-
 }
