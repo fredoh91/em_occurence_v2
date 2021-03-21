@@ -11,9 +11,10 @@
                     <tr>
                         <th>
                             <div class="row">
-                                <div class="col-8">Denomination</div>
-                                <div class="col-2">Nbr</div>
-                                <div class="col-2">à faire</div>
+                                <div class="col-9">Denomination</div>
+                                <div class="col-1">Nbr</div>
+                                <div class="col-1">Levenshtein</div>
+                                <div class="col-1">à faire</div>
                             </div>
                             <div class="row">
                                 <div class="col-8">Label</div>
@@ -34,12 +35,13 @@
                         <tr>
                             <td>
                                 <div class="row">
-                                    <div class="col-8"><input type="text" name="Denomination_{{todo.id }}" required="required" readonly="readonly" class="form-control" value="{{ todo.Denomination }}" />
+                                    <div class="col-9"><input type="text" name="Denomination_{{todo.id }}" readonly="readonly" class="form-control" value="{{ todo.Denomination }}" />
                                     </div>
-
-                                    <div class="col-2"><input type="text" name="Nbr_{{todo.id }}" required="required" readonly="readonly" class="form-control" value="{{ todo.Nbr }}" />
+                                    <div class="col-1"><input type="text" name="Nbr_{{todo.id }}" readonly="readonly" class="form-control" value="{{ todo.Nbr }}" />
                                     </div>
-                                    <div class="col-2"><input type="checkbox" name="id_{{todo.id }}" checked>
+                                    <div class="col-1"><input type="text" name="Lev_{{todo.id }}" readonly="readonly" class="form-control" value="{{ todo.Levenshtein }}" />
+                                    </div>
+                                    <div class="col-1"><input type="checkbox" name="id_{{todo.id }}" checked>
                                     </div>
                                 </div>
                                 <div class="row">

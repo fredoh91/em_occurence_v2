@@ -35,6 +35,8 @@
                 <tbody>
 
                     {% for todo in mapping %}             {# boucle sur les lignes denominations todo #}
+                        
+                        {% set AllReadyChecked = false %}    
                         {% for typerech in todo %}        {# boucle sur les types de recherches (1_Rom_Lab, 2_Map_Lab, 3_Rom_BNl et 4_Map_BNl) #}
                             {% for ele in typerech %}     {# boucle sur les differentes correspondances trouvées #}
 
@@ -55,16 +57,17 @@
                                               name="chk_todo_{{ '%06d'|format(ele.id_denom_map_todo) }}_{{ '%06d'|format(ele.id_Romedi) }}_{{ '%06d'|format(ele.id_denom_map) }}_{{ '%06d'|format(ele.TypeTxtMining) }}" 
                                               value="{{ '%06d'|format(ele.id_denom_map_todo) }}_{{ '%06d'|format(ele.id_Romedi) }}_{{ '%06d'|format(ele.id_denom_map) }}_{{ '%06d'|format(ele.TypeTxtMining) }}">#}
                                        <input type="checkbox" 
-                                              id="chk_todo_{{ '%06d'|format(ele.id_denom_map_todo) }}_{{ '%06d'|format(ele.id_Romedi) }}_{{ '%06d'|format(ele.id_denom_map) }}_{{ ele.TypeTxtMining|slice(0,1) }}" 
-                                              name="chk_todo_{{ '%06d'|format(ele.id_denom_map_todo) }}_{{ '%06d'|format(ele.id_Romedi) }}_{{ '%06d'|format(ele.id_denom_map) }}_{{ ele.TypeTxtMining|slice(0,1) }}" 
-                                              value="{{ '%06d'|format(ele.id_denom_map_todo) }}_{{ '%06d'|format(ele.id_Romedi) }}_{{ '%06d'|format(ele.id_denom_map) }}_{{ ele.TypeTxtMining|slice(0,1) }}">
+                                              id="chk_todo_{{ '%06d'|format(ele.id_denom_map_todo) }}_{{ '%06d'|format(ele.id_Romedi) }}_{{ '%06d'|format(ele.id_denom_map) }}_{{ '%06d'|format(ele.Levenshtein) }}_{{ ele.TypeTxtMining|slice(0,1) }}" 
+                                              name="chk_todo_{{ '%06d'|format(ele.id_denom_map_todo) }}_{{ '%06d'|format(ele.id_Romedi) }}_{{ '%06d'|format(ele.id_denom_map) }}_{{ '%06d'|format(ele.Levenshtein) }}_{{ ele.TypeTxtMining|slice(0,1) }}" 
+                                              value="{{ '%06d'|format(ele.id_denom_map_todo) }}_{{ '%06d'|format(ele.id_Romedi) }}_{{ '%06d'|format(ele.id_denom_map) }}_{{ '%06d'|format(ele.Levenshtein) }}_{{ ele.TypeTxtMining|slice(0,1) }}"
+                                        {% if AllReadyChecked == false and ele.Levenshtein == 0 and (ele.TypeTxtMining == '1_Rom_Lab' or ele.TypeTxtMining == '2_Map_Lab') %}
+                                              checked
+                                            {% set AllReadyChecked = true %}
+                                        {% endif %}
+                                       >
                                    </td>
 
                                </tr>
-{#                            <input type="hidden" 
-                                    id="lev_{{ '%06d'|format(ele.id_denom_map_todo) }}_{{ '%06d'|format(ele.id_Romedi) }}_{{ '%06d'|format(ele.id_denom_map) }}_{{ ele.TypeTxtMining|slice(0,1) }}" 
-                                    name="lev_{{ '%06d'|format(ele.id_denom_map_todo) }}_{{ '%06d'|format(ele.id_Romedi) }}_{{ '%06d'|format(ele.id_denom_map) }}_{{ ele.TypeTxtMining|slice(0,1) }}" 
-                                    value="{{ ele.Levenshtein }}">#}
 
                             {% endfor %}
                         {% endfor %}

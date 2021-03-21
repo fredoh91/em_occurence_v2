@@ -19,7 +19,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 class TrtReliquatTxtMiningController extends AbstractController
 {
     private $nb_propositions = 5;
-    private $nb_lignes_traitees = 9;
+    private $nb_lignes_traitees = 10;
 
     
     
@@ -29,9 +29,11 @@ class TrtReliquatTxtMiningController extends AbstractController
      * @param EntityManagerInterface $em
      * @return Response
      */
-    public function listeReliquat_txt_mining_test(Request $request, EntityManagerInterface $em)
+    public function listeReliquat_txt_mining_update(Request $request, EntityManagerInterface $em)
     {
-        
+        if (!empty($_POST)){
+            dd($_POST);    
+        }
         set_time_limit(360);
                 
         $repo = $em->getRepository(EmDenomMapTodoV2::class);
@@ -68,7 +70,8 @@ class TrtReliquatTxtMiningController extends AbstractController
                 $id_denom_map_todo = intval (substr($post,0,6));
                 $id_Romedi = intval (substr($post,7,6));
                 $id_denom_map = intval (substr($post,14,6));
-                $TypeTxtMining = substr($post,21,1);
+                $lev = intval (substr($post,21,6));
+                $TypeTxtMining = substr($post,28,1);
 //                $lev = Levenshtein;
                 
                 $denom_map_todo = $repo_todo->find($id_denom_map_todo);
@@ -83,6 +86,7 @@ class TrtReliquatTxtMiningController extends AbstractController
                     $todos[$i]['Label']= $romedis->getLabel();
                     $todos[$i]['BN_Label']= $romedis->getBNLabelRomedi();
                     $todos[$i]['ATC7']= $romedis->getATC7();
+                    $todos[$i]['Levenshtein']= $lev;
                     $i++;
                 } else if ($id_denom_map !== 0) {
                     $denom_maps = $repo_map->find($id_denom_map);
@@ -94,6 +98,7 @@ class TrtReliquatTxtMiningController extends AbstractController
                     $todos[$i]['Label']= $denom_maps->getLabel();
                     $todos[$i]['BN_Label']= $denom_maps->getBNLabel();
                     $todos[$i]['ATC7']= $denom_maps->getATC7();
+                    $todos[$i]['Levenshtein']= $lev;
                     $i++;
                 }
             } 

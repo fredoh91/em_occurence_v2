@@ -1,0 +1,42 @@
+[33m80ada39[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m text mining : levenshtein, javascript sur case a cocher
+[33m60a069d[m ajout de la recherche dans Romedi par label
+[33mae828cb[m modif du titre dans les differents templates
+[33mf210eef[m correction bug, si pas de donnee dans la table em_date_preparation_data_v2 2eme partie
+[33m91e736a[m correction bug, si pas de donnee dans la table em_date_preparation_data_v2 2eme partie
+[33m66b1fa3[m correction bug, si pas de donnee dans la table em_date_preparation_data_v2
+[33mf350257[m enregistrement du CQ=1 dans la table em_denom_map_v2
+[33m0d56b53[m ajout d une alerte au lancement le maj de la base
+[33m92c9aa3[m[33m ([m[1;32mMenageEntity[m[33m)[m suppresion des entity obsoletes
+[33m215e2e1[m modif de la config pour connexion a MsAccess, tous les fichiers dans /src/ sont maintenant des classes
+[33m3b9d90e[m affichage de la grille sur la page rech medicaments
+[33mf8282d8[m preparation des donnees : fonctionnelle
+[33m1d0f56c[m remplissage des tables em_occ_produit_v2 et em_occ_deno_v2
+[33mb4ab486[m tentative de remplir la table em_occ_produit_v2
+[33m53ec407[m[33m ([m[1;32mModifEntityGrille[m[33m)[m debut refactoring preparation data
+[33m1504f1d[m chargement de la table em_denom_v2 avec des donnees Access base EM
+[33mc340f16[m modif des anciennes migrations, tous est carre maintenant
+[33m130394e[m suppression des fichiers mdp
+[33me61cbca[m[33m ([m[1;32mtest_webpack_encore_js_import[m[33m)[m bootswatch en npm
+[33m6cc9d1f[m[33m ([m[1;31morigin/test_webpack_encore_js_import[m[33m)[m test import bootstrap
+[33mfb129da[m[33m ([m[1;31morigin/test_webpack_encore[m[33m, [m[1;32mtest_webpack_encore[m[33m)[m test config webpack
+[33md24011d[m modif git ignore et modif_todo.js
+[33m6f4058c[m mise en place de la gestion du select categorie avec webpack/encore
+[33m2832a07[m premieres etapes de webpack/encore
+[33m63e5666[m debut de mise en place du menu deroulant de categorie d'EM
+[33m6063eb9[m mapping manuel OK
+[33m4c0b339[m test de la congif de twig pour knpPaginator
+[33m2b6bd28[m mise en place de la pagination
+[33m15dd812[m debut de mise en place de recup manuelle des donnees dans ROMEDI
+[33m8ef1f06[m[33m ([m[1;32mtest_form_em_occ[m[33m)[m suppression du required sur le formulaire modif reliquat
+[33m3868c82[m liste de la table map_todo et formulaire de modif d'un enregistrement
+[33m8d5f1d1[m gestion base access et creation de l'entity EmDenom
+[33m848d4d1[m mise en page de la page de recherche de medicaments
+[33m05d014c[m jointure OK entre produits et grille
+[33m1278489[m ajout de l'entity/table GrilleOccEm
+[33mb7d0aeb[m formulaire de recherche de medoc et affichage sous forme de tableau bootstrap
+[33m68f4d24[m creation d'une nouvelle table em_occ_produit_v2 avec entity et repository
+[33m89d0489[m creation des controllers et fichiers Twig pour recherche medicament et preparation data
+[33mcbdf076[m ajout des fichiers twig
+[33m1ad7dc3[m ajout des fichiers repo, entity et controller pour DatePrepData
+[33m89fb4ec[m retro-generation des Entities
+[33m9957c7a[m premier commit
