@@ -29,6 +29,9 @@ Encore
     .addEntry('app', './assets/js/app.js')
     .addEntry('modif_todo', './assets/js/modif_todo.js')
     .addEntry('txt_mining_todo_list', './assets/js/txt_mining_todo_list.js')
+    
+    .addStyleEntry('txt_mining', './assets/css/txt_mining.css')
+    
     //.addEntry('page1', './assets/js/page1.js')
     //.addEntry('page2', './assets/js/page2.js')
 

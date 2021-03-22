@@ -7,7 +7,6 @@ font-family:monospace;
 font-size:80%;
 border:1px dotted #6495ed;
 padding:5px;
-/*background-color:#EFF6FF;*/
 }
 .TabGrilleTd {
 background-color: #FFFFFF;
@@ -18,51 +17,5 @@ padding:5px;
 text-align:left;
 border:3px solid #6495ed;
 border-collapse:collapse;
-/*width:90%;*/
 margin:auto;
 }
-/*
-table#t0 {
-border:3px solid #6495ed;
-border-collapse:collapse;
-width:90%;
-margin:auto;
-}
-
-table#t1 {
-border:1px solid #FFFFFF;
-border-collapse:collapse;
-width:90%;
-margin:auto;
-}
-
-thead, tfoot {
-background-color:#D0E3FA;
-border:1px solid #6495ed;
-}
-tbody {
-background-color:#FFFFFF;
-border:1px solid #6495ed;
-}
-th {
-font-family:monospace;
-border:1px dotted #6495ed;
-padding:5px;
-background-color:#EFF6FF;
-width:25%;
-}
-td#t0 {
-font-family:sans-serif;
-font-size:60%;
-border:1px solid #6495ed;
-padding:5px;
-text-align:left;
-}
-td#t1 {
-font-family:sans-serif;
-font-size:60%;
-border:1px solid #FFFFFF;
-padding:5px;
-text-align:left;
-}*/
-

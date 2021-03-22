@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\EmDenomMapTodoV2;
 use App\Entity\EmDenomMapV2;
 use App\Entity\EmRomediV2;
+use App\Entity\EmDenomMapCategoV2;
 use App\Form\ModifTodoListeType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -19,10 +20,8 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 class TrtReliquatTxtMiningController extends AbstractController
 {
     private $nb_propositions = 5;
-    private $nb_lignes_traitees = 10;
+    private $nb_lignes_traitees = 30;
 
-    
-    
      /**
      * @Route("/trt_reliquat_txt_mining_update", name="trt_reliquat_txt_mining_update")
      * @param Request $request
@@ -32,16 +31,42 @@ class TrtReliquatTxtMiningController extends AbstractController
     public function listeReliquat_txt_mining_update(Request $request, EntityManagerInterface $em)
     {
         if (!empty($_POST)){
-            dd($_POST);    
+            set_time_limit(360);
+            foreach( $_POST as $k => $v ) {
+                  if (strpos($k, 'Denomination_') !== FALSE) {
+//                        $id_denom_map_todo = intval (substr ($k , 13));
+                      $id_denom_map_todo = substr ($k , 13);
+
+                      if (isset($_POST['id_'.$id_denom_map_todo])) {
+
+                        $repo = $em->getRepository(EmDenomMapTodoV2::class);
+                        $reliquat = $repo->find(intval ($id_denom_map_todo));
+
+                        // Recherche de la catégorie
+                        $id_catego = intval ($_POST['Categorie_'.$id_denom_map_todo]);
+                        $repo_catego = $em->getRepository(EmDenomMapCategoV2::class);
+                        $catego = $repo_catego->find($id_catego);
+
+                        // Ajout d'une ligne dans EmDenomMapV2
+                        $denomMap=new EmDenomMapV2;
+                        $denomMap->setDenomination($_POST['Denomination_'.$id_denom_map_todo]);
+                        $denomMap->setBNLabel($_POST['BN_Label_'.$id_denom_map_todo]);
+                        $denomMap->setLabel($_POST['Label_'.$id_denom_map_todo]);
+                        $denomMap->setCIS($_POST['CIS_'.$id_denom_map_todo]);
+                        $denomMap->setATC7($_POST['ATC7_'.$id_denom_map_todo]);
+                        $denomMap->setCategorie($catego);
+                        $denomMap->setCQ("1");
+
+                        $em->persist($denomMap);
+
+                        // Effacement de la ligne dans EmDenomMapTodoV2
+                        $em->remove($reliquat);
+
+                        $em->flush();                            
+                    }
+                }
+            }
         }
-        set_time_limit(360);
-                
-        $repo = $em->getRepository(EmDenomMapTodoV2::class);
-
-
-//        $todos = $repo->findLimitTo(5);
-
-
 
         // redirection vers la route liste_reliquat , la liste des EM à mapper
         return $this->redirectToRoute('trt_reliquat_txt_mining');
@@ -341,33 +366,33 @@ class TrtReliquatTxtMiningController extends AbstractController
             'mapping' => $mapping
         ]);
     }    
-    /**
-     *  @Route("/trt_reliquat/rech_romedi/{id}/attrib_romedi_test/{idRomedi}", name="attrib_romedi_test", requirements={
-     * "id"="\d+",
-     * "idRomedi"="\d+"
-     * })
-     * @param int $id
-     * @param int $idRomedi
-     * @param EntityManagerInterface $em
-     * @return type
-     */
-    public function attribRomedi_test(int $id, int $idRomedi, EntityManagerInterface $em) {
-        // edition de l'entité EmDenomMapTodoV2 ayant pour id $id en y mettant les données de l'entité EmRomediV2 ayant pour id $idRomedi
-dd($id);
-//        $repoTodo = $em->getRepository(EmDenomMapTodoV2::class);
-//        $todo = $repoTodo->find($id);
-//        $repoRomedi = $em->getRepository(EmRomediV2::class);
-//        $Romedi = $repoRomedi->find($idRomedi);
-//        $todo->setBNLabel($Romedi->getBNLabelRomedi())
-//             ->setLabel($Romedi->getLabel())
-//             ->setATC7($Romedi->getATC7())
-//             ->setCIS($Romedi->getCIS());
-//        $em->persist($todo);
-//        $em->flush();
-//        
-//        // redirection vers la route rech_romedi avec id $id 
-//        return $this->redirectToRoute('modif_reliquat', ['id' => $id]);
-    }
+//    /**
+//     *  @Route("/trt_reliquat/rech_romedi/{id}/attrib_romedi_test/{idRomedi}", name="attrib_romedi_test", requirements={
+//     * "id"="\d+",
+//     * "idRomedi"="\d+"
+//     * })
+//     * @param int $id
+//     * @param int $idRomedi
+//     * @param EntityManagerInterface $em
+//     * @return type
+//     */
+//    public function attribRomedi_test(int $id, int $idRomedi, EntityManagerInterface $em) {
+//        // edition de l'entité EmDenomMapTodoV2 ayant pour id $id en y mettant les données de l'entité EmRomediV2 ayant pour id $idRomedi
+//dd($id);
+////        $repoTodo = $em->getRepository(EmDenomMapTodoV2::class);
+////        $todo = $repoTodo->find($id);
+////        $repoRomedi = $em->getRepository(EmRomediV2::class);
+////        $Romedi = $repoRomedi->find($idRomedi);
+////        $todo->setBNLabel($Romedi->getBNLabelRomedi())
+////             ->setLabel($Romedi->getLabel())
+////             ->setATC7($Romedi->getATC7())
+////             ->setCIS($Romedi->getCIS());
+////        $em->persist($todo);
+////        $em->flush();
+////        
+////        // redirection vers la route rech_romedi avec id $id 
+////        return $this->redirectToRoute('modif_reliquat', ['id' => $id]);
+//    }
     
     /**
      * 

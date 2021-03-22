@@ -1,0 +1,30 @@
+.TabTheadTxtMin {
+border: 2px solid #1C6EA4;
+padding:25px;
+background-color: #9F9;
+border-radius: 10px;
+}
+
+.TabThTxtMin {
+font-family:monospace;
+font-size:80%;
+border: 1px solid #8AA683;
+padding:5px;
+text-align: center;
+}
+.FusBordLeft {
+border-left: 0;
+}
+.FusBordLeftTop {
+border-left: 0;
+border-top: 0;
+}
+.FusBordTop {
+border-top: 0;
+}
+
+.bg_txt_mining {
+background-color:#9F9;
+}
+
+

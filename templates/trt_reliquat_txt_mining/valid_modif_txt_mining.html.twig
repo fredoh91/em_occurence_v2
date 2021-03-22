@@ -2,29 +2,38 @@
 
 {% block title %}EM OCCURENCE V2 : Traitement du reliquat{% endblock %}
 
+{% block stylesheets %}
+{#    {{ parent() }}#}
+    {{ encore_entry_link_tags('txt_mining') }}
+{% endblock %}
+
 {% block body %}
 
-    <div style="background:#9F9" class="container-fluid">
+
+<div class="bg_txt_mining">
+    <div class="container-fluid pt-3 mb-5 pb-5">
         <form name="modif_todo_liste" method="post" action="{{ path('trt_reliquat_txt_mining_update') }}">  
             <table class="table table-striped">
-                <thead>
+                <thead >
                     <tr>
                         <th>
-                            <div class="row">
-                                <div class="col-9">Denomination</div>
-                                <div class="col-1">Nbr</div>
-                                <div class="col-1">Levenshtein</div>
-                                <div class="col-1">à faire</div>
+                            <div class="TabTheadTxtMin">
+                                <div class="row">
+                                    <div class="col-9 TabThTxtMin">Dénomination</div>
+                                    <div class="col-1 TabThTxtMin FusBordLeft">Nb occurrences</div>
+                                    <div class="col-1 TabThTxtMin FusBordLeft">Dist. de Levenshtein</div>
+                                    <div class="col-1 TabThTxtMin FusBordLeft">à faire</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-8 TabThTxtMin FusBordTop">Label</div>
+                                    <div class="col-4 TabThTxtMin FusBordLeftTop">Catégorie</div>                  
+                                </div>
+                                <div class="row">
+                                    <div class="col-6 TabThTxtMin FusBordTop">BN Label</div>
+                                    <div class="col-3 TabThTxtMin FusBordLeftTop">Code CIS</div>
+                                    <div class="col-3 TabThTxtMin FusBordLeftTop">Code ATC7</div>
+                                </div>
                             </div>
-                            <div class="row">
-                                <div class="col-8">Label</div>
-                                <div class="col-4">Categorie</div>                  
-                            </div>
-                            <div class="row">
-                                <div class="col-6">BN_Label</div>
-                                <div class="col-3">CIS</div>
-                                <div class="col-3">ATC7</div>
-                            </div>                                    
                         </th>
                     </tr>
                 </thead>      
@@ -80,4 +89,5 @@
             <button type="submit" class="btn btn-primary btn-lg float-right">Envoyer</button>
         </form> 
     </div>
+</div>                    
 {% endblock %}  
