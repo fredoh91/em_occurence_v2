@@ -42,7 +42,19 @@
                                    <td class="text-info">{{ ele.id_denom_map_todo }}</td>
                                    <td class="text-success">{{ ele.id_Romedi }}</td>
                                    <td class="text-success">{{ ele.id_denom_map }}</td>
-                                   <td class="text-info">{{ ele.TypeTxtMining }}</td>
+                                   
+                                    {% if ele.TypeTxtMining == '1_Rom_Lab' %}
+                                        <td class="text-info">denom vs ROMEDI.Label</td>
+                                    {% elseif ele.TypeTxtMining == '2_Map_Lab' %}
+                                        <td class="text-info">denom vs TabMapping.Label</td>
+                                    {% elseif ele.TypeTxtMining == '3_Rom_BNl' %}
+                                        <td class="text-info">denom vs ROMEDI.BN Label</td>
+                                    {% elseif ele.TypeTxtMining == '4_Map_BNl' %}
+                                        <td class="text-info">denom vs TabMapping.BN Label</td>
+                                    {% else %}
+                                        <td class="text-info">{{ ele.TypeTxtMining }}</td>
+                                    {% endif %}
+
                                    <td class="text-success">
 {#                                       <input type="checkbox" 
                                               id="chk_todo_{{ '%06d'|format(ele.id_denom_map_todo) }}_{{ '%06d'|format(ele.id_Romedi) }}_{{ '%06d'|format(ele.id_denom_map) }}_{{ '%06d'|format(ele.TypeTxtMining) }}" 
