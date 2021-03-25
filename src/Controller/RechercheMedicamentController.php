@@ -59,7 +59,7 @@ class RechercheMedicamentController extends AbstractController
                 $touslabels = $repo->findLabelLikeQBjoin_v2($data['produit']);
                 
                 
-                 return $this->render('recherche_medicament/recherche_medicament.htmlTabImbrik.twig', [
+                 return $this->render('recherche_medicament/recherche_medicament.html.twig', [
                         'form_rech_med' => $form->createView(),
                         'produits'=> $tousproduits,
                         'DtPrepData'=> $DtPrepData,
