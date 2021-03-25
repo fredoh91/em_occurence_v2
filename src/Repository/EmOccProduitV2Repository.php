@@ -4,6 +4,8 @@ namespace App\Repository;
 
 use App\Entity\EmOccProduitV2;
 use App\Entity\GrilleOccEmV2;
+use App\Entity\EmDenomMapV2;
+use App\Entity\EmOccDenoV2;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -99,6 +101,31 @@ class EmOccProduitV2Repository extends ServiceEntityRepository
              ;
           
           
+          
+//        dd($result);
+        return $result;
+        }
+
+    /**
+     * 
+     * @param type $key
+     * @return array
+     */
+    public function findLabelLikeQBjoin_v2($prod): array {
+        $result = $this->createQueryBuilder('p')
+//                ->select('p', 'edm', 'eod')
+                ->select('p.produit','edm.Denomination' ,'edm.Label' , 'edm.BN_Label', 'eod.Nbr')
+                ->leftJoin('App\Entity\EmDenomMapV2', 'edm', 'WITH', 'p.produit = edm.BN_Label') 
+                ->leftJoin('App\Entity\EmOccDenoV2', 'eod', 'WITH', 'edm.Denomination = eod.denomination')                
+                ->where('p.produit LIKE :prod')
+                ->setParameter('prod', '%'.$prod.'%')
+//                ->orderBy('p.Nbr', 'DESC')
+                ->addOrderBy('edm.BN_Label', 'ASC')
+                ->addOrderBy('edm.Label', 'ASC')
+                ->getQuery()
+                ->getResult()
+                ;
+   
           
 //        dd($result);
         return $result;
