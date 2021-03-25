@@ -31,6 +31,7 @@ Encore
     .addEntry('txt_mining_todo_list', './assets/js/txt_mining_todo_list.js')
     
     .addStyleEntry('txt_mining', './assets/css/txt_mining.css')
+    .addStyleEntry('recherche_medicament', './assets/css/recherche_medicament.css')
     
     //.addEntry('page1', './assets/js/page1.js')
     //.addEntry('page2', './assets/js/page2.js')
