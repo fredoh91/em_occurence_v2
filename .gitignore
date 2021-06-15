@@ -27,5 +27,6 @@ yarn-error.log
 #.env
 #.env.test
 #composer.lock
+/config/envMsAccess.php
 ###< fred ###
 
