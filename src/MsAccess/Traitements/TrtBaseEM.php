@@ -45,7 +45,10 @@ class TrtBaseEM {
 //    }
     public function importBaseEM()
     {   
-        
+        $NbEnregParLot = 1000;
+        $iCptEnreg = 0;
+        $iCptLot = 0;
+
         $listeInsert = array(); 
         $this->effaceEmDenomV2();
         $ObjAccess = new DatabaseAccess();
@@ -53,11 +56,28 @@ class TrtBaseEM {
         $ReqAccess=$ObjAccess->RqOccurrenceEm();
         foreach($ReqAccess as $row)
         {
-            $listeInsert[] = '("'.(str_replace(CHR(13).CHR(10),"",$row['produit'])).'", '.$row['Nbr'].')';
+            $iCptEnreg++;
+            $produit = $row['produit'];
+            $produit = str_replace(CHR(13).CHR(10),"",$produit);
+            $produit = str_replace(CHR(34),CHR(39),$produit);
+
+            // $listeInsert[] = '("'.(str_replace(CHR(13).CHR(10),"",$row['produit'])).'", '.$row['Nbr'].')';
+            $listeInsert[] = '("'.$produit.'", '.$row['Nbr'].')';
+            if ($iCptEnreg > $NbEnregParLot) {
+                $iCptLot++;
+                // dump($iCptLot);
+                $sql = "INSERT INTO em_denom_v2 (denomination, nbr) VALUES ".implode(',', $listeInsert);
+                // dump($sql);
+                $stmt = $this->em->getConnection()->prepare(utf8_encode ($sql));
+                $stmt->execute([]);
+                $iCptEnreg = 0;
+                $listeInsert = array(); 
+            }
         }  
-        $sql = "INSERT INTO em_denom_v2 (denomination, nbr) VALUES ".implode(',', $listeInsert);       
-        $stmt = $this->em->getConnection()->prepare(utf8_encode ($sql));
-        $stmt->execute([]);
+        // dd();
+        // $sql = "INSERT INTO em_denom_v2 (denomination, nbr) VALUES ".implode(',', $listeInsert);       
+        // $stmt = $this->em->getConnection()->prepare(utf8_encode ($sql));
+        // $stmt->execute([]);
     }
     public function effaceEmDenomV2(): void
     {
