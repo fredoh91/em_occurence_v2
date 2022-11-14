@@ -103,7 +103,7 @@ class TrtMySQL {
 //      Remplissage des bonnes données dans le champ cat_grille_id  
 //      Désactivation du check sur les clés étrangères
         $stmt = $this->em->getConnection()->executeQuery("SET FOREIGN_KEY_CHECKS=0;");
-        $stmt->execute();        
+        // $stmt->execute();        
  
 //      Modif de la catégorie
         $sql = "UPDATE em_occ_produit_v2  "
@@ -117,7 +117,7 @@ class TrtMySQL {
 
 //      Réactivation du check sur les clés étrangères  
         $stmt = $this->em->getConnection()->executeQuery("SET FOREIGN_KEY_CHECKS=1;");
-        $stmt->execute();               
+        // $stmt->execute();               
    
     }
     
