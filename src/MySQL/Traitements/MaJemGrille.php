@@ -38,7 +38,7 @@ class MaJemGrille
     
     /**
      * Calcule les quartiles sur un tableau en fonction du deuxième paramètre passé : 0.25, 0.5, 0.75
-     * @param type $Array
+     * @param type $Array : liste des effectifs par médicaments
      * @param type $pct
      * @return int
      */
@@ -133,13 +133,12 @@ class MaJemGrille
         $this->vmin_4 = $this->eff_75 + 1 ;
         $this->vmax_4 = $this->max + 1 ;
         $this->MajTable();
-        
-        
         $this->grilleCalculee= "Effectif 25% : $this->eff_25" . 
                        ", Effectif 50% : $this->eff_50" .
                        ", Effectif 75% : $this->eff_75" .
                        ", Max : $this->max " .
-                       ", Produit : " . $this->tabProd[(($this->k) - 1)];
+                    //    ", Produit : " . $this->tabProd[(($this->k) - 1)];
+                       ", Produit : " . $this->k;
 //        $this->grilleCalculee= $this->tabProd[(($this->k) - 1)];
         return $this->grilleCalculee;
 

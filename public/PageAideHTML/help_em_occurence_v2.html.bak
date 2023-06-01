@@ -1,0 +1,363 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=windows-1252">
+    <title></title>
+    <meta name="generator" content="LibreOffice 7.2.0.4 (Windows)">
+    <meta name="author" content="Frédéric Rannou">
+    <meta name="created" content="2021-09-20T12:21:08.008000000">
+    <meta name="changedby" content="Frédéric Rannou">
+    <meta name="changed" content="2021-09-22T16:42:18.321000000">
+    <style type="text/css">
+		@page { margin: 2cm }
+		p { line-height: 115%; margin-bottom: 0.25cm; background: transparent }
+		a:link { so-language: zxx }
+	</style>
+    <link type="text/css" rel="stylesheet" href="./help_em_occurence_v2.css">
+  </head>
+  <body dir="ltr" lang="fr-FR">
+    <div class="box">
+      <p style="line-height: 100%; margin-bottom: 0.15cm" align="center"> <font
+          style="font-size: 20pt" size="5"><b>Application «&nbsp;occurrences
+            erreurs médicamenteuses&nbsp;»</b></font></p>
+      <p style="line-height: 100%; margin-bottom: 0.15cm"><font style="font-size: 18pt"
+          size="5">A</font> <font style="font-size: 18pt" size="5">-
+          Utilisation de l’application</font></p>
+      <p style="line-height: 100%; margin-bottom: 0.15cm">Cette application
+        permet de déterminer le nombre d’erreurs médicamenteuses pour un
+        médicament donné.</p>
+      <p style="line-height: 100%; margin-bottom: 0.15cm">Elle est notamment
+        utilisée pour le calcul du niveau de risque des Erreurs Médicamenteuses
+        Marquantes.</p>
+      <p style="line-height: 100%; margin-bottom: 0.15cm">Pour cela il faut
+        utiliser la «&nbsp;Recherche d’un médicament&nbsp;»&nbsp;:</p>
+      <p style="line-height: 100%; margin-bottom: 0.15cm"><img src="help_em_occurence_v2_html_eb10dc5127927764.png"
+          name="Image17" align="left" height="47" width="693" border="0"> <br>
+        <br>
+      </p>
+      <p style="line-height: 100%; margin-bottom: 0.15cm">Puis saisir un libellé
+        de médicament dans le champ de recherche et cliquer sur «&nbsp;Recherche
+        d’un médicament&nbsp;»&nbsp;:</p>
+      <p style="line-height: 100%; margin-bottom: 0.15cm"><img src="help_em_occurence_v2_html_95c0f9a4516cbd2c.png"
+          name="Image18" align="left" height="61" width="734" border="0"> <br>
+        <br>
+      </p>
+      <p style="line-height: 100%; margin-bottom: 0.15cm">Le résultat de la
+        requête affiche les différents produits (BN Label) en gris foncé et, le
+        cas échéant, le détail des différents dosages/présentations en gris
+        clair. Les effectifs sont également indiqués ainsi que le type de
+        fréquence (Isolé, Peu fréquent, Fréquent, et Très fréquent). </p>
+      <p style="line-height: 100%; margin-bottom: 0.15cm"><img src="help_em_occurence_v2_html_91b31df91312e7ae.png"
+          name="Image19" align="left" height="898" width="897" border="0"> <br>
+        <br>
+      </p>
+      <p style="line-height: 100%; margin-bottom: 0.15cm">Après ce tableau, la
+        dernière date de mise a jour de l’application est indiqué, ainsi que la
+        grille permettant d’attribuer la catégorie de fréquence aux différents
+        médicaments&nbsp;:</p>
+      <p style="line-height: 100%; margin-bottom: 0.15cm"><img src="help_em_occurence_v2_html_e120ab35dfb81d00.png"
+          name="Image20" align="left" height="158" width="233" border="0"> <br>
+        <br>
+      </p>
+    </div>
+    <div class="box"><br>
+    </div>
+    <div class="box"><br>
+    </div>
+    <div class="box"><br>
+      <p style="font-weight: normal; line-height: 100%; margin-bottom: 0.15cm; page-break-before: always"
+        align="left"> <font style="font-size: 18pt" size="5">B - Mise à jour
+          des données des occurrences «&nbsp;erreurs médicamenteuses&nbsp;»</font></p>
+      <p style="line-height: 100%; margin-bottom: 0.15cm"><font style="font-size: 16pt"
+          size="4">1/ Contexte et flux des données</font></p>
+      <p style="line-height: 100%; margin-bottom: 0.15cm">Les erreurs
+        médicamenteuses sont saisies et stockées dans une base Access. </p>
+      <p style="line-height: 100%; margin-bottom: 0.15cm">L’application
+        Occurrence Erreurs Médicamenteuses, permet de rapatrier ces données dans
+        sa propre base de données, de les regrouper selon le nom du médicament
+        et d’afficher le nombre d’occurrence pour un médicament données.</p>
+      <p style="line-height: 100%; margin-bottom: 0.15cm">La base de données
+        doit donc être régulièrement mise à jour à partir de la base Access, les
+        étapes, sont donc les suivantes&nbsp;:</p>
+      <ul>
+        <li>
+          <p style="line-height: 100%; margin-bottom: 0.15cm">Préparation des
+            données</p>
+        </li>
+        <li>
+          <p style="line-height: 100%; margin-bottom: 0.15cm">Traitement du
+            reliquat par text mining (traitement par paquet de 30)</p>
+        </li>
+        <li>
+          <p style="line-height: 100%; margin-bottom: 0.15cm">Traitement du
+            reliquat manuel</p>
+        </li>
+      </ul>
+      <p style="line-height: 100%; margin-bottom: 0.15cm">Elles sont visibles et
+        accessibles dans la partie supérieure (header) de l’application&nbsp;:</p>
+      <p style="line-height: 100%; margin-bottom: 0.15cm"><img src="help_em_occurence_v2_html_b99bfe065231bb.png"
+          name="Image1" align="left" height="59" width="927" border="0"> &nbsp;
+      </p>
+      <p style="line-height: 100%; margin-bottom: 0.15cm"><font style="font-size: 16pt"
+          size="4">2/ Préparation des données</font></p>
+      <p style="line-height: 100%; margin-bottom: 0.15cm">Cette étape permet de
+        récupérer les données depuis la base Access des erreurs médicamenteuses,
+        de les copier dans la base MySQL de l’application em_occurrence.</p>
+      <p style="line-height: 100%; margin-bottom: 0.15cm">Un dénombrement du
+        nombre d’occurrences est alors effectué grâce à la table de mapping
+        (em_denom_map_v2) sur l’ensemble des produits provenant de la base
+        Access.</p>
+      <p style="line-height: 100%; margin-bottom: 0.15cm">Les nouveaux produits
+        (d’origines Access) non encore «&nbsp;mappés&nbsp;» (absents de la table
+        de mapping) sont copiés dans la table todo (em_denom_map_todo_v2). Les
+        traitements suivants permettent de réaliser ce mapping, lors d’une
+        première étape utilisant du «&nbsp;text mining&nbsp;» puis une deuxième
+        étape manuelle sur le reliquat.</p>
+      <p style="line-height: 100%; margin-bottom: 0.15cm"><font style="font-size: 14pt"
+          size="4">a) Cliquer sur «&nbsp;Préparation des données&nbsp;»</font></p>
+      <p style="line-height: 100%; margin-bottom: 0.15cm"><img src="help_em_occurence_v2_html_108b6116c8c8c5c1.png"
+          name="Image2" align="left" height="58" width="934" border="0"> <br>
+        <br>
+      </p>
+      <p style="line-height: 100%; margin-bottom: 0.15cm"><font style="font-size: 14pt"
+          size="4">b) Valider</font></p>
+      <p style="line-height: 100%; margin-bottom: 0.15cm"><img src="help_em_occurence_v2_html_8b338df68dd2ea5.png"
+          name="Image3" align="left" height="134" width="411" border="0"> <br>
+        <br>
+      </p>
+      <p style="line-height: 100%; margin-bottom: 0.15cm"><font style="font-size: 14pt"
+          size="4">c) le traitement se lance et un message flash s’affiche
+          lorsque celui-ci est terminé&nbsp;:</font></p>
+      <p style="line-height: 100%; margin-bottom: 0.15cm"><img src="help_em_occurence_v2_html_11bde8112897ce43.png"
+          name="Image4" align="left" height="44" width="555" border="0"> <br>
+      </p>
+      <p style="line-height: 100%; margin-bottom: 0.15cm"><font style="font-size: 12pt"
+          size="3">Ces statistiques sont calculées de la façon suivante :</font></p>
+      <p style="line-height: 100%; margin-bottom: 0.15cm"><font style="font-size: 12pt"
+          size="3">- On ajoute l'ensemble des effectifs de chaque médicament, on
+          a donc un effectif cumulé total.</font></p>
+      <p style="line-height: 100%; margin-bottom: 0.15cm"><font style="font-size: 12pt"
+          size="3">- On cherche alors l'effectif pour lequel la somme des
+          effectifs cumulés </font><font style="font-size: 12pt" size="3"><font
+            style="font-size: 12pt" size="3">précédents </font>est égale à 1/4
+          de l'effectif cumulé total, on a alors l'effectif 25 %.</font></p>
+      <p style="line-height: 100%; margin-bottom: 0.15cm"><font style="font-size: 12pt"
+          size="3">- On procède de même pour la moitié et le 3/4 de l'effectif </font><font
+          style="font-size: 12pt" size="3"><font style="font-size: 12pt" size="3">cumulé
+            total, ce qui nous permet d'obtenir l'effectif 50 % et l'</font></font><font
+          style="font-size: 12pt" size="3"><font style="font-size: 12pt" size="3"><font
+              style="font-size: 12pt" size="3"><font style="font-size: 12pt" size="3">effectif
+                75 %.</font></font></font></font></p>
+      <p style="line-height: 100%; margin-bottom: 0.15cm"><font style="font-size: 12pt"
+          size="3"><font style="font-size: 12pt" size="3"><font style="font-size: 12pt"
+              size="3"><font style="font-size: 12pt" size="3">exemple : Si
+                l'effectif cumulé total est de 35646, on fait alors la somme des
+                effectifs, pour tous les médicaments, en partant des effectifs
+                les plus faibles, jusqu'à trouver le médicament dont cette somme
+                est égale a 35646/4 (8911,5). L'effectif 25 % sera donc
+                l'effectif de ce médicament (15 dans l'exemple ci dessus). On
+                procède de même pour l'effectif 50 % et l'effectif 75 %.<br>
+              </font></font></font></font></p>
+      <p style="line-height: 100%; margin-bottom: 0.15cm"><font style="font-size: 12pt"
+          size="3"><font style="font-size: 12pt" size="3"><font style="font-size: 12pt"
+              size="3"><font style="font-size: 12pt" size="3">- Max représente
+                l'effectif du médicament ayant le plus grand effectif (celui qui
+                est le plus représenté dans la base "Erreurs médicamenteuses".</font></font></font></font></p>
+      <p style="line-height: 100%; margin-bottom: 0.15cm"><font style="font-size: 12pt"
+          size="3"><font style="font-size: 12pt" size="3"><font style="font-size: 12pt"
+              size="3"><font style="font-size: 12pt" size="3">Ces 3 effectifs
+                sont utilisés en tant que bornes pour attribuer une </font></font></font></font>catégorie
+        de fréquence aux différents médicaments.</p>
+      <p style="line-height: 100%; margin-bottom: 0.15cm"><font style="font-size: 16pt"
+          size="4">3/ Traitement du reliquat par text mining</font></p>
+      <p style="line-height: 100%; margin-bottom: 0.15cm"><font style="font-size: 12pt"
+          size="3">Cette étape permet de rechercher les médicaments non-mappés
+          dans les tables de référence de mapping (em_denom_map_v2) et ROMEDI
+          (em_romedi_v2).</font></p>
+      <p style="line-height: 100%; margin-bottom: 0.15cm"><font style="font-size: 12pt"
+          size="3">On recherche la <a href="https://fr.wikipedia.org/wiki/Distance_de_Levenshtein">distance
+de
+            Levenshtein</a> entre la dénomination du médicament à mapper et les
+          4 données suivantes&nbsp;:</font></p>
+      <p style="line-height: 100%; margin-bottom: 0.15cm"><font style="font-size: 12pt"
+          size="3">- Label ROMEDI</font></p>
+      <p style="line-height: 100%; margin-bottom: 0.15cm"><font style="font-size: 12pt"
+          size="3">- Label de la table de mapping</font></p>
+      <p style="line-height: 100%; margin-bottom: 0.15cm"><font style="font-size: 12pt"
+          size="3">- BNLabel ROMEDI</font></p>
+      <p style="line-height: 100%; margin-bottom: 0.15cm"><font style="font-size: 12pt"
+          size="3">- BNLabel de la table de mapping</font></p>
+      <p style="line-height: 100%; margin-bottom: 0.15cm"><font style="font-size: 12pt"
+          size="3">Le Label représente le nom du produit avec son dosage et sa
+          présentation (ex. ABILIFY 1 mg/ml, solution buvable&nbsp;; ABILIFY 10
+          mg, comprimé&nbsp;; ABILIFY 10 mg, comprimé orodispersible&nbsp;; …),
+          alors que le BNLabel reprend uniquement le nom du produit (ex.
+          ABILIFY).</font></p>
+      <p style="line-height: 100%; margin-bottom: 0.15cm"><font style="font-size: 12pt"
+          size="3">Une distance de Levenshtein de 0 traduit une similarité
+          complète entre 2 chaînes de caractères, plus cette valeur augmente et
+          plus les deux chaînes sont différentes.</font></p>
+      <p style="line-height: 100%; margin-bottom: 0.15cm"><font style="font-size: 12pt"
+          size="3">Le traitement affiche ce qu’il a trouvé de plus proche,
+          charge a l’utilisateur de valider ce mapping ou non.</font></p>
+      <p style="line-height: 100%; margin-bottom: 0.15cm"><font style="font-size: 14pt"
+          size="4">a) Cliquer sur «&nbsp;Traitement du reliquat par text mining
+          (traitement par paquet de 30)</font>&nbsp;<font style="font-size: 14pt"
+          size="4">»</font></p>
+      <p style="line-height: 100%; margin-bottom: 0.15cm"><img src="help_em_occurence_v2_html_5d79d2b9bcb1c235.png"
+          name="Image5" align="left" height="58" width="933" border="0"> <br>
+        <br>
+      </p>
+      <p style="line-height: 100%; margin-bottom: 0.15cm"><font style="font-size: 12pt"
+          size="3">le text mining se lance sur les 30 premiers médicaments
+          non-mappés.</font></p>
+      <p style="line-height: 100%; margin-bottom: 0.15cm"><font style="font-size: 12pt"
+          size="3">Une fois le traitement terminé, les résultats sont affichés
+          sous forme de tableau.</font></p>
+      <p style="line-height: 100%; margin-bottom: 0.15cm"><font style="font-size: 14pt"
+          size="4">b) Tableau de choix du mapping à réaliser</font></p>
+      <p style="line-height: 100%; margin-bottom: 0.15cm"><font style="font-size: 12pt"
+          size="3">les données de la table à mapper sont en bleu, en vert celles
+          de la table de référence (table de mapping ou ROMEDI) et en blanc des
+          données utilisées par l’application.</font></p>
+      <p style="line-height: 100%; margin-bottom: 0.15cm"><font style="font-size: 12pt"
+          size="3">La dénomination, BNLabel et Label sont décrit plus haut. Les
+          codes CIS et ATC affichés sont ceux présents dans la table de
+          référence.</font></p>
+      <p style="line-height: 100%; margin-bottom: 0.15cm"><font style="font-size: 12pt"
+          size="3">Les 3 id affichés (id_denom_map_todo, id_Romedi,
+          id_denom_map) sont les identifiants uniques des lignes dans les 3
+          tables incriminées (em_denom_map_todo_v2, em_romedi_v2 et
+          em_denom_map_v2). Ces données sont plutôt à réserver aux utilisateurs
+          ayant quelques notions de base de données.</font></p>
+      <p style="line-height: 100%; margin-bottom: 0.15cm"><font style="font-size: 12pt"
+          size="3">Levenshtein est la distance de Levenshtein décrit plus haut,
+          entre le médicament a mapper et celui identifié dans la table de
+          référence (0 = similarité complète).</font></p>
+      <p style="line-height: 100%; margin-bottom: 0.15cm"><font style="font-size: 12pt"
+          size="3">Type text mining représente le type de «&nbsp;matching&nbsp;»
+          réalisé. «&nbsp;denom&nbsp;» est la dénomination du médicament à
+          mapper. Il est ensuite indiqué quelle table de référence et quelle
+          colonne est utilisée.</font></p>
+      <p style="line-height: 100%; margin-bottom: 0.15cm"><font style="font-size: 12pt"
+          size="3">Une case à cocher permet a l’utilisateur de sélectionner le
+          mapping valide. L’application sélectionne automatiquement la ligne si
+          il y a un matching complet entre la denomination et le Label ROMEDI.</font></p>
+      <p style="line-height: 100%; margin-bottom: 0.15cm"><font style="font-size: 12pt"
+          size="3">Un premier niveau de tri est réalisé selon le type de
+          «&nbsp;matching&nbsp;» vers la table de référence&nbsp;: Label ROMEDI,
+          Label de la table de mapping, BNLabel ROMEDI et BNLabel de la table de
+          mapping.</font></p>
+      <p style="line-height: 100%; margin-bottom: 0.15cm"><font style="font-size: 12pt"
+          size="3">Un deuxième niveau de tri est réalisé selon la distance de
+          Levenshtein.</font></p>
+      <p style="line-height: 100%; margin-bottom: 0.15cm"><img src="help_em_occurence_v2_html_81af5692f7d4baac.png"
+          name="Image6" align="left" height="911" width="1880" border="0"> <br>
+        <br>
+      </p>
+      <p style="line-height: 100%; margin-bottom: 0.15cm"><font style="font-size: 14pt"
+          size="4">b) Validation et Tableau de choix du mapping à réaliser</font></p>
+      <p style="line-height: 100%; margin-bottom: 0.15cm"><font style="font-size: 12pt"
+          size="3">Cliquer ensuite sur le bouton «&nbsp;Envoyer&nbsp;»&nbsp;:</font></p>
+      <p style="line-height: 100%; margin-bottom: 0.15cm"><img src="help_em_occurence_v2_html_c23828d5e289f2f8.png"
+          name="Image7" align="left" height="52" width="99" border="0"> <br>
+        <br>
+      </p>
+      <p style="line-height: 100%; margin-bottom: 0.15cm"><font style="font-size: 12pt"
+          size="3">L’application présente alors l’ensemble des donner à matcher,
+          il est possible de les dé-sélectionner au niveau de la case à cocher
+          «&nbsp;à faire&nbsp;»&nbsp;:</font></p>
+      <p style="line-height: 100%; margin-bottom: 0.15cm"><img src="help_em_occurence_v2_html_2bbae8242aa73fc0.png"
+          name="Image8" align="left" height="605" width="1883" border="0"> <br>
+        <br>
+      </p>
+      <p style="line-height: 100%; margin-bottom: 0.15cm"><font style="font-size: 12pt"
+          size="3">Après un deuxième envoi, l’application présente alors les 30
+          lignes suivantes à mapper comme dans l’étape b)</font></p>
+      <p style="line-height: 100%; margin-bottom: 0.15cm"><font style="font-size: 12pt"
+          size="3">Si tous les médicaments à mapper l’ont été fait par cette
+          méthode, il faut alors relancer le calcul du nombre d’occurrences en
+          cliquant sur «&nbsp;Préparation des données&nbsp;».</font></p>
+      <p style="line-height: 100%; margin-bottom: 0.15cm"><font style="font-size: 16pt"
+          size="4">4/ Traitement du reliquat manuel</font></p>
+      <p style="line-height: 100%; margin-bottom: 0.15cm">Le reliquat peut être
+        traiter a la main selon la procédure suivante.</p>
+      <p style="line-height: 100%; margin-bottom: 0.15cm"><font style="font-size: 14pt"
+          size="4">a) Cliquer sur «&nbsp;Traitement du reliquat manuel</font>&nbsp;<font
+          style="font-size: 14pt" size="4">»</font></p>
+      <p style="line-height: 100%; margin-bottom: 0.15cm"><img src="help_em_occurence_v2_html_d8b4c1b3dca7f67.png"
+          name="Image9" align="left" height="62" width="935" border="0"> <br>
+        <br>
+      </p>
+      <p style="line-height: 100%; margin-bottom: 0.15cm">L’application va alors
+        afficher l’ensemble des médicaments non-mappés&nbsp;:</p>
+      <p style="line-height: 100%; margin-bottom: 0.15cm"><img src="help_em_occurence_v2_html_7681cff04d022982.png"
+          name="Image10" align="left" height="633" width="1808" border="0"> <br>
+        <br>
+      </p>
+      <br>
+      <p style="line-height: 100%; margin-bottom: 0.15cm"> </p>
+      <font style="font-size: 14pt" size="4">a) Attribution d’un BNLabel</font>
+      <p style="line-height: 100%; margin-bottom: 0.15cm"><font style="font-size: 12pt"
+          size="3">Cette attribution s’effectue en cliquant sur le bouton
+          «&nbsp;Modif BN Label&nbsp;»&nbsp;:</font></p>
+      <p style="line-height: 100%; margin-bottom: 0.15cm"><img src="help_em_occurence_v2_html_5f4952c643d44de6.png"
+          name="Image12" align="left" height="43" width="121" border="0"> <br>
+        <br>
+      </p>
+      <p style="line-height: 100%; margin-bottom: 0.15cm"><font style="font-size: 12pt"
+          size="3">cela a pour effet d’ouvrir l’écran de modification du
+          médicament à mapper.</font></p>
+      <p style="line-height: 100%; margin-bottom: 0.15cm"><font style="font-size: 12pt"
+          size="3">La section en vert représente les informations attachées au
+          médicament à mapper&nbsp;:</font></p>
+      <p style="line-height: 100%; margin-bottom: 0.15cm"><img src="help_em_occurence_v2_html_f395b6c6567c60d3.png"
+          name="Image13" align="left" height="463" width="841" border="0"> <br>
+        <br>
+      </p>
+      <br>
+      <p style="line-height: 100%; margin-bottom: 0.15cm"><font style="font-size: 12pt"
+          size="3">Celles en grise les interfaces de recherche dans la table de
+          référence ROMEDI&nbsp;:</font></p>
+      <p style="line-height: 100%; margin-bottom: 0.15cm"><img src="help_em_occurence_v2_html_4221d2c30a4e6e20.png"
+          name="Image11" align="left" height="429" width="838" border="0"> <br>
+        <br>
+      </p>
+      <p style="line-height: 100%; margin-bottom: 0.15cm"><font style="font-size: 14pt"
+          size="4">a) Attribution d’un BNLabel</font></p>
+      <p style="line-height: 100%; margin-bottom: 0.15cm"><font style="font-size: 12pt"
+          size="3">Il est possible de chercher un BNLabel dans la table de
+          référence ROMEDI, par exemple avec le nom du médicament&nbsp;:</font></p>
+      <p style="line-height: 100%; margin-bottom: 0.15cm"><img src="help_em_occurence_v2_html_1afcd897e110d8c9.png"
+          name="Image14" align="left" height="208" width="841" border="0"> <br>
+        <br>
+      </p>
+      <p style="line-height: 100%; margin-bottom: 0.15cm">L’application affiche
+        alors le résultat de la recherche&nbsp;et l’utilisateur choisi celui qui
+        semble le mieux correspondre grâce au bouton «&nbsp;Utilisation de ce BN
+        label&nbsp;».</p>
+      <p style="line-height: 100%; margin-bottom: 0.15cm">Ces données seront
+        modifiables dans l’écran suivant, il est donc possible de sélectionner
+        une ligne pour avoir une trame de saisie et ensuite la modifier.</p>
+      <p style="line-height: 100%; margin-bottom: 0.15cm"><img src="help_em_occurence_v2_html_477ce3e14fe17869.png"
+          name="Image15" align="left" height="214" width="1620" border="0"> <br>
+        <br>
+      </p>
+      <p style="line-height: 100%; margin-bottom: 0.15cm">Il est donc possible
+        de modifier les champs sur fond blanc (Catégorie, BNLabel, Label, Code
+        CIS et code ATC).</p>
+      <p style="line-height: 100%; margin-bottom: 0.15cm">Pour une valeur
+        différente de «&nbsp;Médicament&nbsp;» dans le menu déroulant
+        «&nbsp;catégorie&nbsp;», les champs Label, Code CIS et code ATC seront
+        effacés.</p>
+      <p style="line-height: 100%; margin-bottom: 0.15cm"><img src="help_em_occurence_v2_html_20559c062dfbceb6.png"
+          name="Image16" align="left" height="466" width="845" border="0"> <br>
+        <br>
+      </p>
+      <p style="line-height: 100%; margin-bottom: 0.15cm"><font style="font-size: 12pt"
+          size="3">Si tous les médicaments ont bien été mappés, il faut alors
+          relancer le calcul du nombre d’occurrences en cliquant sur
+          «&nbsp;Préparation des données&nbsp;».</font></p>
+    </div>
+  </body>
+</html>

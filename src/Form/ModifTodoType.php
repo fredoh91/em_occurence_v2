@@ -35,7 +35,9 @@ class ModifTodoType extends AbstractType
                     TextType::class,
                     [
                         'label_format' => 'Code CIS', 
-                        'required' => false
+                        'required' => false,
+                        // Register new key "empty_data" with an empty string
+                        'empty_data' => '',
                     ]
                 )
             ->add('Label', 
