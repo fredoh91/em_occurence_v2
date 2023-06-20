@@ -5,61 +5,40 @@ namespace App\Entity;
 use App\Repository\EmDenomMapV2Repository;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity(repositoryClass=EmDenomMapV2Repository::class)
- */
+#[ORM\Entity(repositoryClass: EmDenomMapV2Repository::class)]
 class EmDenomMapV2
 {
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
     private $id;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
+    #[ORM\Column(type: 'string', length: 255)]
     private $Denomination;
 
 //    /**
-//     * @ORM\Column(type="integer")
-//     */
-//    private $Nbr;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
+    //     * @ORM\Column(type="integer")
+    //     */
+    //    private $Nbr;
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $CIS;
 
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
+    #[ORM\Column(type: 'text', nullable: true)]
     private $Label;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $BN_Label;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $ATC7;
 
-    /**
-     * @ORM\Column(type="float", nullable=true)
-     */
+    #[ORM\Column(type: 'float', nullable: true)]
     private $Similarity;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $CQ;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=EmDenomMapCategoV2::class, inversedBy="emDenomMapV2s")
-     */
+    #[ORM\ManyToOne(targetEntity: EmDenomMapCategoV2::class, inversedBy: 'emDenomMapV2s')]
     private $Categorie;
 
     public function getId(): ?int

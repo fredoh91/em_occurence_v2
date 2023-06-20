@@ -6,56 +6,36 @@ use App\Repository\EmDenomMapTodoV2Repository;
 // use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity(repositoryClass=EmDenomMapTodoV2Repository::class)
- */
+#[ORM\Entity(repositoryClass: EmDenomMapTodoV2Repository::class)]
 class EmDenomMapTodoV2
 {
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
     private $id;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
+    #[ORM\Column(type: 'string', length: 255)]
     private $Denomination;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Column(type: 'integer')]
     private $Nbr;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $CIS;
 
-    /**
-     * @ORM\Column(type="text", length=255, nullable=true)
-     */
+    #[ORM\Column(type: 'text', length: 255, nullable: true)]
     private $Label;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $BN_Label;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $BN_Label_Romedi;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $ATC7;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=EmDenomMapCategoV2::class, inversedBy="emDenomMapTodoV2s")
-     */
+    #[ORM\ManyToOne(targetEntity: EmDenomMapCategoV2::class, inversedBy: 'emDenomMapTodoV2s')]
     private $Categorie;
 
     public function getId(): ?int

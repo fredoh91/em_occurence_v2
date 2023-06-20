@@ -14,9 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class PreparationDataController extends AbstractController
 {
     private $msgMaJemGrille;
-    /**
-     * @Route("/preparation_data", name="preparation_data")
-     */
+    #[Route(path: '/preparation_data', name: 'preparation_data')]
     public function PreparationData(EntityManagerInterface $em):Response
     {
         set_time_limit(180);

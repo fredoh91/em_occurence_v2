@@ -7,41 +7,27 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity(repositoryClass=GrilleOccEmV2Repository::class)
- */
+#[ORM\Entity(repositoryClass: GrilleOccEmV2Repository::class)]
 class GrilleOccEmV2
 {
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
     private $id;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
+    #[ORM\Column(type: 'string', length: 255)]
     private $cat_lib;
 
-    /**
-     * @ORM\Column(type="integer", nullable=false)
-     */
+    #[ORM\Column(type: 'integer', nullable: false)]
     private $cat_idx;
 
-    /**
-     * @ORM\Column(type="integer", nullable=false)
-     */
+    #[ORM\Column(type: 'integer', nullable: false)]
     private $vmin;
 
-    /**
-     * @ORM\Column(type="integer", nullable=false)
-     */
+    #[ORM\Column(type: 'integer', nullable: false)]
     private $vmax;
 
-    /**
-     * @ORM\OneToMany(targetEntity=EmOccProduitV2::class, mappedBy="CatGrille")
-     */
+    #[ORM\OneToMany(targetEntity: EmOccProduitV2::class, mappedBy: 'CatGrille')]
     private $emOccProduitV2s;
 
     public function __construct()

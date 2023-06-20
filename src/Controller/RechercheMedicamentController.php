@@ -16,11 +16,11 @@ use Symfony\Component\Routing\Annotation\Route;
 class RechercheMedicamentController extends AbstractController
 {
     /**
-     * @Route("/recherche_medicament", name="recherche_medicament")
      * @param Request $request
      * @param EntityManagerInterface $em
      * @return Response
      */
+    #[Route(path: '/recherche_medicament', name: 'recherche_medicament')]
     public function searchProduit(Request $request, EntityManagerInterface $em):Response
         {
             $form =$this->createFormBuilder()

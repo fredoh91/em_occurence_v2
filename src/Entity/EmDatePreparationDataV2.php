@@ -5,21 +5,15 @@ namespace App\Entity;
 use App\Repository\EmDatePreparationDataV2Repository;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity(repositoryClass=EmDatePreparationDataV2Repository::class)
- */
+#[ORM\Entity(repositoryClass: EmDatePreparationDataV2Repository::class)]
 class EmDatePreparationDataV2
 {
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
     private $id;
 
-    /**
-     * @ORM\Column(type="datetime")
-     */
+    #[ORM\Column(type: 'datetime')]
     private $DatePreparationData;
 
     public function getId(): ?int

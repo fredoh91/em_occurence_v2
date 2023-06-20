@@ -23,11 +23,11 @@ class TrtReliquatTxtMiningController extends AbstractController
     private $nb_lignes_traitees = 30;
 
      /**
-     * @Route("/trt_reliquat_txt_mining_update", name="trt_reliquat_txt_mining_update")
      * @param Request $request
      * @param EntityManagerInterface $em
      * @return Response
      */
+    #[Route(path: '/trt_reliquat_txt_mining_update', name: 'trt_reliquat_txt_mining_update')]
     public function listeReliquat_txt_mining_update(Request $request, EntityManagerInterface $em)
     {
         if (!empty($_POST)){
@@ -74,11 +74,11 @@ class TrtReliquatTxtMiningController extends AbstractController
 
 
      /**
-     * @Route("/trt_todo_list_reliquat_txt_mining", name="trt_todo_list_reliquat_txt_mining")
      * @param Request $request
      * @param EntityManagerInterface $em
      * @return Response
      */
+    #[Route(path: '/trt_todo_list_reliquat_txt_mining', name: 'trt_todo_list_reliquat_txt_mining')]
     public function trt_todo_list_reliquat_txt_mining(Request $request, EntityManagerInterface $em):Response
     {
         
@@ -144,11 +144,11 @@ class TrtReliquatTxtMiningController extends AbstractController
     }
     
      /**
-     * @Route("/trt_reliquat_txt_mining", name="trt_reliquat_txt_mining")
      * @param Request $request
      * @param EntityManagerInterface $em
      * @return Response
      */
+    #[Route(path: '/trt_reliquat_txt_mining', name: 'trt_reliquat_txt_mining')]
     public function listeReliquat_txt_mining_levenshtein(Request $request, EntityManagerInterface $em):Response
     {
         

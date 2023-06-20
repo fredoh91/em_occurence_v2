@@ -5,26 +5,18 @@ namespace App\Entity;
 use App\Repository\EmDenomV2Repository;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity(repositoryClass=EmDenomV2Repository::class)
- */
+#[ORM\Entity(repositoryClass: EmDenomV2Repository::class)]
 class EmDenomV2
 {
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
     private $id;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
+    #[ORM\Column(type: 'string', length: 255)]
     private $Denomination;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
+    #[ORM\Column(type: 'integer')]
     private $Nbr;
 
     public function getId(): ?int

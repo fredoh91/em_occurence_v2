@@ -11,10 +11,10 @@ use Symfony\Component\Routing\Annotation\Route;
 class AffDatePrepDataController extends AbstractController
 {
     /**
-     * @Route("/aff_date_prep_data", name="aff_date_prep_data")
      * @param EmDatePreparationDataRepository $repo
      * @return type
      */
+    #[Route(path: '/aff_date_prep_data', name: 'aff_date_prep_data')]
     public function index(EmDatePreparationDataRepository $repo):Response
     {
         $date_prep = $repo->findAll();
@@ -25,11 +25,11 @@ class AffDatePrepDataController extends AbstractController
     }
     
     /**
-     * 
-     * @route ("/test/{id}", name= "test_show")
+     *
      * @param EmDatePreparationData $exemple
      * @return type
      */
+    #[route(path: '/test/{id}', name: 'test_show')]
     public function show(EmDatePreparationData $exemple):Response {
         return $this->render('aff_date_prep_data/DatePrepData_show.html.twig',[
             'variable_test' => "coucou ça marche cette fois aussi",
@@ -37,10 +37,7 @@ class AffDatePrepDataController extends AbstractController
         ]);
     }
     
-    /**
-     * 
-     * @Route("/aff_date_prep_data_2",name="DatePrepData_2")
-     */
+    #[Route(path: '/aff_date_prep_data_2', name: 'DatePrepData_2')]
     public function DatePrepData():Response {
         return $this->render('aff_date_prep_data/DatePrepData.html.twig');
     }

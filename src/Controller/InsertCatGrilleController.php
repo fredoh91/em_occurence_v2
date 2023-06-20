@@ -10,10 +10,10 @@ use Doctrine\ORM\EntityManagerInterface;
 class InsertCatGrilleController extends AbstractController
 {
     /**
-     * @Route("/insert/cat/grille", name="insert_cat_grille")
      * @param EntityManagerInterface $em
      * @return type
      */
+    #[Route(path: '/insert/cat/grille', name: 'insert_cat_grille')]
     public function index(EntityManagerInterface $em)
     {
         $repoG = $em->getRepository(GrilleOccEmV2::class);

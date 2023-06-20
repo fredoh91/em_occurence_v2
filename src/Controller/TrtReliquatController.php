@@ -19,11 +19,11 @@ use Symfony\Component\Routing\Annotation\Route;
 class TrtReliquatController extends AbstractController
 {
     /**
-     * @Route("/trt_reliquat", name="liste_reliquat")
      * @param Request $request
      * @param EntityManagerInterface $em
      * @return Response
      */
+    #[Route(path: '/trt_reliquat', name: 'liste_reliquat')]
     public function listeReliquat(Request $request, EntityManagerInterface $em):Response
     {
         $repo = $em->getRepository(EmDenomMapTodoV2::class);
@@ -35,12 +35,12 @@ class TrtReliquatController extends AbstractController
     }
     
     /**
-     * @Route("/trt_reliquat/{id}", name="modif_reliquat", requirements={"id"="\d+"})
      * @param int $id
      * @param Request $request
      * @param EntityManagerInterface $em
      * @return Response
      */
+    #[Route(path: '/trt_reliquat/{id}', name: 'modif_reliquat', requirements: ['id' => '\d+'])]
     public function modifReliquat(int $id, Request $request, EntityManagerInterface $em):Response {
         
        
@@ -88,12 +88,12 @@ class TrtReliquatController extends AbstractController
     
     
     /**
-     * @Route("/trt_reliquat/rech_romedi/{id}", name="rech_romedi", requirements={"id"="\d+"})
      * @param Request $request
      * @param EntityManagerInterface $em
      * @param PaginatorInterface $paginator
      * @return Response
      */
+    #[Route(path: '/trt_reliquat/rech_romedi/{id}', name: 'rech_romedi', requirements: ['id' => '\d+'])]
     public function rechRomedi(Request $request, EntityManagerInterface $em, PaginatorInterface $paginator):Response
     {
         $idTodo = $request->attributes->get('id');
@@ -118,12 +118,12 @@ class TrtReliquatController extends AbstractController
         ]);
     }
     /**
-     * @Route("/trt_reliquat/rech_romedi_par_label/{id}", name="rech_romedi_par_label", requirements={"id"="\d+"})
      * @param Request $request
      * @param EntityManagerInterface $em
      * @param PaginatorInterface $paginator
      * @return Response
      */
+    #[Route(path: '/trt_reliquat/rech_romedi_par_label/{id}', name: 'rech_romedi_par_label', requirements: ['id' => '\d+'])]
     public function rechRomediParLabel(Request $request, EntityManagerInterface $em, PaginatorInterface $paginator):Response
     {
         $idTodo = $request->attributes->get('id');
@@ -152,15 +152,12 @@ class TrtReliquatController extends AbstractController
     }
     
     /**
-     *  @Route("/trt_reliquat/rech_romedi/{id}/attrib_romedi/{idRomedi}", name="attrib_romedi", requirements={
-     * "id"="\d+",
-     * "idRomedi"="\d+"
-     * })
      * @param int $id
      * @param int $idRomedi
      * @param EntityManagerInterface $em
      * @return type
      */
+    #[Route(path: '/trt_reliquat/rech_romedi/{id}/attrib_romedi/{idRomedi}', name: 'attrib_romedi', requirements: ['id' => '\d+', 'idRomedi' => '\d+'])]
     public function attribRomedi(int $id, int $idRomedi, EntityManagerInterface $em) {
         // edition de l'entité EmDenomMapTodoV2 ayant pour id $id en y mettant les données de l'entité EmRomediV2 ayant pour id $idRomedi
         $repoTodo = $em->getRepository(EmDenomMapTodoV2::class);
