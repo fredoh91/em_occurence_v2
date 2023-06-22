@@ -10,7 +10,7 @@
             <table class="table table-striped">
                 <thead>
                   <tr class="table-primary">
-                    <th class="text-info">Denomination cherché</th>
+                    <th class="text-info">Denomination cherché (Numéro BNPV)</th>
                     <th class="text-success">BNLabel trouvé</th>
                     <th class="text-success">Label trouvé</th>
     {#                <th class="text-body">Levenshtein</th>#}
@@ -33,7 +33,7 @@
                             {% for ele in typerech %}     {# boucle sur les differentes correspondances trouvées #}
 
                                 <tr>
-                                   <td class="text-info">{{ ele.Denomination }}</td> 
+                                   <td class="text-info">{{ ele.Denomination }} ({{ ele.LstNumBNPV }})</td> 
                                    <td class="text-success">{{ ele.BNLabel }}</td>
                                    <td class="text-success">{{ ele.Label }}</td>
                                    <td class="text-black-50">{{ ele.Levenshtein }}</td>
@@ -76,7 +76,7 @@
                             {% endfor %}
                         {% endfor %}
                         <tr class="table-primary">
-                          <td class="text-info">Denomination</td>
+                          <td class="text-info">Denomination (Numéro BNPV)</td>
                           <td class="text-success">BNLabel</td>
                           <td class="text-success">Label</td>
                           <td class="text-white">Levenshtein</td>

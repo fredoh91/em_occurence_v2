@@ -2,20 +2,21 @@
 
 namespace App\Controller;
 
-use App\Entity\EmDenomMapTodoV2;
-use App\Entity\EmDenomMapV2;
 use App\Entity\EmRomediV2;
-use App\Entity\EmDenomMapCategoV2;
+use App\Entity\EmDenomMapV2;
+use App\Entity\EmDenomMapTodoV2;
 use App\Form\ModifTodoListeType;
+use App\Entity\EmDenomMapCategoV2;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\MsAccess\Database\DatabaseAccess;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class TrtReliquatTxtMiningController extends AbstractController
 {
@@ -153,7 +154,9 @@ class TrtReliquatTxtMiningController extends AbstractController
     {
         
         set_time_limit(360);
-                
+        
+        $ObjAccess = new DatabaseAccess();
+
         $repo_todo = $em->getRepository(EmDenomMapTodoV2::class);
         $todos = $repo_todo->findAll();
                 
@@ -172,6 +175,7 @@ class TrtReliquatTxtMiningController extends AbstractController
             $mapping_tempo_Maplabel = array();
             $mapping_tempo_Mapbn_label = array();
             $denom_to_find = $todo->getdenomination();
+            $denom_lst_numBNPV =  $ObjAccess->DonneListe_numBNPV($denom_to_find);
             $id_denom_map_todo = $todo->getId();
 //            Recherche dans ROMEDI
             $k2=0;
@@ -191,6 +195,7 @@ class TrtReliquatTxtMiningController extends AbstractController
                     $levLab = levenshtein($denom_to_find, $Label_Romedi);
 
                     $mapping_tempo_Romlabel[$k2]['Denomination']=$denom_to_find;
+                    $mapping_tempo_Romlabel[$k2]['LstNumBNPV']=$denom_lst_numBNPV;
                     $mapping_tempo_Romlabel[$k2]['BNLabel']=$BNLabel_Romedi;
                     $mapping_tempo_Romlabel[$k2]['Levenshtein']=$levLab;
                     $mapping_tempo_Romlabel[$k2]['id_denom_map_todo']=$id_denom_map_todo;
@@ -202,6 +207,7 @@ class TrtReliquatTxtMiningController extends AbstractController
                     $mapping_tempo_Romlabel[$k2]['TypeTxtMining']='1_Rom_Lab';
                     
                     $mapping_tempo_Rombn_label[$k2]['Denomination']=$denom_to_find;
+                    $mapping_tempo_Rombn_label[$k2]['LstNumBNPV']=$denom_lst_numBNPV;
                     $mapping_tempo_Rombn_label[$k2]['BNLabel']=$BNLabel_Romedi;
                     $mapping_tempo_Rombn_label[$k2]['Levenshtein']=$levBNl;
                     $mapping_tempo_Rombn_label[$k2]['id_denom_map_todo']=$id_denom_map_todo;
@@ -240,6 +246,7 @@ class TrtReliquatTxtMiningController extends AbstractController
                         $levLab = levenshtein($denom_to_find, $Label_denom_map);
 
                         $mapping_tempo_Maplabel[$k2]['Denomination'] = $denom_to_find;
+                        $mapping_tempo_Maplabel[$k2]['LstNumBNPV']=$denom_lst_numBNPV;
                         $mapping_tempo_Maplabel[$k2]['BNLabel']=$BNLabel_denom_map;
                         $mapping_tempo_Maplabel[$k2]['Levenshtein']=$levLab;
                         $mapping_tempo_Maplabel[$k2]['id_denom_map_todo']=$id_denom_map_todo;
@@ -251,6 +258,7 @@ class TrtReliquatTxtMiningController extends AbstractController
                         $mapping_tempo_Maplabel[$k2]['TypeTxtMining']='2_Map_Lab';
 
                         $mapping_tempo_Mapbn_label[$k2]['Denomination']=$denom_to_find;
+                        $mapping_tempo_Mapbn_label[$k2]['LstNumBNPV']=$denom_lst_numBNPV;
                         $mapping_tempo_Mapbn_label[$k2]['BNLabel']=$BNLabel_denom_map;
                         $mapping_tempo_Mapbn_label[$k2]['Levenshtein']=$levBNl;
                         $mapping_tempo_Mapbn_label[$k2]['id_denom_map_todo']=$id_denom_map_todo;

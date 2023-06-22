@@ -52,6 +52,14 @@ class TrtBaseEM {
         $listeInsert = array(); 
         $this->effaceEmDenomV2();
         $ObjAccess = new DatabaseAccess();
+
+
+// pour test
+// $test = $ObjAccess->DonneListe_numBNPV("ZYPREXA 5 mg, comprimé enrobé");
+// $test = $ObjAccess->DonneListe_numBNPV('ZYPREXA 5 mg, comprimé enrobé');
+
+// dd($test);
+
 //        $ReqAccess=$ObjAccess->RqOccurrenceEmLimit30();
         $ReqAccess=$ObjAccess->RqOccurrenceEm();
         foreach($ReqAccess as $row)
