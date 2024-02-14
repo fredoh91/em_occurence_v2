@@ -253,8 +253,8 @@ class TrtReliquatTxtMiningController extends AbstractController
                         $mapping_tempo_Maplabel[$k2]['id_denom_map']=$id_denom_map;
                         $mapping_tempo_Maplabel[$k2]['id_Romedi']=null;
                         $mapping_tempo_Maplabel[$k2]['Label']=$Label_denom_map;
-                        $mapping_tempo_Maplabel[$k2]['CIS']=$CIS_Romedi;
-                        $mapping_tempo_Maplabel[$k2]['ATC7']=$ATC7_Romedi;
+                        $mapping_tempo_Maplabel[$k2]['CIS']=$CIS_denom_map;
+                        $mapping_tempo_Maplabel[$k2]['ATC7']=$ATC7_denom_map;
                         $mapping_tempo_Maplabel[$k2]['TypeTxtMining']='2_Map_Lab';
 
                         $mapping_tempo_Mapbn_label[$k2]['Denomination']=$denom_to_find;
@@ -265,8 +265,8 @@ class TrtReliquatTxtMiningController extends AbstractController
                         $mapping_tempo_Mapbn_label[$k2]['id_denom_map']=$id_denom_map;
                         $mapping_tempo_Mapbn_label[$k2]['id_Romedi']=null;
                         $mapping_tempo_Mapbn_label[$k2]['Label']=$Label_denom_map;
-                        $mapping_tempo_Mapbn_label[$k2]['CIS']=$CIS_Romedi;
-                        $mapping_tempo_Mapbn_label[$k2]['ATC7']=$ATC7_Romedi;
+                        $mapping_tempo_Mapbn_label[$k2]['CIS']=$CIS_denom_map;
+                        $mapping_tempo_Mapbn_label[$k2]['ATC7']=$ATC7_denom_map;
                         $mapping_tempo_Mapbn_label[$k2]['TypeTxtMining']='4_Map_BNl';
                     }
                 }
@@ -373,34 +373,7 @@ class TrtReliquatTxtMiningController extends AbstractController
         return $this->render('trt_reliquat_txt_mining/txt_mining.html.twig', [
             'mapping' => $mapping
         ]);
-    }    
-//    /**
-//     *  @Route("/trt_reliquat/rech_romedi/{id}/attrib_romedi_test/{idRomedi}", name="attrib_romedi_test", requirements={
-//     * "id"="\d+",
-//     * "idRomedi"="\d+"
-//     * })
-//     * @param int $id
-//     * @param int $idRomedi
-//     * @param EntityManagerInterface $em
-//     * @return type
-//     */
-//    public function attribRomedi_test(int $id, int $idRomedi, EntityManagerInterface $em) {
-//        // edition de l'entité EmDenomMapTodoV2 ayant pour id $id en y mettant les données de l'entité EmRomediV2 ayant pour id $idRomedi
-//dd($id);
-////        $repoTodo = $em->getRepository(EmDenomMapTodoV2::class);
-////        $todo = $repoTodo->find($id);
-////        $repoRomedi = $em->getRepository(EmRomediV2::class);
-////        $Romedi = $repoRomedi->find($idRomedi);
-////        $todo->setBNLabel($Romedi->getBNLabelRomedi())
-////             ->setLabel($Romedi->getLabel())
-////             ->setATC7($Romedi->getATC7())
-////             ->setCIS($Romedi->getCIS());
-////        $em->persist($todo);
-////        $em->flush();
-////        
-////        // redirection vers la route rech_romedi avec id $id 
-////        return $this->redirectToRoute('modif_reliquat', ['id' => $id]);
-//    }
+    }
     
     /**
      * 
