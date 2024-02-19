@@ -11,7 +11,8 @@
                         <h3 class="display-5">Saisie des info</h3>
                     </div>
                 <div class="row">
-                    <div class="col-md-10">{{ form_row(form.Denomination) }}</div>
+                    <div class="col-md-7">{{ form_row(form.Denomination) }}</div>
+                    <div class="col-md-3">{{ form_row(form.lst_numBNPV) }}</div>
                     <div class="col-md-2">{{ form_row(form.Nbr) }}</div>
                 </div>
                 {{ form_row(form.Categorie) }}
@@ -21,7 +22,7 @@
                     <div class="col-md-2">{{ form_row(form.CIS) }}</div>
                     <div class="col-md-2">{{ form_row(form.ATC7) }}</div>
                 </div>
-                <button class="btn btn-primary float-right">Sauvegarder</button>
+                <button class="btn btn-primary float-right" onclick="return confirm('Voulez-vous lancer la mise à jour de la base ?');">Sauvegarder</button>
                 {{ form_end(form) }}
             </div>
         </div>

@@ -38,6 +38,9 @@ class EmDenomMapTodoV2
     #[ORM\ManyToOne(targetEntity: EmDenomMapCategoV2::class, inversedBy: 'emDenomMapTodoV2s')]
     private $Categorie;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $lst_numBNPV = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -135,6 +138,18 @@ class EmDenomMapTodoV2
     public function setCategorie(?EmDenomMapCategoV2 $Categorie): self
     {
         $this->Categorie = $Categorie;
+
+        return $this;
+    }
+
+    public function getLstNumBNPV(): ?string
+    {
+        return $this->lst_numBNPV;
+    }
+
+    public function setLstNumBNPV(?string $lst_numBNPV): static
+    {
+        $this->lst_numBNPV = $lst_numBNPV;
 
         return $this;
     }

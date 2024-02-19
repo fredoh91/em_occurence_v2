@@ -77,6 +77,13 @@ class ModifTodoType extends AbstractType
                         'multiple'=>false 
                     ]
                 )
+            ->add('lst_numBNPV', 
+                    TextType::class,
+                    [
+                        'label_format' => 'Numéro BNPV', 
+                        'required' => false
+                    ]
+                )
         ;
     }
 

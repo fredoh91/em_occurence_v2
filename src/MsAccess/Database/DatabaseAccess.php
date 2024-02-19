@@ -35,7 +35,7 @@ class DatabaseAccess {
         }
     }
     
-     /**
+    /**
      *
      * @return PDO
      */   
@@ -70,11 +70,22 @@ class DatabaseAccess {
      */
     public function DonneListe_numBNPV(string $deno, ?int $iNbNum = 5): string
     {
-        $deno = mb_convert_encoding($deno,"Windows-1252");      // Par défaut, Access ne gère pas ses requêtes en UTF-8
+        // gestion de la présence d'un simple quote dans le nom du médicament
+        if (str_contains($deno, chr(39))) {
+            // Si il y a un simple quote dans le nom de la denomination, on le remplace par une étoile.
+            $deno = str_replace(chr(39), "*", $deno);
+            $deno = mb_convert_encoding($deno,"Windows-1252");      // Par défaut, Access ne gère pas ses requêtes en UTF-8
+            $sWhere = "WHERE Produits.denomination LIKE '*" . $deno . "*' ";
+        } else {
+            // on garde le même traitement
+            $deno = mb_convert_encoding($deno,"Windows-1252");      // Par défaut, Access ne gère pas ses requêtes en UTF-8
+            $sWhere = "WHERE Produits.denomination = '" . $deno . "' ";
+        }
 
         $query = "SELECT PrincipalCas.id, PrincipalCas.numeroCRPV, Produits.denomination ";
         $query .= "FROM PrincipalCas INNER JOIN Produits ON PrincipalCas.id = Produits.lienCas ";
-        $query .= "WHERE Produits.denomination = '" . $deno . "' ";
+        // $query .= "WHERE Produits.denomination = '" . $deno . "' ";
+        $query .= $sWhere;
         $query .= "AND PrincipalCas.natureErreur Not In ('NA','NI') ";
         $query .= "AND PrincipalCas.numeroCRPV Is Not Null ";
         $query .= "ORDER BY PrincipalCas.id DESC;";

@@ -2,18 +2,19 @@
 
 namespace App\Controller;
 
-use App\Entity\EmDenomMapTodoV2;
-use App\Entity\EmDenomMapV2;
 use App\Entity\EmRomediV2;
 use App\Form\ModifTodoType;
+use App\Entity\EmDenomMapV2;
 use App\Form\RechRomediType;
+use App\Entity\EmDenomMapTodoV2;
 use App\Form\RechRomediParLabelType;
 use Doctrine\ORM\EntityManagerInterface;
+use App\MsAccess\Database\DatabaseAccess;
 use Knp\Component\Pager\PaginatorInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
 class TrtReliquatController extends AbstractController
@@ -29,8 +30,22 @@ class TrtReliquatController extends AbstractController
         $repo = $em->getRepository(EmDenomMapTodoV2::class);
 
         $todos = $repo->findAll();
+
+        $NbTodos= count($todos);
+
+        // $ObjAccess = new DatabaseAccess();
+        
+        // /* Ajout du numéro BNPV depuis la base Access, si bcp de cas a traiter, cela peut faire ramer l'affichage de la page */
+        // foreach ($todos as $todo) {
+        //     $denom_to_find = $todo->getdenomination();
+        //     $denom_lst_numBNPV =  $ObjAccess->DonneListe_numBNPV($denom_to_find);
+        //     $todo->setLstNumBNPV($denom_lst_numBNPV);
+        // }
+        // /** fin du truc qui fait ramer */
+
         return $this->render('trt_reliquat/trt_reliquat.html.twig', [
-            'todos' => $todos
+            'todos' => $todos,
+            'NbTodos' => $NbTodos,
         ]);
     }
     
@@ -43,9 +58,17 @@ class TrtReliquatController extends AbstractController
     #[Route(path: '/trt_reliquat/{id}', name: 'modif_reliquat', requirements: ['id' => '\d+'])]
     public function modifReliquat(int $id, Request $request, EntityManagerInterface $em):Response {
         
-       
         $repo = $em->getRepository(EmDenomMapTodoV2::class);
         $reliquat = $repo->find($id);
+        
+        if (is_null($reliquat->getLstNumBNPV())) {
+            $ObjAccess = new DatabaseAccess();
+            $lst_numBNPV =  $ObjAccess->DonneListe_numBNPV($reliquat->getdenomination());
+            $reliquat->setLstNumBNPV($lst_numBNPV);
+            $em->persist($reliquat);
+            $em->flush();
+        }
+
         $form = $this->createForm(ModifTodoType::class,$reliquat);
         $formRechRomedi = $this->createForm(RechRomediType::class);
         $formRechRomediParLabel = $this->createForm(RechRomediParLabelType::class);

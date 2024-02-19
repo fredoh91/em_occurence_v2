@@ -4,10 +4,11 @@
 
 {% block body %}
     <div class="container-fluid">
+		{# Nombre de lignes :{{ NbTodos }} #}
         <table class="table table-striped">
             <thead>
               <tr>
-                <th>Produit</th>
+                <th>Produit (Numéro BNPV)</th>
                 <th>Effectif</th>
                 <th>CIS</th>
                 <th>Label</th>
@@ -18,19 +19,23 @@
             </thead>
             <tbody>
                 {% for todo in todos %}
-                      <tr>
-                        <td>{{ todo.Denomination }}</td>
-                        <td>{{ todo.Nbr }}</td>
-                        <td>{{ todo.CIS }}</td>
-                        <td>{{ todo.Label }}</td>
-                        <td>{{ todo.BNLabel }}</td>
-                        <td>{{ todo.ATC7 }}</td>
-                        <td>
-                            <a href="{{ path('liste_reliquat') }}/{{ todo.getId }}" class="btn btn-primary active">
-                                Modif BN label
-                            </a>
-                        </td>
-                      </tr>
+                  <tr>
+                    <td>{{ todo.Denomination }} 
+                    {% if todo.LstNumBNPV is not null %}
+                      ({{todo.LstNumBNPV}})
+                    {% endif %}
+                    </td>
+                    <td>{{ todo.Nbr }}</td>
+                    <td>{{ todo.CIS }}</td>
+                    <td>{{ todo.Label }}</td>
+                    <td>{{ todo.BNLabel }}</td>
+                    <td>{{ todo.ATC7 }}</td>
+                    <td>
+                        <a href="{{ path('liste_reliquat') }}/{{ todo.getId }}" class="btn btn-primary active">
+                            Modif BN label
+                        </a>
+                    </td>
+                  </tr>
                 {% endfor %}
             </tbody>
         </table>
