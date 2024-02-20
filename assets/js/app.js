@@ -8,6 +8,7 @@
 // any CSS you import will output into a single css file (app.css in this case)
 import '../css/app.css';
 import 'bootstrap';
+// import "~bootstrap/scss/bootstrap";
 //import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootswatch/dist/flatly/bootstrap.min.css';
 //import '../css/txt_mining.css';

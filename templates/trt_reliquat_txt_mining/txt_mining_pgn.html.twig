@@ -94,6 +94,7 @@
             <button type="submit" class="btn btn-primary btn-lg float-right">Envoyer</button>
         </form>
         
+		{{ knp_pagination_render(mapping) }}
     </div>
     {#  javascript pour éviter que l'utilisateur ne coche plusieurs case a cocher pour une ligne de la table todo #}
     {{ encore_entry_script_tags('txt_mining_todo_list') }}
