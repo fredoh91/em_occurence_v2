@@ -7,12 +7,13 @@ use App\Entity\EmDenomMapV2;
 use App\Entity\EmDenomMapTodoV2;
 use App\Form\ModifTodoListeType;
 use App\Entity\EmDenomMapCategoV2;
+use App\Entity\EMProduitsBaseAccessV2;
 use Doctrine\ORM\EntityManagerInterface;
 use App\MsAccess\Database\DatabaseAccess;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -167,6 +168,8 @@ class TrtReliquatTxtMiningController extends AbstractController
         $repo_romedi = $em->getRepository(EmRomediV2::class);
         $romedis = $repo_romedi->findAll();
         $k1 = 0;
+
+        $repo_prod = $em->getRepository(EMProduitsBaseAccessV2::class);
         
         $mapping = array();
         
@@ -176,7 +179,13 @@ class TrtReliquatTxtMiningController extends AbstractController
             $mapping_tempo_Maplabel = array();
             $mapping_tempo_Mapbn_label = array();
             $denom_to_find = $todo->getdenomination();
-            $denom_lst_numBNPV =  $ObjAccess->DonneListe_numBNPV($denom_to_find);
+
+            // // version requete Access
+            // $denom_lst_numBNPV =  $ObjAccess->DonneListe_numBNPV($denom_to_find);
+
+            // version requete MySQL
+            $denom_lst_numBNPV =  $repo_prod->DonneListe_numBNPV($denom_to_find);
+
             $id_denom_map_todo = $todo->getId();
 //            Recherche dans ROMEDI
             $k2=0;
@@ -403,6 +412,8 @@ class TrtReliquatTxtMiningController extends AbstractController
         $romedis = $repo_romedi->findAll();
         $k1 = 0;
         
+        $repo_prod = $em->getRepository(EMProduitsBaseAccessV2::class);
+
         $mapping = array();
         
         foreach ($todos as $todo) {
@@ -415,9 +426,13 @@ class TrtReliquatTxtMiningController extends AbstractController
 
             
             if (is_null($todo->getLstNumBNPV())) {
-                // $ObjAccess = new DatabaseAccess();
-                // $lst_numBNPV =  $ObjAccess->DonneListe_numBNPV($todo->getdenomination());
-                $denom_lst_numBNPV =  $ObjAccess->DonneListe_numBNPV($denom_to_find);
+
+                // // version requete Access
+                // $denom_lst_numBNPV =  $ObjAccess->DonneListe_numBNPV($denom_to_find);
+
+                // version requete MySQL
+                $denom_lst_numBNPV =  $repo_prod->DonneListe_numBNPV($denom_to_find);
+
                 $todo->setLstNumBNPV($denom_lst_numBNPV);
                 $em->persist($todo);
                 $em->flush();
@@ -425,6 +440,7 @@ class TrtReliquatTxtMiningController extends AbstractController
                 $denom_lst_numBNPV=$todo->getLstNumBNPV();
             }
             
+
 
             $id_denom_map_todo = $todo->getId();
 //            Recherche dans ROMEDI

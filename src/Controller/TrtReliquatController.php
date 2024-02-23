@@ -8,6 +8,7 @@ use App\Entity\EmDenomMapV2;
 use App\Form\RechRomediType;
 use App\Entity\EmDenomMapTodoV2;
 use App\Form\RechRomediParLabelType;
+use App\Entity\EMProduitsBaseAccessV2;
 use Doctrine\ORM\EntityManagerInterface;
 use App\MsAccess\Database\DatabaseAccess;
 use Knp\Component\Pager\PaginatorInterface;
@@ -43,6 +44,25 @@ class TrtReliquatController extends AbstractController
         // }
         // /** fin du truc qui fait ramer */
 
+        
+        // $ObjAccess = new DatabaseAccess();
+        
+        /* Ajout du numéro BNPV depuis la table MySQL, si bcp de cas a traiter, cela peut faire ramer l'affichage de la page */
+        
+        set_time_limit(360);
+
+        $repo_prod = $em->getRepository(EMProduitsBaseAccessV2::class);
+        foreach ($todos as $todo) {
+            if (is_null($todo->getLstNumBNPV())) {
+                $denom_to_find = $todo->getdenomination();
+                $denom_lst_numBNPV =  $repo_prod->DonneListe_numBNPV($denom_to_find);
+                $todo->setLstNumBNPV($denom_lst_numBNPV);
+                $em->persist($todo);
+                $em->flush();
+            }
+        }
+        /** fin du truc qui fait ramer */
+
         return $this->render('trt_reliquat/trt_reliquat.html.twig', [
             'todos' => $todos,
             'NbTodos' => $NbTodos,
@@ -62,8 +82,14 @@ class TrtReliquatController extends AbstractController
         $reliquat = $repo->find($id);
         
         if (is_null($reliquat->getLstNumBNPV())) {
-            $ObjAccess = new DatabaseAccess();
-            $lst_numBNPV =  $ObjAccess->DonneListe_numBNPV($reliquat->getdenomination());
+            
+            // // version requete Access
+            // $ObjAccess = new DatabaseAccess();
+            // $lst_numBNPV =  $ObjAccess->DonneListe_numBNPV($reliquat->getdenomination());
+            
+            // version requete MySQL
+            $repo_prod = $em->getRepository(EMProduitsBaseAccessV2::class);
+            $lst_numBNPV =  $repo_prod->DonneListe_numBNPV($reliquat->getdenomination());
             $reliquat->setLstNumBNPV($lst_numBNPV);
             $em->persist($reliquat);
             $em->flush();

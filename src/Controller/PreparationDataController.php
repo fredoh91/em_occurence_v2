@@ -21,10 +21,14 @@ class PreparationDataController extends AbstractController
         
         // import des données Access : $TrtAccess->importBaseEM();
         $TrtAccess=new TrtBaseEM($em);
+        $TrtMySQL=new TrtMySQL($em);
+
         $TrtAccess->importBaseEM();
 
+        $TrtMySQL->SauveEtResetTable("em_produits_base_access_v2");
+        $TrtAccess->rempliEMProduitsBaseAccessV2();
+
         // sauvegardes des tables MySQL : $TrtMySQL->sauvegardeTables();
-        $TrtMySQL=new TrtMySQL($em);
         $TrtMySQL->SauveEtResetTable("em_occ_produit_v2");
         $TrtMySQL->SauveEtResetTable("em_occ_deno_v2");
 
@@ -33,6 +37,7 @@ class PreparationDataController extends AbstractController
         $TrtMySQL->rempliEmOccProduitV2();
 
         $TrtMySQL->rempliEmOccDenoV2();
+
         
 //        Mise à jour de la grille 
         $MaJemGrille=new MaJemGrille($em);
@@ -50,9 +55,9 @@ class PreparationDataController extends AbstractController
         
         // Message flash pour avertir l'utilisateur de la fin du traitement
         $this->addFlash('success', 'Traitement terminé : ' . $msgMaJemGrille);
-            
+
         return $this->render('preparation_data/preparation_data.html.twig', [
-            'controller_name' => 'PreparationDataController',
+                'controller_name' => 'PreparationDataController',
         ]);
     }
 }

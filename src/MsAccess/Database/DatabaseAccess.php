@@ -61,6 +61,20 @@ class DatabaseAccess {
     }
 
     /**
+     * 
+     * @return array
+     */
+    public function RqProduitBaseAccessEM(): array
+    {
+        // $query = "SELECT Produits.denomination AS produit, Count(*) AS Nbr FROM PrincipalCas INNER JOIN Produits ON PrincipalCas.id = Produits.lienCas WHERE (((PrincipalCas.natureErreur) Not In ('NA','NI'))) GROUP BY Produits.denomination ORDER BY Produits.denomination DESC;";
+        $query = "SELECT PrincipalCas.id, Produits.denomination, Produits.DCI, PrincipalCas.idCas, Produits.dosage, Produits.voie, Produits.codeVU, Produits.codeATC, Produits.libATC, PrincipalCas.numeroCRPV FROM PrincipalCas INNER JOIN Produits ON PrincipalCas.idCas = Produits.idCas ORDER BY PrincipalCas.id;";
+        $this->pdoStatment = $this->pdo->prepare($query);
+        $this->pdoStatment->execute();
+        $this->result = $this->pdoStatment->fetchAll();
+        return $this->result;
+    }
+
+    /**
      * Retourne une liste de codes BNPV correspondant aux produit passé en paramètre
      * triée du plus récent au plus ancien. Ainsi le premier numéro qui s'affiche a de bonnes chances de correspondre au cas a mapper
      *
